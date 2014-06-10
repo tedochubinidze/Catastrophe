@@ -3,6 +3,7 @@ package webPackage;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+
 import managers.PostManager;
 
 public class Post {
@@ -18,12 +19,21 @@ public class Post {
 			String type, String attachment, boolean active,
 			ArrayList<Comment> ls) {
 	}
+	
+	/* 
+	 * Returns Array of comments on current post
+	 */
 	public ArrayList<Comment> getComments(){
 		return null;
 	}
+	
+	/*
+	 * Adds a comment 
+	 */
 	public void addComment(Comment comment){
 		
 	}
+	
 	@Override
 	public String toString(){
 		return "";
