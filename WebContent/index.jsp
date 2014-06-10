@@ -5,6 +5,7 @@
 <head>
 <h1>
 this is new repository
+after last commit this is next commit
 </h1>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Catastrophe</title>
