@@ -1,4 +1,3 @@
-package webPackage;
 
 public class User {
 	
@@ -15,12 +14,12 @@ public class User {
 	
 	//This is Constructor of Other kind, which creates User
 	public User(String userID) {
-		return null;
+		
 	}
 
 	//Registers current User
 	public String registerUser() {
-		return "";
+		
 	}
 	
 	//takes action, when current user likes this post
