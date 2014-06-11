@@ -20,7 +20,6 @@ public class User {
 
 	//Registers current User
 	public String registerUser() {
-		return ID;
 		
 	}
 	
