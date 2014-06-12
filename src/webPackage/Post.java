@@ -59,7 +59,7 @@ public class Post {
 	 * Adds a comment
 	 */
 	public void addComment(Comment comment) {
-		manager.addComment(this.ID, comment.user.ID, comment.text,
+		manager.addComment(this.ID, comment.user.getID(), comment.text,
 				comment.timestamp);
 		comments.add(comment);
 		commentCount++;
