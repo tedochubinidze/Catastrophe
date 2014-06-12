@@ -11,13 +11,13 @@ import managers.ProfileManager;
 
 public class User {
 
-	public int points;
-	public boolean admin;
-	public String ID;
-	public String password;
-	public String email;
-	public String name;
-	public String lastname;
+	private int points;
+	private boolean admin;
+	private String ID;
+	private String password;
+	private String email;
+	private String name;
+	private String lastname;
 
 	private static Statement stmt;
 	private ProfileManager profManager;
@@ -88,6 +88,34 @@ public class User {
 		int id = postManager.addPost(post.getUserID(), post.getTimesTamp(), post.getTitle(),
 				post.getStatus(), post.getAttachment(), post.getType());
 		post.setID(id);
+	}
+
+	public String getID(){
+		return this.ID;
+	}
+	
+	public String getPassword(){
+		return this.password;
+	}
+	
+	public String getEmail(){
+		return this.email;
+	}
+	
+	public String getName(){
+		return this.name;
+	}
+
+	public String getLastName(){
+		return this.lastname;
+	}
+	
+	public boolean isAdmin(){
+		return this.admin;
+	}
+	
+	public Integer getPoints(){
+		return this.points;
 	}
 
 	@Override
