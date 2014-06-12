@@ -20,7 +20,7 @@ public class Comment {
 	@Override
 	public String toString() {
 		String str = "";
-		str += "User: " + user.getID + " text: " + text + " date" + timestamp;
+		str += "User: " + user.getID() + " text: " + text + " date" + timestamp;
 		return str;
 	}
 	
