@@ -1,3 +1,5 @@
+package managers;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -183,49 +185,7 @@ public class ProfileManager {
 		}
 	}
 
-	// returns Arraylist of popular posts by particular user
-	public ArrayList<Post> getRecentPosts(String userID) {
-		ArrayList<Post> ls = new ArrayList<Post>();
-		ResultSet rs;
-		try {
-			rs = stmt.executeQuery("select * from " + MyDBInfo.POST_TABLE
-					+ " where authorID='" + userID
-					+ "' order by timestamp desc limit 20;");
-			while (rs.next()) {
-				// es shesacvleli iqneba constructori tu shevucvalet posts
-				Post posts = new Post(rs.getInt(1), rs.getString(2),
-						rs.getInt(3), rs.getInt(4), rs.getInt(5),
-						rs.getTimestamp(6), rs.getString(7), rs.getString(8),
-						rs.getString(9), rs.getString(10), rs.getBoolean(11));
-				ls.add(posts);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return ls;
-	}
-
-	// returns Arraylist of recent posts by particular user
-	public ArrayList<Post> getPopularPosts(String userID) {
-		ArrayList<Post> ls = new ArrayList<Post>();
-		ResultSet rs;
-		try {
-			rs = stmt.executeQuery("select * from " + MyDBInfo.POST_TABLE
-					+ " where authorID='" + userID
-					+ "' order by likeCount - dislikeCount desc limit 20;");
-			while (rs.next()) {
-				// es shesacvleli iqneba constructori tu shevucvalet posts
-				Post posts = new Post(rs.getInt(1), rs.getString(2),	
-						rs.getInt(3), rs.getInt(4), rs.getInt(5),
-						rs.getTimestamp(6), rs.getString(7), rs.getString(8),
-						rs.getString(9), rs.getString(10), rs.getBoolean(11)); 
-				ls.add(posts);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return ls;
-	}
+	
 
 	// returns different content by parameters: column and id value
 	private Object getContentByID(String column, String userID, String table) {

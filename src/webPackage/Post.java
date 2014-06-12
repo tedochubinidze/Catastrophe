@@ -142,6 +142,19 @@ public class Post {
 	public boolean isActive() {
 		return active;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		boolean result = false;
+		if (obj == null || obj.getClass() != getClass()) {
+			result = false;
+		} else {
+			Post tmp = (Post) obj;
+			if (this.getID() == tmp.getID())
+				result = true;
+		}
+		return result;
+	}
 
 	@Override
 	public String toString() {

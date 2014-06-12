@@ -45,3 +45,4 @@ Icon
 *.jsdtscope
 *.component
 *.prefs
+/build
