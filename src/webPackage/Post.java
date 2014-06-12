@@ -67,6 +67,34 @@ public class Post {
 	}
 
 	/*
+	 * User with ID-userID likes this post
+	 */
+	public void likePost(String userID) {
+		if (!manager.likesPost(userID, this.ID)) {
+			if (manager.dislikesPost(userID, this.ID)) {
+				dislikeCount--;
+			}
+			manager.likePost(this.ID, userID);
+			likeCount++;
+		}
+
+	}
+
+	/*
+	 * User with ID-userID dislikes post
+	 */
+	public void dislikePost(String userID) {
+		if (!manager.dislikesPost(userID, this.ID)) {
+			if (manager.likesPost(userID, this.ID)) {
+				likeCount--;
+			}
+			manager.dislikePost(this.ID, userID);
+			dislikeCount++;
+		}
+
+	}
+
+	/*
 	 * Gets post ID
 	 */
 	public int getID() {
@@ -142,7 +170,7 @@ public class Post {
 	public boolean isActive() {
 		return active;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		boolean result = false;
