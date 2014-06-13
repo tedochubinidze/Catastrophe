@@ -52,9 +52,9 @@ public class PostManager {
 				int postID = rs.getInt(1);
 				ArrayList<Comment> ls2 = getComments(postID);
 				Post post = new Post(postID, rs.getString(2), rs.getInt(3),
-						rs.getInt(4), rs.getTimestamp(5), rs.getString(6),
-						rs.getString(7), rs.getString(8), rs.getString(9),
-						rs.getBoolean(10), ls2);
+						rs.getInt(4), rs.getTimestamp(6), rs.getString(7),
+						rs.getString(8), rs.getString(9), rs.getString(10),
+						rs.getBoolean(11), ls2);
 				ls.add(post);
 			}
 		} catch (SQLException e) {
@@ -77,9 +77,9 @@ public class PostManager {
 				int postID = rs.getInt(1);
 				ArrayList<Comment> ls2 = getComments(postID);
 				Post post = new Post(postID, rs.getString(2), rs.getInt(3),
-						rs.getInt(4), rs.getTimestamp(5), rs.getString(6),
-						rs.getString(7), rs.getString(8), rs.getString(9),
-						rs.getBoolean(10), ls2);
+						rs.getInt(4), rs.getTimestamp(6), rs.getString(7),
+						rs.getString(8), rs.getString(9), rs.getString(10),
+						rs.getBoolean(11), ls2);
 				ls.add(post);
 			}
 		} catch (SQLException e) {

@@ -1,5 +1,10 @@
 package webPackage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -12,6 +17,7 @@ public class Post {
 	private boolean active;
 	private PostManager manager;
 	private ArrayList<Comment> comments;
+	private static Statement stmt;
 
 	public Post(Integer ID, String userID, int likeCount, int dislikeCount,
 			Timestamp timestamp, String title, String status, String type,
@@ -32,6 +38,48 @@ public class Post {
 		this.active = true;
 		this.comments = comments2;
 		manager = new PostManager();
+	}
+	
+	public Post(String userID) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://"
+					+ MyDBInfo.MYSQL_DATABASE_SERVER, MyDBInfo.MYSQL_USERNAME,
+					MyDBInfo.MYSQL_PASSWORD);
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		getPostByID(userID);
+	}
+
+	// this method takes User Info from database with given ID
+	private void getPostByID(String userID) {
+		ResultSet rs;
+		try {
+			rs = stmt.executeQuery("select * from " + MyDBInfo.POST_TABLE
+					+ " where userID = '" + userID + "';");
+			while (rs.next()) {
+				this.ID = rs.getInt(1);
+				this.userID = rs.getString(2);
+				this.likeCount = rs.getInt(3);
+				this.dislikeCount = rs.getInt(4);
+				this.commentCount = rs.getInt(5);
+				this.timestamp = rs.getTimestamp(6);
+				this.title = rs.getString(7);
+				this.status = rs.getString(8);
+				this.attachment = rs.getString(9);
+				this.type = rs.getString(10);
+				this.active = rs.getBoolean(7);
+			}
+			manager = new PostManager();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/*
