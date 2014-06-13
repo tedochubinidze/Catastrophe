@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class Comment {
 
-	// Instance variables, dzzmaci
+	// Instance variables
 	public User user;
 	public String text;
 	public Timestamp timestamp;

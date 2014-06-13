@@ -39,7 +39,16 @@ public class ProfileManager {
 	public static final String ADD_SMALL_PASSWORD = "Password is too short";
 	public static final String ADD_UNSUCCESSFUL = "Error while creating account";
 
-	// adds user to database, returns particular string depending on success
+	/**
+	 *  adds user to database, returns particular string depending on success
+	 * @param userID
+	 * @param password
+	 * @param name
+	 * @param lastname
+	 * @param email
+	 * @param admin
+	 * @return int success/failed
+	 */
 	public String addUser(String userID, String password, String name,
 			String lastname, String email, boolean admin) {
 		if (containsUserID(userID)) {
@@ -63,7 +72,11 @@ public class ProfileManager {
 		}
 	}
 
-	// checks if userID is already in database
+	/**
+	 *  checks if userID is already in database
+	 * @param userID
+	 * @return boolean successful 
+	 */
 	public boolean containsUserID(String userID) {
 		boolean bool = false;
 		ResultSet rs;
@@ -72,6 +85,7 @@ public class ProfileManager {
 			rs = stmt
 					.executeQuery("select count(userID) from user where userID = '"
 							+ userID + "';");
+			System.out.println("u");
 			while (rs.next())
 				counter = rs.getInt("count(userID)");
 			if (counter != 0)
@@ -82,7 +96,11 @@ public class ProfileManager {
 		return bool;
 	}
 
-	// checks if email is already used by another account
+	/**
+	 *  checks if email is already used by another account
+	 * @param String email
+	 * @return boolean 
+	 */
 	public boolean containsEmail(String email) {
 		boolean bool = false;
 		ResultSet rs;
@@ -101,49 +119,77 @@ public class ProfileManager {
 		return bool;
 	}
 
-	// returns hashed password of user
+	/**
+	 *  returns hashed password of user
+	 * @param userID
+	 * @return String hashedPass
+	 */
 	public String getHashedPassword(String userID) {
 		String hashedPw = (String) getContentByID("password", userID,
 				MyDBInfo.USER_TABLE);
 		return hashedPw;
 	}
 
-	// returns name of user
+	/**
+	 *  returns name of user
+	 * @param userID
+	 * @return String name
+	 */
 	public String getName(String userID) {
 		String name = (String) getContentByID("name", userID,
 				MyDBInfo.USER_TABLE);
 		return name;
 	}
 
-	// returns last name of user
+	/**
+	 *  returns last name of user
+	 * @param String userID
+	 * @return String lasname
+	 */
 	public String getLastName(String userID) {
 		String lastname = (String) getContentByID("lastname", userID,
 				MyDBInfo.USER_TABLE);
 		return lastname;
 	}
 
-	// returns email of user
+	/**
+	 *  returns email of user
+	 * @param String userID
+	 * @return String email
+	 */
 	public String getEmail(String userID) {
 		String email = (String) getContentByID("email", userID,
 				MyDBInfo.USER_TABLE);
 		return email;
 	}
 
-	// returns type(Administrator, User) of user
+	/**
+	 *  returns type(Administrator, User) of user
+	 * @param String userID
+	 * @return boolean isAdmin
+	 */
 	public boolean getAdmin(String userID) {
 		boolean bool = (boolean) getContentByID("admin", userID,
 				MyDBInfo.USER_TABLE);
 		return bool;
 	}
 
-	// returns points that user has
+	/**
+	 *  returns catastrophe points that user has
+	 * @param String userID
+	 * @return Integer points
+	 */
 	public Integer getPoints(String userID) {
 		Integer points = (Integer) getContentByID("points", userID,
 				MyDBInfo.USER_TABLE);
 		return points;
 	}
 
-	// sets users's CP to points
+	/**
+	 *  sets users's CP to points
+	 * @param String userID
+	 * @param Integer points
+	 */
 	public void setPoints(String userID, int points) {
 		try {
 			stmt.executeUpdate("update " + MyDBInfo.USER_TABLE
@@ -154,7 +200,11 @@ public class ProfileManager {
 		}
 	}
 
-	// adds some points to user CP
+	/**
+	 *  adds some points to user CP
+	 * @param String userID
+	 * @param Integer points
+	 */
 	public void addPoints(String userID, int points) {
 		try {
 			stmt.executeUpdate("update " + MyDBInfo.USER_TABLE
@@ -165,7 +215,12 @@ public class ProfileManager {
 		}
 	}
 
-	// checks if password matches user's real password
+	/**
+	 *  checks if password matches user's real password
+	 * @param String userID
+	 * @param String password
+	 * @return boolean
+	 */
 	public boolean checkInfo(String userID, String password) {
 		ResultSet rs;
 		try {
@@ -187,7 +242,13 @@ public class ProfileManager {
 
 	
 
-	// returns different content by parameters: column and id value
+	/**
+	 *  returns different content by parameters: column and id value
+	 * @param String column
+	 * @param String userID
+	 * @param String table
+	 * @return Object content
+	 */
 	private Object getContentByID(String column, String userID, String table) {
 		ResultSet rs;
 		Object val = null;

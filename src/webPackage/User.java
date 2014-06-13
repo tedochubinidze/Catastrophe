@@ -36,9 +36,11 @@ public class User {
 		postManager = new PostManager();
 	}
 
-	// This is Constructor For Class User, which opens connection and takes User
-	// from DataBase
-	// according to this parameter ID
+	/** This is Constructor For Class User, which opens connection and takes User
+	 * from DataBase
+	 * according to this parameter ID
+	 * @param String userID
+	**/
 	public User(String userID) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -55,7 +57,10 @@ public class User {
 		getUserByID(userID);
 	}
 
-	// this method takes User Info from database with given ID
+	/**
+	 *  This method takes User Info from database with given ID
+	 * @param String userID
+	 */
 	private void getUserByID(String userID) {
 		ResultSet rs;
 		try {
@@ -78,12 +83,18 @@ public class User {
 		}
 	}
 
-	// Registers current User
+	/**
+	 *  Registers current User
+	 * @return Boolean register success
+	 */
 	public String registerUser() {
 		return profManager.addUser(ID, password, name, lastname, email, admin);
 	}
 
-	// takes action, when user uploads given post
+	/**
+	 *  takes action, when user uploads given post
+	 * @param Post
+	 */
 	public void addPost(Post post) {
 		int id = postManager.addPost(post.getUserID(), post.getTimesTamp(), post.getTitle(),
 				post.getStatus(), post.getAttachment(), post.getType());

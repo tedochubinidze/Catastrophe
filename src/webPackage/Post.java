@@ -82,28 +82,28 @@ public class Post {
 		}
 	}
 
-	/*
+	/**
 	 * Sets ID for this post
-	 */
+	 **/
 	public void setID(int ID) {
 		this.ID = ID;
 	}
 
-	/*
+	/**
 	 * Sets comments for this post
 	 */
 	public void setComments(ArrayList<Comment> comments) {
 		this.comments = comments;
 	}
 
-	/*
+	/**
 	 * Returns Array of comments on current post
 	 */
 	public ArrayList<Comment> getComments() {
 		return comments;
 	}
 
-	/*
+	/**
 	 * Adds a comment
 	 */
 	public void addComment(Comment comment) {
@@ -114,7 +114,7 @@ public class Post {
 
 	}
 
-	/*
+	/**
 	 * User with ID-userID likes this post
 	 */
 	public void likePost(String userID) {
@@ -128,7 +128,7 @@ public class Post {
 
 	}
 
-	/*
+	/**
 	 * User with ID-userID dislikes post
 	 */
 	public void dislikePost(String userID) {
@@ -142,77 +142,77 @@ public class Post {
 
 	}
 
-	/*
+	/**
 	 * Gets post ID
 	 */
 	public int getID() {
 		return ID;
 	}
 
-	/*
+	/**
 	 * Gets post like count
 	 */
 	public int getLikeCount() {
 		return likeCount;
 	}
 
-	/*
+	/**
 	 * Gets post dislike count
 	 */
 	public int getDislikeCount() {
 		return dislikeCount;
 	}
 
-	/*
+	/**
 	 * Gets post comment count
 	 */
 	public int getCommentCount() {
 		return commentCount;
 	}
 
-	/*
+	/**
 	 * Gets post author user ID
 	 */
 	public String getUserID() {
 		return userID;
 	}
 
-	/*
+	/**
 	 * Gets post type
 	 */
 	public String getType() {
 		return type;
 	}
 
-	/*
+	/**
 	 * Gets post title
 	 */
 	public String getTitle() {
 		return title;
 	}
 
-	/*
+	/**
 	 * Gets status
 	 */
 	public String getStatus() {
 		return status;
 	}
 
-	/*
+	/**
 	 * Gets attachments name
 	 */
 	public String getAttachment() {
 		return attachment;
 	}
 
-	/*
+	/**
 	 * Gets posts posting time
 	 */
 	public Timestamp getTimesTamp() {
 		return timestamp;
 	}
 
-	/*
+	/**
 	 * Returns true if post like/dislike count is active
 	 */
 	public boolean isActive() {

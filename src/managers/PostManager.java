@@ -39,9 +39,11 @@ public class PostManager {
 		}
 	}
 
-	/*
-	 * Returns the array of recent posts(array can be resized)
+	/**
+	 *  Returns the array of recent posts(array can be resized)
+	 * @return ArrayList recentPosts
 	 */
+	 
 	public ArrayList<Post> getRecentPosts() {
 		ArrayList<Post> ls = new ArrayList<Post>();
 		ResultSet rs;
@@ -63,9 +65,11 @@ public class PostManager {
 		return ls;
 	}
 
-	/*
+	/**
 	 * Returns the array of popular posts(array can be resized)
+	 * @return ArrayList popularPosts
 	 */
+	 
 	public ArrayList<Post> getPopularPosts() {
 		ArrayList<Post> ls = new ArrayList<Post>();
 		ResultSet rs;
@@ -105,7 +109,11 @@ public class PostManager {
 		return ls;
 	}
 
-	// returns Arraylist of popular posts by particular user
+	/**
+	 *  returns Arraylist of popular posts by particular user
+	 * @param userID
+	 * @return ArrayList recentPosts
+	 */
 	public ArrayList<Post> getRecentPostsByUser(String userID) {
 		ArrayList<Post> ls = new ArrayList<Post>();
 		ResultSet rs;
@@ -129,7 +137,11 @@ public class PostManager {
 		return ls;
 	}
 
-	// returns Arraylist of recent posts by particular user
+	/**
+	 *  returns Arraylist of recent posts by particular user
+	 * @param userID
+	 * @return ArrayList popularPosts
+	 */
 	public ArrayList<Post> getPopularPostsByUser(String userID) {
 		ArrayList<Post> ls = new ArrayList<Post>();
 		ResultSet rs;
@@ -153,8 +165,15 @@ public class PostManager {
 		return ls;
 	}
 
-	/*
-	 * Adds post into DB
+	/**
+	 *  Adds post into DB
+	 * @param authorID
+	 * @param timestamp
+	 * @param title
+	 * @param status
+	 * @param attachment
+	 * @param type
+	 * @return Integer ID
 	 */
 	public int addPost(String authorID, Timestamp timestamp, String title,
 			String status, String attachment, String type) {
@@ -180,9 +199,12 @@ public class PostManager {
 		}
 	}
 
-	/*
+	/**
 	 * User with ID-userID likes post with ID-postID
+	 * @param postID
+	 * @param userID
 	 */
+	 
 	public void likePost(int postID, String userID) {
 		try {
 			if (dislikesPost(userID, postID)) {
@@ -202,23 +224,35 @@ public class PostManager {
 		}
 	}
 
-	/*
+	/**
 	 * Checks whether user with ID-userId likes post with ID-postID
+	 * @param String userID
+	 * @param Integer postID
+	 * @return boolean likes
 	 */
+	 
+	 
 	public boolean likesPost(String userID, int postID) {
 		return getLikeInfo(userID, postID, MyDBInfo.LIKE_TABLE);
 	}
 
-	/*
+	/**
 	 * Checks whether user with ID-userId dislikes post with ID-postID
+	 * @param String userID
+	 * @param Integer postID
+	 * @return boolean dislikesPost
 	 */
+	 
 	public boolean dislikesPost(String userID, int postID) {
 		return getLikeInfo(userID, postID, MyDBInfo.DISLIKE_TABLE);
 	}
 
-	/*
+	/**
 	 * User with ID-userID dislikes post with ID-postID
+	 * @param Integer postID
+	 * @param String userID
 	 */
+	 
 	public void dislikePost(int postID, String userID) {
 		try {
 			if (likesPost(userID, postID)) {
@@ -240,9 +274,12 @@ public class PostManager {
 		}
 	}
 
-	/*
-	 * User with ID-userID comments on post with ID-postID. Time and text
-	 * included
+	/**
+	 *  User with ID-userID comments on post with ID-postID. Time and text included
+	 * @param Integer postID
+	 * @param String userID
+	 * @param String Text
+	 * @param Timestamp timestamp
 	 */
 	public void addComment(int postID, String userID, String Text,
 			Timestamp timestamp) {
@@ -258,6 +295,13 @@ public class PostManager {
 		}
 	}
 
+	/**
+	 * Checks whether the user with ID-userID likes the post with ID-postID
+	 * @param userID
+	 * @param postID
+	 * @param table
+	 * @return boolean likes/dislikes
+	 */
 	private boolean getLikeInfo(String userID, int postID, String table) {
 		ResultSet rs;
 		int x = 0;
