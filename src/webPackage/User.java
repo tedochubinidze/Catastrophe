@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import managers.PostManager;
 import managers.ProfileManager;
@@ -151,6 +152,10 @@ public class User {
 	
 	public Integer getPoints(){
 		return this.points;
+	}
+	
+	public ArrayList<Post> getRecentPosts(){
+		return postManager.getRecentPostsByUser(this.ID);
 	}
 	
 

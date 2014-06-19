@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import org.junit.rules.TemporaryFolder;
+
 import managers.PostManager;
 
 public class Post {
@@ -40,7 +42,7 @@ public class Post {
 		manager = new PostManager();
 	}
 	
-	public Post(String userID) {
+	public Post(int postID) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://"
@@ -53,15 +55,15 @@ public class Post {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		getPostByID(userID);
+		getPostByID(postID);
 	}
 
 	// this method takes User Info from database with given ID
-	private void getPostByID(String userID) {
+	private void getPostByID(int postID) {
 		ResultSet rs;
 		try {
 			rs = stmt.executeQuery("select * from " + MyDBInfo.POST_TABLE
-					+ " where userID = '" + userID + "';");
+					+ " where postID = " + postID + ";");
 			while (rs.next()) {
 				this.ID = rs.getInt(1);
 				this.userID = rs.getString(2);
@@ -76,11 +78,15 @@ public class Post {
 				this.active = rs.getBoolean(7);
 			}
 			manager = new PostManager();
+			this.comments = manager.getComments(postID);
+			System.out.println("wtf");
+			System.out.println(this.comments);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 
 	/**
 	 * Sets ID for this post
