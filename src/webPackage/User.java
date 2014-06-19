@@ -1,5 +1,7 @@
 package webPackage;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -22,12 +24,19 @@ public class User {
 	private static Statement stmt;
 	private ProfileManager profManager;
 	private PostManager postManager;
+	private MessageDigest mg;
 
 	// This is Constructor of Other kind, which creates User by these parameters
 	public User(String userID, String password, String name, String lastname,
 			String email, boolean admin, int points) {
 		ID = userID;
 		this.password = password;
+		try {
+			hashPassword(this.password);
+		} catch (NoSuchAlgorithmException e) {
+			
+			e.printStackTrace();
+		}
 		this.email = email;
 		this.name = name;
 		this.lastname = lastname;
@@ -55,6 +64,21 @@ public class User {
 			e.printStackTrace();
 		}
 		getUserByID(userID);
+		try {
+			hashPassword(password);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Hashes Password
+	 * @throws NoSuchAlgorithmException
+	 */
+	public void hashPassword(String str) throws NoSuchAlgorithmException {
+		mg = MessageDigest.getInstance("SHA");
+		mg.reset();
+		str = hexToString(mg.digest(str.getBytes()));
 	}
 
 	/**
@@ -128,6 +152,7 @@ public class User {
 	public Integer getPoints(){
 		return this.points;
 	}
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -149,6 +174,21 @@ public class User {
 				+ " LastName: " + lastname + " e-mail: " + email + " admin: "
 				+ admin;
 		return str;
+	}
+	
+	/*
+	 * Takes in array of bytes and returns hashed String equivalent to this array
+	 */
+	private String hexToString(byte[] bytes) {
+		StringBuffer buff = new StringBuffer();
+		for (int i = 0; i < bytes.length; i++) {
+			int val = bytes[i];
+			val = val & 0xff; // remove higher bits, sign
+			if (val < 16)
+				buff.append('0'); // leading 0
+			buff.append(Integer.toString(val, 16));
+		}
+		return buff.toString();
 	}
 
 }

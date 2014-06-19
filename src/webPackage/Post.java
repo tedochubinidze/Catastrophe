@@ -95,6 +95,13 @@ public class Post {
 	public void setComments(ArrayList<Comment> comments) {
 		this.comments = comments;
 	}
+	
+	/**
+	 * Deactivates LikeCount for this Post
+	 */
+	public void deActivate(){
+		this.active = false;
+	}
 
 	/**
 	 * Returns Array of comments on current post
