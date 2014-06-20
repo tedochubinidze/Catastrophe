@@ -25,7 +25,7 @@ public class User {
 	private static Statement stmt;
 	private ProfileManager profManager;
 	private PostManager postManager;
-	private MessageDigest mg;
+	private static MessageDigest mg;
 
 	// This is Constructor of Other kind, which creates User by these parameters
 	public User(String userID, String password, String name, String lastname,
@@ -74,12 +74,14 @@ public class User {
 	
 	/**
 	 * Hashes Password
+	 * @return 
 	 * @throws NoSuchAlgorithmException
 	 */
-	public void hashPassword(String str) throws NoSuchAlgorithmException {
+	public static String hashPassword(String str) throws NoSuchAlgorithmException {
 		mg = MessageDigest.getInstance("SHA");
 		mg.reset();
 		str = hexToString(mg.digest(str.getBytes()));
+		return str;
 	}
 
 	/**
@@ -184,7 +186,7 @@ public class User {
 	/*
 	 * Takes in array of bytes and returns hashed String equivalent to this array
 	 */
-	private String hexToString(byte[] bytes) {
+	private static String hexToString(byte[] bytes) {
 		StringBuffer buff = new StringBuffer();
 		for (int i = 0; i < bytes.length; i++) {
 			int val = bytes[i];
