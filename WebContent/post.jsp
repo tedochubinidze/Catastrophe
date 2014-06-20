@@ -21,7 +21,7 @@
 
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="shortcut icon"
-	href="wp-content/themes/beetube/images/favicon.ico" />
+	href="wp-content/themes/beetube/images/catastrophe.png" />
 <link rel="pingback" href="../xmlrpc.php" />
 
 <!-- Generated CSS BEGIN -->
@@ -118,6 +118,7 @@ body {
 	background-color: #777;
 }
 </style>
+<link rel='stylesheet' id='jtheme-fonts-css'  href='http://fonts.googleapis.com/css?family=Oxygen&amp;ver=3.9.1' type='text/css' media='all' />
 <link rel='stylesheet' id='jtheme-mainstyle-css'
 	href='wp-content/themes/beetube/css/stylesheet-red370e.css?ver=1.4.3'
 	type='text/css' media='all' />
@@ -137,30 +138,34 @@ body {
 <body
 	class="single single-post postid-452 single-format-standard full-wrap">
 	<div id="page">
-		<header id="header">
+			<header id="header">
 			<div id="top-nav">
 				<div class="wrap cf">
 
 					<div id="header-search">
 						<ul>
-
-							<li class="acti1"><a href="register.jsp"><span>Are
+							<%
+								User user = (User) request.getSession().getAttribute("currentUser");
+								//User user = new User("user1");
+								if (user == null) {
+							%>
+							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
 							<li class="acti2"><a href="login.jsp">Login</a></li>
 						</ul>
-
+						<%
+							} else {
+						%>
+						<ul>
+							<li class="acti1"><a href=<%="user.jsp?id=" + user.getID()%>>Hello,
+									<%=user.getName()%></a></li>
+							<li class="acti2"><a href="LogoutServlet">Logout</a></li>
+						</ul>
+						<%
+							}
+						%>
 					</div>
 					<!-- end #header-search -->
-					<div class="tnav">
-
-						<ul id="menu-header" class="menu">
-							<li id="menu-item" class="menu-item"><a href="index.jsp">CP
-									Posts</a></li>
-							<li id="menu-item" class="menu-item"><a href="shop.jsp">CP
-									Shop</a></li>
-						</ul>
-
-					</div>
 					<!-- end #Top-nav -->
 					<div class="clear"></div>
 				</div>
@@ -169,19 +174,16 @@ body {
 			<div class="header-secend">
 				<div class="wrap cf">
 					<div id="branding" class="image-branding" role="banner">
-						<div id="site-title">
-							<a rel="home" href="index.jsp">Catastrophe Theme</a>
-						</div>
+						<h1 id="site-title">
+							<a rel="home" href="index.html">Catastrophe.ge</a>
+						</h1>
 
-						<a id="site-logo" rel="home" href="index.jsp"><img
+						<a id="site-logo" rel="home" href="index.html"><img
 							src="images/logo.png" alt="Catastrophe.ge" /></a>
 
-						<div id="site-description" class="hidden">Catastrophe</div>
+						<h2 id="site-description" class="hidden">Catastrophe</h2>
 					</div>
 					<!-- end #branding -->
-
-
-
 				</div>
 			</div>
 		</header>
@@ -191,10 +193,13 @@ body {
 			<div class="wrap cf">
 
 				<ul id="menu-main" class="menu">
-					<li id="menu-item" class="menu-item"><a href="recent.jsp">Recent
-							Posts</a></li>
+					<li id="menu-item" class="menu-item"><a href="index.jsp">Home</a>
 					<li id="menu-item" class="menu-item"><a href="index.jsp">Popular
-							Posts</a></li>
+							Videos</a></li>
+					<li id="menu-item" class="menu-item"><a href="recent.jsp">Recent
+							Videos</a></li>
+					<li id="menu-item" class="menu-item"><a href="shop.jsp">CP
+							Shop</a></li>
 				</ul>
 			</div>
 		</div>
@@ -219,7 +224,7 @@ body {
 								<div class="thumb">
 									<div class="clip-link">
 										<span class="clip"> <img
-											src="wp-content/uploads/2014/03/road-trip-960x540.jpg"
+											src="images/logo.png"
 											alt="Simple Post" /><span class="vertical-align"></span>
 										</span>
 
