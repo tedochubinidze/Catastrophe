@@ -215,7 +215,7 @@ body {
 				<div id="content" role="main">
 
 					<div
-						class="post-452 post type-post status-publish format-standard has-post-thumbnail hentry category-random"
+						class="post"
 						id="post-452">
 
 						<div id="video">
@@ -239,7 +239,7 @@ body {
 						<br clear="all" />
 						<div class="entry-header cf">
 							<div class="inner cf">
-								<h1 class="entry-title">Simple Post</h1>
+								<h1 class="entry-title"><%=post.getTitle() %></h1>
 								<div class="entry-meta">
 									<span class="author"> <a
 										href="user.jsp?id=<%=post.getUserID()%>"
@@ -288,12 +288,6 @@ body {
 							</div>
 							<!-- end .section-content -->
 
-							<div class="info-toggle">
-								<a href="#" class="info-toggle-button info-more-button"> <span
-									class="more-text">Show more</span> <span class="less-text">Show
-										less</span>
-								</a>
-							</div>
 						</div>
 						<!--end #deatils-->
 
@@ -406,9 +400,8 @@ body {
 									</h4>
 
 									<p class="meta">
-										<span class="author">Added by <a href="profile.jsp"
-											title="Post by user" rel="author">Name</a></span> <span class="time">3
-											months ago</span>
+										<span class="author">Added by <a href="user.jsp?id=<%=tmpP.getUserID() %>"
+											title="Post by user" rel="author"><%=tmpP.getUserID() %></a></span> <span class="time"><%=tmpP.getTimesTamp() %></span>
 									</p>
 
 									<p class="stats">
