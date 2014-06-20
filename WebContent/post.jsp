@@ -12,7 +12,7 @@
 	String id = request.getParameter("id");
 	Post post = new Post(Integer.parseInt(id));
 	PostManager postManager = (PostManager) request.getServletContext()
-	.getAttribute("postManager");
+			.getAttribute("postManager");
 %>
 <head>
 
@@ -45,34 +45,6 @@ body {
 	background: #444 !important
 }
 </style>
-<script>
-	subinsblogla = 0;
-	setInterval(
-			function() {
-				if (document.readyState != 'complete') {
-					document.documentElement.style.overflow = "hidden";
-					var subinsblog = document.createElement("div");
-					subinsblog.id = "subinsblogldiv";
-					var polu = 99 * 99 * 99999999 * 999999999;
-					subinsblog.style.zIndex = polu;
-					subinsblog.style.background = "#f8f8f8 url(http://beetube.me/wp-content/uploads/2014/05/loading.gif) 50% 50% no-repeat";
-					subinsblog.style.backgroundPositionX = "100%";
-					subinsblog.style.backgroundPositionY = "100%";
-					subinsblog.style.position = "fixed";
-					subinsblog.style.right = "0px";
-					subinsblog.style.left = "0px";
-					subinsblog.style.top = "0px";
-					subinsblog.style.bottom = "0px";
-					if (subinsblogla == 0) {
-						document.documentElement.appendChild(subinsblog);
-						subinsblogla = 1;
-					}
-				} else if (document.getElementById('subinsblogldiv') != null) {
-					document.getElementById('subinsblogldiv').style.display = "none";
-					document.documentElement.style.overflow = "auto";
-				}
-			}, -1000);
-</script>
 
 <style>
 #back-top {
@@ -118,7 +90,9 @@ body {
 	background-color: #777;
 }
 </style>
-<link rel='stylesheet' id='jtheme-fonts-css'  href='http://fonts.googleapis.com/css?family=Oxygen&amp;ver=3.9.1' type='text/css' media='all' />
+<link rel='stylesheet' id='jtheme-fonts-css'
+	href='http://fonts.googleapis.com/css?family=Oxygen&amp;ver=3.9.1'
+	type='text/css' media='all' />
 <link rel='stylesheet' id='jtheme-mainstyle-css'
 	href='wp-content/themes/beetube/css/stylesheet-red370e.css?ver=1.4.3'
 	type='text/css' media='all' />
@@ -135,10 +109,9 @@ body {
 
 </head>
 
-<body
-	class="single single-post postid-452 single-format-standard full-wrap">
+<body class="single single-post">
 	<div id="page">
-			<header id="header">
+		<header id="header">
 			<div id="top-nav">
 				<div class="wrap cf">
 
@@ -146,7 +119,6 @@ body {
 						<ul>
 							<%
 								User user = (User) request.getSession().getAttribute("currentUser");
-								//User user = new User("user1");
 								if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
@@ -158,7 +130,7 @@ body {
 						%>
 						<ul>
 							<li class="acti1"><a href=<%="user.jsp?id=" + user.getID()%>>Hello,
-									<%=user.getName()%></a></li>
+									<%=user.getID()%></a></li>
 							<li class="acti2"><a href="LogoutServlet">Logout</a></li>
 						</ul>
 						<%
@@ -173,15 +145,13 @@ body {
 
 			<div class="header-secend">
 				<div class="wrap cf">
-					<div id="branding" class="image-branding" role="banner">
+					<div id="branding" class="image-branding">
 						<h1 id="site-title">
-							<a rel="home" href="index.html">Catastrophe.ge</a>
+							<a rel="home" href="index.jsp">Catastrophe.ge</a>
 						</h1>
 
-						<a id="site-logo" rel="home" href="index.html"><img
-							src="images/logo.png" alt="Catastrophe.ge" /></a>
-
-						<h2 id="site-description" class="hidden">Catastrophe</h2>
+						<a id="site-logo" href="index.jsp"><img src="images/logo.png"
+							alt="Catastrophe.ge" /></a>
 					</div>
 					<!-- end #branding -->
 				</div>
@@ -212,11 +182,9 @@ body {
 
 
 
-				<div id="content" role="main">
+				<div id="content">
 
-					<div
-						class="post"
-						id="post-452">
+					<div class="post type-post">
 
 						<div id="video">
 							<div class="screen fluid-width-video-wrapper">
@@ -224,8 +192,8 @@ body {
 								<div class="thumb">
 									<div class="clip-link">
 										<span class="clip"> <img
-											src="images/logo.png"
-											alt="Simple Post" /><span class="vertical-align"></span>
+											src=<%="images/" + post.getAttachment()%> alt="Simple Post" /><span
+											class="vertical-align"></span>
 										</span>
 
 
@@ -239,22 +207,17 @@ body {
 						<br clear="all" />
 						<div class="entry-header cf">
 							<div class="inner cf">
-								<h1 class="entry-title"><%=post.getTitle() %></h1>
+								<h1 class="entry-title"><%=post.getTitle()%></h1>
 								<div class="entry-meta">
 									<span class="author"> <a
 										href="user.jsp?id=<%=post.getUserID()%>"
-										title="Posts by admin" rel="author"><%=post.getUserID()%></a></span>
-									<span class="time"><%=post.getTimesTamp()%> </span> <span
-										class="stats"><span class="comments"><i
-											class="count"><%=post.getCommentCount()%></i> <span
-											class="suffix"></span></span><span class="jtheme-post-likes likes"><i
-											class="count" data-pid="452"><%=post.getLikeCount() - post.getDislikeCount()%></i>
-											<span class="suffix"></span></span></span>
+										title=<%="Posts by " + post.getUserID()%>><%=post.getUserID()%></a></span>
+									<span class="time"><%=post.getTimesTamp()%> </span>
 
 
 								</div>
 								<%
-									if (post.isActive()) {
+									if (post.isActive() && user != null) {
 								%>
 								<div class="entry-actions">
 									<span class="jtheme-like-post"><a class="like" href=""
@@ -278,8 +241,6 @@ body {
 											<p><%=post.getStatus()%></p>
 											<p>&nbsp;</p>
 										</div>
-
-
 									</div>
 									<!-- end .entry-content -->
 
@@ -297,76 +258,73 @@ body {
 
 					<div class="section-box related-posts">
 						<div class="section-header">
-							<h3 class="section-title">Recent posts of user</h3>
+							<h3 class="section-title">
+								Popular posts by
+								<%=post.getUserID()%></h3>
 						</div>
 
 						<div class="section-content grid-mini">
-							<div class="nag cf">
-								<div id="post-455"
-									class="post-455 post type-post status-publish format-standard has-post-thumbnail hentry category-animation category-hd category-random category-slow-motion tag-hosted tag-self tag-videos item clearfix cf item-video">
-
-									<div class="thumb">
-										<a class="clip-link" data-id="455"
-											title="Self Hosted Video Post With Custom Player"
-											href="../self-hosted-video-post-with-custom-player/index.html">
-											<span class="clip"> <img
-												src="../wp-content/uploads/2014/03/animals_widewallpaper_mouse-with-hat_62210-320x180.jpg"
-												alt="Self Hosted Video Post With Custom Player" /><span
-												class="vertical-align"></span>
-										</span> <span class="overlay"></span>
-										</a>
-										<div class="hori-like">
-											<p class="stats">
-												<span class="views"><i class="count">3.72K</i> <span
-													class="suffix"></span></span><span class="comments"><i
-													class="count">0</i> <span class="suffix"></span></span><span
-													class="jtheme-post-likes likes"><i class="count"
-													data-pid="455">62</i> <span class="suffix"></span></span>
-											</p>
-										</div>
-									</div>
-									<div class="data">
-										<h2 class="entry-title">
-											<a
-												href="../self-hosted-video-post-with-custom-player/index.html"
-												rel="bookmark"
-												title="Permalink to Self Hosted Video Post With Custom Player">Self
-												Hosted Video Post With Custom Player</a>
-										</h2>
-
-										<p class="entry-meta">
-											<span class="author vcard"> <a class="url fn n"
-												href="../author/admin/index.html"
-												title="View all posts by admin" rel="author">admin</a>
-											</span>
-
-											<time class="entry-date" datetime="25th Mar, 2014">25th
-												Mar, 2014</time>
-											 <span class="stats"><span class="views"><i
-													class="count">3.72K</i> <span class="suffix">Views</span></span></span>
-										</p>
-
+							<%
+								PostManager manager = (PostManager) request.getServletContext()
+										.getAttribute("postManager");
+								ArrayList<Post> ls = manager
+										.getPopularPostsByUser(post.getUserID());
+								for (Post p : ls) {
+							%>
+							<div id="post" <%if (p.getType().equals("video")) {%>
+								class="post item item-video" <%} else {%>
+								class="post item item-post" <%}%>>
+								<div class="thumb">
+									<a class="clip-link" title=<%=p.getTitle()%>
+										href=<%="post.jsp?id=" + p.getID()%>> <span class="clip">
+											<img src=<%="images/" + p.getAttachment()%>
+											alt=<%=p.getTitle()%>><span class="vertical-align"></span>
+									</span> <span class="overlay"></span>
+									</a>
+									<div class="hori-like">
 										<p class="stats">
-											<span class="views"><i class="count">3.72K</i> <span
-												class="suffix"></span></span><span class="comments"><i
-												class="count">0</i> <span class="suffix"></span></span><span
-												class="jtheme-post-likes likes"><i class="count"
-												data-pid="455">62</i> <span class="suffix"></span></span>
+											<span class="views"><i class="count"><%=p.getLikeCount() - p.getDislikeCount()%></i>
+												<span class="suffix"></span></span><span class="comments"><i
+												class="count"><%=p.getCommentCount()%></i> <span
+												class="suffix"></span></span><span class="jtheme-post-likes likes"><i
+												class="count" data-pid="452"><%=p.getLikeCount() - p.getDislikeCount()%></i>
+												<span class="suffix"></span></span>
 										</p>
-
 									</div>
 								</div>
-								<!-- end #post-455 -->
-							</div>
-						</div>
-					</div>
-					<!-- end .related-posts -->
+								<div class="data">
+									<h2 class="entry-title">
+										<a href=<%="post.jsp?id=" + p.getID()%>
+											title=<%=p.getTitle()%>><%=p.getTitle()%></a>
+									</h2>
 
+									<p class="entry-meta">
+										<span class="author vcard"> <a class="url fn n"
+											href=<%="user.jsp?id=" + p.getUserID()%>
+											title=<%="View all posts by" + p.getUserID()%>><%=p.getUserID()%></a>
+										</span>
+
+										<time class="entry-date" datetime=<%=p.getTimesTamp()%>><%=p.getTimesTamp()%></time>
+										<span class="stats"><span class="views"><i
+												class="count"><%=p.getLikeCount() - p.getDislikeCount()%></i>
+										</span></span>
+									</p>
+								</div>
+							</div>
+							<%
+								}
+							%>
+						</div>
+						<!-- end #post-455 -->
+
+					</div>
 				</div>
+				<!-- end .related-posts -->
+
 				<!-- end #content -->
 
 
-				<div id="sidebar" role="complementary" class="">
+				<div id="sidebar">
 
 					<div class="border-sep widget widget_border masonry-brick"
 						style="margin: 0px"></div>
@@ -381,35 +339,30 @@ body {
 								Post tmpP = arr.get(i);
 						%>
 						<ul class="post-list">
-							<li class="item cf item-video">
+							<li <%if (tmpP.getType().equals("video")) {%>
+								class="item cf item-video" <%} else {%>
+								class="item cf item-post" <%}%>>
 
 								<div class="thumb">
 									<a class="clip-link" data-id=<%=tmpP.getID()%>
 										title=<%=tmpP.getTitle()%>
-										href="../video-from-youtube-29/index.html"> <span
+										href=<%="post.jsp?id=" + tmpP.getID()%>> <span
 										class="clip"> <img
-											src="wp-content/uploads/2014/03/elephants-dream-fantasy-animatio-160x90.jpg"
+											src=<%="images/" + tmpP.getAttachment()%>
 											alt=<%=tmpP.getTitle()%> /><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>
 								</div>
 								<div class="data">
 									<h4 class="entry-title">
-										<a href="video-from-youtube-29/index.html"
+										<a href=<%="post.jsp?id=" + tmpP.getID()%>
 											title=<%=tmpP.getTitle()%>><%=tmpP.getTitle()%></a>
 									</h4>
 
 									<p class="meta">
-										<span class="author">Added by <a href="user.jsp?id=<%=tmpP.getUserID() %>"
-											title="Post by user" rel="author"><%=tmpP.getUserID() %></a></span> <span class="time"><%=tmpP.getTimesTamp() %></span>
-									</p>
-
-									<p class="stats">
-										<span class="views"><i class="count">113</i> <span
-											class="suffix"></span></span><span class="comments"><i
-											class="count">0</i> <span class="suffix"></span></span><span
-											class="jtheme-post-likes likes"><i class="count"
-											data-pid="43">1</i> <span class="suffix"></span></span>
+										<span class="author">Added by <a
+											href="user.jsp?id=<%=tmpP.getUserID()%>" title="Post by user"
+											rel="author"><%=tmpP.getUserID()%></a></span> <span class="time"><%=tmpP.getTimesTamp()%></span>
 									</p>
 								</div>
 							</li>
@@ -443,7 +396,7 @@ body {
 					</div>
 				</div>
 
-				<div id="colophon" role="contentinfo">
+				<div id="colophon">
 					<div class="wrap cf">
 
 
@@ -460,7 +413,7 @@ body {
 
 		</div>
 	</div>
-	
+
 	<!-- end #page -->
 
 	<script type='text/javascript'

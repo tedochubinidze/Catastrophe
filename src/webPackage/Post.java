@@ -79,8 +79,6 @@ public class Post {
 			}
 			manager = new PostManager();
 			this.comments = manager.getComments(postID);
-			System.out.println("wtf");
-			System.out.println(this.comments);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

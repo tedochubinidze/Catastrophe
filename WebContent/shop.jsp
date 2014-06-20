@@ -84,7 +84,7 @@ body {
 						%>
 						<ul>
 							<li class="acti1"><a href=<%="user.jsp?id=" + user.getID()%>>Hello,
-									<%=user.getName()%></a></li>
+									<%=user.getID()%></a></li>
 							<li class="acti2"><a href="LogoutServlet">Logout</a></li>
 						</ul>
 						<%
@@ -99,15 +99,13 @@ body {
 
 			<div class="header-secend">
 				<div class="wrap cf">
-					<div id="branding" class="image-branding" role="banner">
+					<div id="branding" class="image-branding">
 						<h1 id="site-title">
-							<a rel="home" href="index.html">Catastrophe.ge</a>
+							<a rel="home" href="index.jsp">Catastrophe.ge</a>
 						</h1>
 
-						<a id="site-logo" rel="home" href="index.html"><img
-							src="images/logo.png" alt="Catastrophe.ge" /></a>
-
-						<h2 id="site-description" class="hidden">Catastrophe</h2>
+						<a id="site-logo" href="index.jsp"><img src="images/logo.png"
+							alt="Catastrophe.ge" /></a>
 					</div>
 					<!-- end #branding -->
 				</div>

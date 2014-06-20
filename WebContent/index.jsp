@@ -71,7 +71,6 @@ body {
 						<ul>
 							<%
 								User user = (User) request.getSession().getAttribute("currentUser");
-								//User user = new User("user1");
 								if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
@@ -98,15 +97,13 @@ body {
 
 			<div class="header-secend">
 				<div class="wrap cf">
-					<div id="branding" class="image-branding" role="banner">
+					<div id="branding" class="image-branding">
 						<h1 id="site-title">
-							<a rel="home" href="index.html">Catastrophe.ge</a>
+							<a rel="home" href="index.jsp">Catastrophe.ge</a>
 						</h1>
 
-						<a id="site-logo" rel="home" href="index.html"><img
-							src="images/logo.png" alt="Catastrophe.ge" /></a>
-
-						<h2 id="site-description" class="hidden">Catastrophe</h2>
+						<a id="site-logo" href="index.jsp"><img src="images/logo.png"
+							alt="Catastrophe.ge" /></a>
 					</div>
 					<!-- end #branding -->
 				</div>
@@ -154,7 +151,7 @@ body {
 								class="post item item-video" <%} else {%>
 								class="post item item-post" <%}%>>
 								<div class="thumb">
-									<a class="clip-link" data-id="452" title=<%=p.getTitle()%>
+									<a class="clip-link" title=<%=p.getTitle()%>
 										href=<%="post.jsp?id=" + p.getID()%>> <span class="clip">
 											<img src=<%="images/" + p.getAttachment()%>
 											alt=<%=p.getTitle()%>><span class="vertical-align"></span>
@@ -173,14 +170,14 @@ body {
 								</div>
 								<div class="data">
 									<h2 class="entry-title">
-										<a href=<%="post.jsp?id=" + p.getID()%> rel="bookmark"
+										<a href=<%="post.jsp?id=" + p.getID()%>
 											title=<%=p.getTitle()%>><%=p.getTitle()%></a>
 									</h2>
 
 									<p class="entry-meta">
 										<span class="author vcard"> <a class="url fn n"
 											href=<%="user.jsp?id=" + p.getUserID()%>
-											title=<%="View all posts by" + p.getUserID()%> rel="author"><%=p.getUserID()%></a>
+											title=<%="View all posts by" + p.getUserID()%>><%=p.getUserID()%></a>
 										</span>
 
 										<time class="entry-date" datetime=<%=p.getTimesTamp()%>><%=p.getTimesTamp()%></time>
@@ -188,17 +185,6 @@ body {
 												class="count"><%=p.getLikeCount() - p.getDislikeCount()%></i>
 										</span></span>
 									</p>
-
-									<p class="stats">
-										<span class="views"><i class="count"> <%=p.getLikeCount() - p.getDislikeCount()%></i>
-											<span class="suffix"></span></span><span class="comments"><i
-											class="count"><%=p.getCommentCount()%></i> <span
-											class="suffix"></span></span><span class="jtheme-post-likes likes"><i
-											class="count" data-pid="452"><%=p.getLikeCount() - p.getDislikeCount()%></i>
-											<span class="suffix"></span></span>
-									</p>
-
-									<p class="entry-summary"><%=p.getStatus()%></p>
 								</div>
 							</div>
 							<%
@@ -227,7 +213,7 @@ body {
 		</div>
 		<!-- end #footbar -->
 
-		<div id="colophon" role="contentinfo">
+		<div id="colophon">
 			<div class="wrap cf">
 
 

@@ -85,7 +85,6 @@ public class ProfileManager {
 			rs = stmt
 					.executeQuery("select count(userID) from user where userID = '"
 							+ userID + "';");
-			System.out.println("u");
 			while (rs.next())
 				counter = rs.getInt("count(userID)");
 			if (counter != 0)
