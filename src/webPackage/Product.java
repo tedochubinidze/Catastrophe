@@ -108,4 +108,15 @@ public class Product {
 	public int getID() {
 		return ID;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null || obj.getClass() != getClass()){
+			return false;
+		}
+		Product product = (Product)obj;
+		if(product.getID() == this.getID()) return true;
+		return false;
+	}
+	
 }

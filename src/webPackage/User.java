@@ -21,6 +21,7 @@ public class User {
 	private String email;
 	private String name;
 	private String lastname;
+	private Cart cart;
 
 	private static Statement stmt;
 	private ProfileManager profManager;
@@ -42,6 +43,7 @@ public class User {
 		this.name = name;
 		this.lastname = lastname;
 		this.admin = admin;
+		this.cart = new Cart();
 		profManager = new ProfileManager();
 		postManager = new PostManager();
 	}
@@ -52,6 +54,7 @@ public class User {
 	 * @param String userID
 	**/
 	public User(String userID) {
+		this.cart = new Cart();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://"
@@ -158,6 +161,10 @@ public class User {
 	
 	public ArrayList<Post> getRecentPosts(){
 		return postManager.getRecentPostsByUser(this.ID);
+	}
+	
+	public Cart getCart(){
+		return cart;
 	}
 	
 
