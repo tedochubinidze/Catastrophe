@@ -64,7 +64,6 @@ body {
 					<div id="header-search">
 						<ul>
 							<%
-								User user = (User) request.getSession().getAttribute("currentUser");
 								if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
@@ -155,7 +154,7 @@ body {
 
 									<p>
 										User Type:
-										<%=type%></p>
+										<%=user.isAdmin()%></p>
 									<%
 										if (visitedUser.equals(user)) {
 									%>
