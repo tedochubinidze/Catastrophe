@@ -261,6 +261,7 @@ public class PostManager {
 	 */
 
 	public boolean likesPost(String userID, int postID) {
+		getConnection();
 		return getLikeInfo(userID, postID, MyDBInfo.LIKE_TABLE);
 	}
 
@@ -275,6 +276,7 @@ public class PostManager {
 	 */
 
 	public boolean dislikesPost(String userID, int postID) {
+		getConnection();
 		return getLikeInfo(userID, postID, MyDBInfo.DISLIKE_TABLE);
 	}
 
@@ -348,7 +350,6 @@ public class PostManager {
 	 * @return boolean likes/dislikes
 	 */
 	private boolean getLikeInfo(String userID, int postID, String table) {
-		getConnection();
 		ResultSet rs;
 		int x = 0;
 		try {
@@ -357,7 +358,6 @@ public class PostManager {
 					+ ";");
 			while (rs.next())
 				x = rs.getInt("count(postID)");
-			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
