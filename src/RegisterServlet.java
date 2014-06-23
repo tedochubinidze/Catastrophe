@@ -52,7 +52,7 @@ public class RegisterServlet extends HttpServlet {
 		} else {
 			request.getSession().setAttribute("createAccountMessage", x);
 		}
-		dp = request.getRequestDispatcher("createAccount.jsp");
+		dp = request.getRequestDispatcher("login.jsp");
 		dp.forward(request, response);
 	}
 

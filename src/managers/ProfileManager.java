@@ -258,8 +258,8 @@ public class ProfileManager {
 			String hashedPw = "";
 			while (rs.next()) {
 				hashedPw = rs.getString("password");
-				con.close();
 			}
+			con.close();
 			if (hashedPw.equals(hashPw(password)))
 				return true;
 			else
