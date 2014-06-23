@@ -330,7 +330,7 @@ body {
 						<!-- end #post-455 -->
 
 					</div>
-
+					<div class="clear"></div>
 					<div class="comment-section">
 						<span style="height: 255px; width: 870px;"></span>
 						<div class="section header">
