@@ -1,0 +1,34 @@
+@CHARSET "ISO-8859-1";
+
+.button_blue,.btn-primary {
+	color: white !important;
+	background-color: #757575;
+}
+
+fieldset {
+	margin: 0;
+	padding: 0
+}
+
+form div.form_item {
+	margin-bottom: 15px
+}
+
+form div.form_input {
+	display: inline-block;
+}
+
+form textarea {
+	border: 1px solid #d4d4d4;
+}
+
+.col-8 {
+	width: 620px;
+	float: left;
+	margin-right: 20px;
+}
+
+.mrg-btm-lg {
+	margin-bottom: 20px;
+}
+

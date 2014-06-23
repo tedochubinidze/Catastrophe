@@ -24,6 +24,7 @@
 	href="wp-content/themes/beetube/images/catastrophe.png" />
 <link rel="pingback" href="../xmlrpc.php" />
 
+
 <!-- Generated CSS BEGIN -->
 <style type='text/css'>
 body {
@@ -100,12 +101,16 @@ body {
 	href='wp-content/themes/beetube/css/jquery.itoppage370e.css?ver=1.4.3'
 	type='text/css' media='all' />
 <link rel='stylesheet' id='jtheme-res-nav-css'
-	href='wp-content/themes/beetube/css/responsive-nav370e.css?ver=1.4.3'
+	href='wp-content/themes/beetube/responsive-nav370e.css?ver=1.4.3'
 	type='text/css' media='all' />
 <script type='text/javascript'
 	src='http://beetube.me/wp-includes/js/jquery/jquery.js?ver=1.11.0'></script>
 <link rel="wlwmanifest" type="application/wlwmanifest+xml"
 	href="http://beetube.me/wp-includes/wlwmanifest.xml" />
+
+<link rel="stylesheet" href="wp-content/themes/beetube/css/comments.css">
+
+
 
 </head>
 
@@ -212,8 +217,12 @@ body {
 									<span class="author"> <a
 										href="user.jsp?id=<%=post.getUserID()%>"
 										title=<%="Posts by " + post.getUserID()%>><%=post.getUserID()%></a></span>
-									<span class="time"><%=post.getTimesTamp()%> </span>
-
+									<span class="time"><%=post.getTimesTamp()%> </span> <span
+										class="stats"><span class="comments"><i
+											class="count"><%=post.getCommentCount()%></i> <span
+											class="suffix"></span></span><span class="jtheme-post-likes likes"><i
+											class="count" data-pid="455"><%=post.getLikeCount() - post.getDislikeCount()%></i>
+											<span class="suffix"></span></span></span>
 
 								</div>
 								<%
@@ -269,7 +278,8 @@ body {
 										.getAttribute("postManager");
 								ArrayList<Post> ls = manager
 										.getPopularPostsByUser(post.getUserID());
-								for (Post p : ls) {
+								for (int i = 0; i < ls.size(); i++) {
+									Post p = ls.get(i);
 							%>
 							<div id="post" <%if (p.getType().equals("video")) {%>
 								class="post item item-video" <%} else {%>
@@ -312,11 +322,77 @@ body {
 								</div>
 							</div>
 							<%
+								if (i == 3)
+										break;
 								}
 							%>
 						</div>
 						<!-- end #post-455 -->
 
+					</div>
+
+					<div class="comment-section">
+						<span style="height: 255px; width: 870px;"></span>
+						<div class="section header">
+							<div class="comment-post-and-comments">
+								<h2 class="section-title">
+									<a
+										href="/comments/video/x1r5c9_comparativa-gol-de-messi-y-maradona_sport">
+										<span class="js-comments-count"><%=post.getCommentCount()%></span>
+										Comments
+									</a>
+								</h2>
+								<%
+									if (user != null) {
+								%>
+								<form action="AddCommentServlet" method="post">
+									<div class="form_item " id="comment_cont">
+										<div class="form_input">
+											<textarea rows="3" cols="1200" placeholder="Leave a comment!"
+												id="comment" name="comment"></textarea>
+											<input class="button btn-primary" id="submit" type="submit"
+												value="post comment"> <input type="hidden"
+												name="postID" value=<%=post.getID()%>>
+										</div>
+									</div>
+									<div class="clear"></div>
+								</form>
+								<%
+									} else {
+								%>
+								<h2>
+									You must Be <a href="login.jsp">Logged in</a> to leave a
+									comment
+								</h2>
+								<%
+									}
+								%>
+								<div class="qweqweaczxc">
+									<div class="comments col-8">
+										<%
+											ArrayList<Comment> coms = post.getComments();
+											for (Comment com : coms) {
+										%>
+										<div class="mrg-btm-lg">
+
+											<div class="media-block">
+												<div class="mrg-btm-md js-comment-text"><%=com.getText()%></div>
+												<div class="foreground2 font-sm">
+													<span class="foreground2 pull-start js-channel-tip">By
+														<a class="link-on-hvr"
+														href=<%="user.jsp?id=" + com.getUserId()%>> <%=com.getUserId()%></a>
+													</span><span></span><span></span><span></span> <span
+														class="pull-start mrg-start-md ucfirst"> On <%=com.getTimestamp()%></span>
+												</div>
+											</div>
+										</div>
+										<%
+											}
+										%>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- end .related-posts -->
@@ -401,7 +477,7 @@ body {
 
 
 						<p id="copyright">
-							Copyright 2014 © <a href="index.jsp">Catastrophe.ge</a> .
+							Copyright 2014 Ã‚Â© <a href="index.jsp">Catastrophe.ge</a> .
 						</p>
 						<p id="credits">
 							All Content From <a target="_blank" href="index.jsp">Catastrophe.ge</a>
