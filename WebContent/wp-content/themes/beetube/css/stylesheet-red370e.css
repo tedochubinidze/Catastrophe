@@ -3507,7 +3507,7 @@ h1.entry-title a:hover {
 	height: 24px;
 }
 
-.entry-actions a {
+.entry-actions input {
 	text-decoration: none;
 }
 
@@ -3527,7 +3527,7 @@ h1.entry-title a:hover {
 	color: #333;
 }
 
-.entry-actions .jtheme-like-post a,.entry-actions .jtheme-share .dropdown-handle
+.entry-actions .jtheme-like-post input,.entry-actions .jtheme-share .dropdown-handle
 	{
 	height: 24px;
 	line-height: 24px;
@@ -3563,82 +3563,6 @@ h1.entry-title a:hover {
 	border: 1px solid #e96969;
 }
 
-/* Share Button */
-.entry-actions .jtheme-share {
-	
-}
-
-.entry-actions .jtheme-share .dropdown-handle {
-	display: block;
-	background: url(images/actions.png) no-repeat 10px -145px;
-	position: relative;
-}
-
-.entry-actions .jtheme-share .dropdown-content {
-	background: #F7F7F7;
-	color: #555;
-	position: absolute;
-	top: 28px;
-	right: -999px;
-	width: 150px;
-	border: 1px solid #BBB;
-	-webkit-border-radius: 3px 0 3px 3px;
-	border-radius: 3px 0 3px 3px;
-	opacity: 0;
-	display: none;
-	visibility: hidden;
-	-webkit-transition: all .15s;
-	-moz-transition: all .15s;
-	-ms-transition: all .15s;
-	-o-transition: all .15s;
-	transition: all .15s;
-}
-
-.entry-actions .jtheme-share .dropdown-content ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.entry-actions .jtheme-share .dropdown-content li {
-	border-top: 1px solid #FFF;
-	border-bottom: 1px solid #DDD;
-	padding: 5px 10px;
-	min-height: 20px;
-	height: auto !important;
-	height: 20px;
-	display: block;
-}
-
-.entry-actions .jtheme-share .dropdown-content li:first-child {
-	border-top: 0;
-}
-
-.entry-actions .jtheme-share .dropdown-content li:last-child {
-	border-bottom: 0
-}
-
-.entry-actions .jtheme-share:hover {
-	-webkit-border-radius: 3px 3px 0 0;
-	border-radius: 3px 3px 0 0;
-}
-
-.entry-actions .jtheme-share:hover .dropdown-handle {
-	padding-bottom: 5px;
-	-webkit-border-radius: 3px 3px 0 0;
-	border-radius: 3px 3px 0 0;
-	color: #111;
-	background: #F7F7F7 url(images/actions.png) no-repeat 10px -145px;
-	z-index: 999999999;
-}
-
-.entry-actions .jtheme-share:hover .dropdown-content {
-	right: -1px;
-	opacity: 1;
-	display: block;
-	visibility: visible;
-	z-index: 999999998;
-}
 
 /*== on Wall
  *=================================*/

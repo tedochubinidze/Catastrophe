@@ -234,7 +234,7 @@ public class PostManager {
 		try {
 			if (dislikesPost(userID, postID)) {
 				stmt.executeUpdate("delete from disliked_post where userID = '"
-						+ userID + "';");
+						+ userID + "' and postID = " + postID + ";");
 				stmt.executeUpdate("update post set dislikeCount = dislikeCount - 1 where postID = "
 						+ postID + ";");
 			}
@@ -246,6 +246,44 @@ public class PostManager {
 			}
 			con.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * user with ID - userID unlikes post with ID - userID
+	 * @param postID
+	 * @param userID
+	 */
+	public void unlikePost(int postID, String userID){
+		getConnection();
+		try {
+			stmt.executeUpdate("delete from liked_post where userID = '"
+					+ userID + "' and postID = " + postID + ";");
+			stmt.executeUpdate("update post set likeCount = likeCount - 1 where postID = "
+					+ postID + ";");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+
+	/**
+	 * user with ID - userID undislikes post with ID - userID
+	 * @param postID
+	 * @param userID
+	 */
+	public void unDislikePost(int postID, String userID){
+		getConnection();
+		try {
+			stmt.executeUpdate("delete from disliked_post where userID = '"
+					+ userID + "' and postID = " + postID + ";");
+			stmt.executeUpdate("update post set dislikeCount = dislikeCount - 1 where postID = "
+					+ postID + ";");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -294,7 +332,7 @@ public class PostManager {
 		try {
 			if (likesPost(userID, postID)) {
 				stmt.executeUpdate("delete from liked_post where userID = '"
-						+ userID + "';");
+						+ userID + "' and postID = " + postID + ";");
 				stmt.executeUpdate("update post set likeCount = likeCount - 1 where postID = "
 						+ postID + ";");
 			}

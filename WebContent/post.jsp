@@ -226,14 +226,55 @@ body {
 
 								</div>
 								<%
-									if (post.isActive() && user != null) {
+								
+									if(user != null || post.isActive() ){
+										
+								if(!postManager.likesPost(user.getID(), post.getID())){
 								%>
 								<div class="entry-actions">
-									<span class="jtheme-like-post"><a class="like" href=""
-										data-pid="452">Like?</a></span>
+									<form name="form1" action="LikeServlet" method="post">
+										<span class="jtheme-like-post"><input type="submit"
+											name="like" value="Like??"></input><input type="hidden"
+											name="postID" value=<%=post.getID()%>></input> </span>
+									</form>
 								</div>
+								<% 
+								} else {
+								%>
+								<div class="entry-actions">
+									<form name="form1" action="UnLikeServlet" method="post">
+										<span class="jtheme-like-post"><input type="submit"
+											name="like" value="LikeD"></input><input type="hidden"
+											name="postID" value=<%=post.getID()%>></input> </span>
+									</form>
+								</div>
+								<% 
+								}
+								%>
 								<%
-									}
+								if(!postManager.dislikesPost(user.getID(), post.getID())){
+								%>
+								<div class="entry-actions">
+									<form name="form1" action="DislikeServlet" method="post">
+										<span class="jtheme-like-post"><input type="submit"
+											name="Dislike" value="Dislike??"></input><input type="hidden"
+											name="postID" value=<%=post.getID()%>></input> </span>
+									</form>
+								</div>
+								
+								<%
+								} else {
+									%>
+									<div class="entry-actions">
+									<form name="form1" action="UnDislikeServlet" method="post">
+										<span class="jtheme-like-post"><input type="submit"
+											name="Dislike" value="Disliked"></input><input type="hidden"
+											name="postID" value=<%=post.getID()%>></input> </span>
+									</form>
+								</div>
+									<%
+								}
+										}
 								%>
 
 							</div>

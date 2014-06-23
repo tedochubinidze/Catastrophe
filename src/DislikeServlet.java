@@ -38,8 +38,9 @@ public class DislikeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Post post = (Post)request.getServletContext().getAttribute("currentPost");
 		User user = (User)request.getSession().getAttribute("currentUser");
+		String ID = request.getParameter("postID");
+		Post post = new Post(Integer.parseInt(ID));
 		post.dislikePost(user.getID());
 		RequestDispatcher dp = request.getRequestDispatcher("post.jsp?id=" + post.getID());
 		dp.forward(request, response);

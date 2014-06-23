@@ -85,6 +85,19 @@ public class Post {
 		}
 	}
 
+	public void unLikePost(String userID){
+		User user = new User(userID);
+		if(manager.likesPost(userID, this.getID())){
+			manager.unlikePost(this.getID(), userID);
+		}
+	}
+	
+	public void unDislikePost(String userID){
+		User user = new User(userID);
+		if(manager.dislikesPost(userID, this.getID())){
+			manager.unDislikePost(this.getID(), userID);
+		}
+	}
 
 	/**
 	 * Sets ID for this post

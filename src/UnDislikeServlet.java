@@ -13,16 +13,16 @@ import webPackage.Post;
 import webPackage.User;
 
 /**
- * Servlet implementation class LikeServlet
+ * Servlet implementation class UnDislikeServlet
  */
-@WebServlet("/LikeServlet")
-public class LikeServlet extends HttpServlet {
+@WebServlet("/UnDislikeServlet")
+public class UnDislikeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LikeServlet() {
+    public UnDislikeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,10 +41,9 @@ public class LikeServlet extends HttpServlet {
 		User user = (User)request.getSession().getAttribute("currentUser");
 		String ID = request.getParameter("postID");
 		Post post = new Post(Integer.parseInt(ID));
-		post.likePost(user.getID());
+		post.unDislikePost(user.getID());
 		RequestDispatcher dp = request.getRequestDispatcher("post.jsp?id=" + post.getID());
 		dp.forward(request, response);
-		
 	}
 
 }
