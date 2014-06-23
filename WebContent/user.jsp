@@ -149,7 +149,7 @@ body {
 
 									<p>
 										User Type:
-										<%=user.isAdmin()%></p>
+										<%=visitedUser.isAdmin()%></p>
 									<%
 										if (visitedUser.equals(user)) {
 									%>
