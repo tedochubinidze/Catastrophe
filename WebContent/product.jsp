@@ -208,7 +208,24 @@ body {
 								<h1 class="entry-title"><%=prod.getTitle()%></h1>
 								<div class="entry-meta">
 									<span class="time"><%=prod.getPrice()%> </span>
-
+									<%
+										if (user != null) {
+									%>
+									<form action="AddToCart" method="post">
+										<input class="button btn-primary" id="submit" type="submit"
+											value="Add To Cart"> <input type="hidden"
+											name="productID" value=<%=prod.getID()%>>
+									</form>
+									<%
+										} else {
+									%>
+									<h2>
+										You must Be <a href="login.jsp">Logged in</a> to buy this
+										product
+									</h2>
+									<%
+										}
+									%>
 
 								</div>
 							</div>
@@ -279,6 +296,7 @@ body {
 
 										<span class="stats"><span class="views"><i
 												class="count"><%=p.getPrice()%></i> </span></span>
+
 									</p>
 								</div>
 							</div>

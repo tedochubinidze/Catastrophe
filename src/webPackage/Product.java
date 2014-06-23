@@ -111,6 +111,10 @@ public class Product {
 	}
 	
 	@Override
+	public String toString() {
+		return this.title;
+	}
+	@Override
 	public boolean equals(Object obj) {
 		if(obj == null || obj.getClass() != getClass()){
 			return false;

@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.sql.Timestamp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,22 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import managers.ProductManager;
 import webPackage.Cart;
-import webPackage.Comment;
-import webPackage.Post;
 import webPackage.Product;
 import webPackage.User;
 
 /**
- * Servlet implementation class AddCommentServlet
+ * Servlet implementation class AddToCart
  */
-@WebServlet("/AddCommentServlet")
-public class AddCommentServlet extends HttpServlet {
+@WebServlet("/AddToCart")
+public class AddToCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddCommentServlet() {
+	public AddToCart() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -46,16 +43,17 @@ public class AddCommentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("currentUser");
-		String text = request.getParameter("comment");
-		String id = request.getParameter("postID");
-		System.out.println(id);
-		String page = "post.jsp?id=" + id;
-		Comment comment = new Comment(user, text, new Timestamp(
-				System.currentTimeMillis()));
-		Post post = new Post(Integer.parseInt(id));
-		post.addComment(comment);
-		RequestDispatcher dp;
-		dp = request.getRequestDispatcher(page);
-		dp.forward(request, response);
+		Cart cart = user.getCart();
+		// this parameter will soon be added to product.jsp
+		String ID = request.getParameter("productID");
+		Product product = new Product(Integer.parseInt(ID));
+		cart.addProduct(product);
+		ProductManager manager = (ProductManager) request.getServletContext()
+				.getAttribute("productManager");
+		manager.addProductToCart(user.getID(), product);
+		RequestDispatcher rd = request.getRequestDispatcher("product.jsp?id="
+				+ product.getID());
+		rd.forward(request, response);
 	}
+
 }

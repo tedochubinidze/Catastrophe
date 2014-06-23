@@ -85,4 +85,24 @@ public class ProductManager {
 		}
 	}
 
+	public void addProductToCart(String userID, Product product) {
+		getConnection();
+		try {
+			ResultSet rs;
+			int cartID = 0;
+			rs = stmt.executeQuery("select cartID from " + MyDBInfo.CART_TABLE
+					+ " where userID = '" + userID + "';");
+			while (rs.next()) {
+				cartID = rs.getInt(1);
+			}
+			stmt.executeUpdate("insert into " + MyDBInfo.CART_PRODUCT_TABLE
+					+ " values(" + cartID + ", " + product.getID() + ");");
+			stmt.executeUpdate("update " + MyDBInfo.CART_TABLE
+					+ " set price = price +" + product.getPrice()
+					+ " where cartID = " + cartID + ";");
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -85,6 +85,7 @@ public class ProfileManager {
 				stmt.executeUpdate("insert into " + MyDBInfo.USER_TABLE
 						+ " values('" + userID + "', '" + hashedPw + "', '"
 						+ email + "', " + admin + ", 0);");
+				addCart(userID);
 				con.close();
 				return ADD_SUCCESSFUL;
 			} catch (SQLException e) {
@@ -96,6 +97,15 @@ public class ProfileManager {
 				e.printStackTrace();
 				return ADD_UNSUCCESSFUL;
 			}
+		}
+	}
+
+	private void addCart(String userID) {
+		try {
+			stmt.executeUpdate("insert into " + MyDBInfo.CART_TABLE
+					+ "(userID, price) values('" + userID + "', 0);");
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 

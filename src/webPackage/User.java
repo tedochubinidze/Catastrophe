@@ -20,34 +20,37 @@ public class User {
 	private String password;
 	private String email;
 	private Cart cart;
-	
+
 	private static Statement stmt;
 	private ProfileManager profManager;
 	private PostManager postManager;
 	private static MessageDigest mg;
 
 	// This is Constructor of Other kind, which creates User by these parameters
-	public User(String userID, String password,
-			String email, boolean admin, int points) {
+	public User(String userID, String password, String email, boolean admin,
+			int points) {
 		ID = userID;
 		this.password = password;
 		try {
 			hashPassword(this.password);
 		} catch (NoSuchAlgorithmException e) {
-			
+
 			e.printStackTrace();
 		}
 		this.email = email;
 		this.admin = admin;
+		this.cart = new Cart();
 		profManager = new ProfileManager();
 		postManager = new PostManager();
 	}
 
-	/** This is Constructor For Class User, which opens connection and takes User
-	 * from DataBase
-	 * according to this parameter ID
-	 * @param String userID
-	**/
+	/**
+	 * This is Constructor For Class User, which opens connection and takes User
+	 * from DataBase according to this parameter ID
+	 * 
+	 * @param String
+	 *            userID
+	 **/
 	public User(String userID) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -56,22 +59,48 @@ public class User {
 					MyDBInfo.MYSQL_PASSWORD);
 			stmt = con.createStatement();
 			stmt.executeQuery("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
-		//	hashPassword(password);
+			// hashPassword(password);
 			getUserByID(userID);
+			getCartOfUser(userID);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+	private void getCartOfUser(String userID) {
+		ResultSet rs;
+		this.cart = new Cart();
+		try {
+			int id = 0;
+			rs = stmt.executeQuery("select cartID from " + MyDBInfo.CART_TABLE
+					+ " where userID = '" + userID + "';");
+			while (rs.next()) {
+				id = rs.getInt(1);
+			}
+			rs = stmt.executeQuery("select productID from "
+					+ MyDBInfo.CART_PRODUCT_TABLE + " where cartID = " + id
+					+ ";");
+			while (rs.next()) {
+				Product prod = new Product(rs.getInt(1));
+				this.cart.addProduct(prod);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 	/**
 	 * Hashes Password
-	 * @return 
+	 * 
+	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
-	public static String hashPassword(String str) throws NoSuchAlgorithmException {
+	public static String hashPassword(String str)
+			throws NoSuchAlgorithmException {
 		mg = MessageDigest.getInstance("SHA");
 		mg.reset();
 		str = hexToString(mg.digest(str.getBytes()));
@@ -79,8 +108,10 @@ public class User {
 	}
 
 	/**
-	 *  This method takes User Info from database with given ID
-	 * @param String userID
+	 * This method takes User Info from database with given ID
+	 * 
+	 * @param String
+	 *            userID
 	 */
 	private void getUserByID(String userID) {
 		ResultSet rs;
@@ -103,7 +134,8 @@ public class User {
 	}
 
 	/**
-	 *  Registers current User
+	 * Registers current User
+	 * 
 	 * @return Boolean register success
 	 */
 	public String registerUser() {
@@ -111,47 +143,49 @@ public class User {
 	}
 
 	/**
-	 *  takes action, when user uploads given post
+	 * takes action, when user uploads given post
+	 * 
 	 * @param Post
 	 */
 	public void addPost(Post post) {
-		int id = postManager.addPost(post.getUserID(), post.getTimesTamp(), post.getTitle(),
-				post.getStatus(), post.getAttachment(), post.getType());
+		int id = postManager.addPost(post.getUserID(), post.getTimesTamp(),
+				post.getTitle(), post.getStatus(), post.getAttachment(),
+				post.getType());
 		post.setID(id);
 	}
-	
-	public String getID(){
+
+	public String getID() {
 		return this.ID;
 	}
-	
-	public String getPassword(){
+
+	public String getPassword() {
 		return this.password;
 	}
-	
-	public String getEmail(){
+
+	public String getEmail() {
 		return this.email;
 	}
-	
-	public boolean isAdmin(){
+
+	public boolean isAdmin() {
 		return this.admin;
 	}
-	
-	public Integer getPoints(){
+
+	public Integer getPoints() {
 		return this.points;
 	}
-	
+
 	/**
 	 * returns 20 recent posts of user
+	 * 
 	 * @return
 	 */
-	public ArrayList<Post> getRecentPosts(){
+	public ArrayList<Post> getRecentPosts() {
 		return postManager.getRecentPostsByUser(this.ID);
 	}
-	
-	public Cart getCart(){
+
+	public Cart getCart() {
 		return cart;
 	}
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -169,14 +203,14 @@ public class User {
 	@Override
 	public String toString() {
 		String str = "";
-		str += "ID: " + ID + " Password: " + password
-				+ " e-mail: " + email + " admin: "
-				+ admin;
+		str += "ID: " + ID + " Password: " + password + " e-mail: " + email
+				+ " admin: " + admin;
 		return str;
 	}
-	
+
 	/*
-	 * Takes in array of bytes and returns hashed String equivalent to this array
+	 * Takes in array of bytes and returns hashed String equivalent to this
+	 * array
 	 */
 	private static String hexToString(byte[] bytes) {
 		StringBuffer buff = new StringBuffer();
