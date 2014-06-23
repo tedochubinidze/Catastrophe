@@ -38,11 +38,11 @@ public class PostManagerTest {
 		post3 = new Post(3, userID1, 0, 0,
 				Timestamp.valueOf("2014-01-03 10:10:10.0"), "title", "status",
 				"status", null, true, null);
-		user1 = new User(userID1, "123123", "name1", "lastname1", "email",
+		user1 = new User(userID1, "123123", "email",
 				false, 0);
 		profManager.addUser(user1.getID(), user1.getPassword(),
-				user1.getName(), user1.getLastName(), user1.getEmail(), false);
-		profManager.addUser(userID2, "123123", "name2", "lastname2", "email2",
+				 user1.getEmail(), false);
+		profManager.addUser(userID2, "123123", "email2",
 				false);
 	}
 
@@ -130,8 +130,8 @@ public class PostManagerTest {
 		Comment com = new Comment(user1, "kaia",
 				Timestamp.valueOf("2014-02-05 10:10:10.0"));
 		comments.add(com);
-		manager.addComment(post1.getID(), com.user.getID(), com.text,
-				com.timestamp);
+		manager.addComment(post1.getID(), com.getUserId(), com.getText(),
+				com.getTimestamp());
 		assertEquals(comments, manager.getComments(post1.getID()));
 	}
 }

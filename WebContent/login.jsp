@@ -86,7 +86,7 @@ body {
 						%>
 						<ul>
 							<li class="acti1"><a href=<%="user.jsp?id=" + user.getID()%>>Hello,
-									<%=user.getName()%></a></li>
+									<%=user.getID()%></a></li>
 							<li class="acti2"><a href="LogoutServlet">Logout</a></li>
 						</ul>
 						<%

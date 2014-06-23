@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-import org.junit.rules.TemporaryFolder;
 
 import managers.PostManager;
 
@@ -118,8 +117,8 @@ public class Post {
 	 * Adds a comment
 	 */
 	public void addComment(Comment comment) {
-		manager.addComment(this.ID, comment.user.getID(), comment.text,
-				comment.timestamp);
+		manager.addComment(this.ID, comment.getUserId(), comment.getText(),
+				comment.getTimestamp());
 		comments.add(comment);
 		commentCount++;
 

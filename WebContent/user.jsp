@@ -142,12 +142,7 @@ body {
 									<p>
 										Username:
 										<%=visitedUser.getID()%></p>
-									<p>
-										First Name:
-										<%=visitedUser.getName()%></p>
-									<p>
-										Last Name:
-										<%=visitedUser.getLastName()%></p>
+									
 									<p>
 										Email:
 										<%=visitedUser.getEmail()%></p>

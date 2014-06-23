@@ -19,17 +19,15 @@ public class User {
 	private String ID;
 	private String password;
 	private String email;
-	private String name;
-	private String lastname;
 	private Cart cart;
-
+	
 	private static Statement stmt;
 	private ProfileManager profManager;
 	private PostManager postManager;
 	private static MessageDigest mg;
 
 	// This is Constructor of Other kind, which creates User by these parameters
-	public User(String userID, String password, String name, String lastname,
+	public User(String userID, String password,
 			String email, boolean admin, int points) {
 		ID = userID;
 		this.password = password;
@@ -40,10 +38,7 @@ public class User {
 			e.printStackTrace();
 		}
 		this.email = email;
-		this.name = name;
-		this.lastname = lastname;
 		this.admin = admin;
-		this.cart = new Cart();
 		profManager = new ProfileManager();
 		postManager = new PostManager();
 	}
@@ -54,7 +49,6 @@ public class User {
 	 * @param String userID
 	**/
 	public User(String userID) {
-		this.cart = new Cart();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://"
@@ -74,6 +68,7 @@ public class User {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	/**
 	 * Hashes Password
@@ -99,11 +94,9 @@ public class User {
 			while (rs.next()) {
 				this.ID = rs.getString(1);
 				this.password = rs.getString(2);
-				this.name = rs.getString(3);
-				this.lastname = rs.getString(4);
-				this.email = rs.getString(5);
-				this.admin = rs.getBoolean(6);
-				this.points = rs.getInt(7);
+				this.email = rs.getString(3);
+				this.admin = rs.getBoolean(4);
+				this.points = rs.getInt(5);
 			}
 			profManager = new ProfileManager();
 			postManager = new PostManager();
@@ -118,7 +111,7 @@ public class User {
 	 * @return Boolean register success
 	 */
 	public String registerUser() {
-		return profManager.addUser(ID, password, name, lastname, email, admin);
+		return profManager.addUser(ID, password, email, admin);
 	}
 
 	/**
@@ -130,7 +123,7 @@ public class User {
 				post.getStatus(), post.getAttachment(), post.getType());
 		post.setID(id);
 	}
-
+	
 	public String getID(){
 		return this.ID;
 	}
@@ -143,14 +136,6 @@ public class User {
 		return this.email;
 	}
 	
-	public String getName(){
-		return this.name;
-	}
-
-	public String getLastName(){
-		return this.lastname;
-	}
-	
 	public boolean isAdmin(){
 		return this.admin;
 	}
@@ -159,6 +144,10 @@ public class User {
 		return this.points;
 	}
 	
+	/**
+	 * returns 20 recent posts of user
+	 * @return
+	 */
 	public ArrayList<Post> getRecentPosts(){
 		return postManager.getRecentPostsByUser(this.ID);
 	}
@@ -184,8 +173,8 @@ public class User {
 	@Override
 	public String toString() {
 		String str = "";
-		str += "ID: " + ID + " Password: " + password + " Name: " + name
-				+ " LastName: " + lastname + " e-mail: " + email + " admin: "
+		str += "ID: " + ID + " Password: " + password
+				+ " e-mail: " + email + " admin: "
 				+ admin;
 		return str;
 	}

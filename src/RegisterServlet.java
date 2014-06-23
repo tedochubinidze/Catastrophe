@@ -39,7 +39,7 @@ public class RegisterServlet extends HttpServlet {
 		String ID = request.getParameter("user_login");
 		String pw = request.getParameter("user_password");
 		String email = request.getParameter("user_email");
-		User tmp = new User(ID, pw, null, null, email, false, 0);
+		User tmp = new User(ID, pw, email, false, 0);
 		String x = tmp.registerUser();
 		RequestDispatcher dp;
 		if (x.equals(ProfileManager.ADD_SUCCESSFUL)) {

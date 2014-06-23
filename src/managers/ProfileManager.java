@@ -43,26 +43,25 @@ public class ProfileManager {
 	 *  adds user to database, returns particular string depending on success
 	 * @param userID
 	 * @param password
-	 * @param name
-	 * @param lastname
 	 * @param email
 	 * @param admin
 	 * @return int success/failed
 	 */
-	public String addUser(String userID, String password, String name,
-			String lastname, String email, boolean admin) {
+	public String addUser(String userID, String password, String email, boolean admin) {
 		if (containsUserID(userID)) {
 			return ADD_ID_USED;
 		} else if (password.length() < MIN_PASSWORD_LENGTH) {
 			return ADD_SMALL_PASSWORD;
 		} else if (containsEmail(email)) {
+			System.out.println(email);
 			return ADD_EMAIL_USED;
 		} else {
 			String hashedPw = hashPw(password);
 			try {
+				System.out.println("bla");
 				stmt.executeUpdate("insert into " + MyDBInfo.USER_TABLE
 						+ " values('" + userID + "', '" + hashedPw + "', '"
-						+ name + "', '" + lastname + "', '" + email + "', "
+						+ email + "', "
 						+ admin + ", 0);");
 				return ADD_SUCCESSFUL;
 			} catch (SQLException e) {
@@ -129,28 +128,7 @@ public class ProfileManager {
 		return hashedPw;
 	}
 
-	/**
-	 *  returns name of user
-	 * @param userID
-	 * @return String name
-	 */
-	public String getName(String userID) {
-		String name = (String) getContentByID("name", userID,
-				MyDBInfo.USER_TABLE);
-		return name;
-	}
-
-	/**
-	 *  returns last name of user
-	 * @param String userID
-	 * @return String lasname
-	 */
-	public String getLastName(String userID) {
-		String lastname = (String) getContentByID("lastname", userID,
-				MyDBInfo.USER_TABLE);
-		return lastname;
-	}
-
+	
 	/**
 	 *  returns email of user
 	 * @param String userID

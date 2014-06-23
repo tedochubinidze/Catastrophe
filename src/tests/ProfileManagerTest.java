@@ -18,15 +18,13 @@ public class ProfileManagerTest {
 	@Test
 	public void test() {
 		assertEquals(ProfileManager.ADD_SUCCESSFUL, manager.addUser("user1",
-				"123123", "name1", "lastname1", "email1", false));
+				"123123", "email1", false));
 	}
 
 	// test for getters
 	@Test
 	public void test2() {
 		assertEquals("123123", manager.getHashedPassword(userID));
-		assertEquals("name1", manager.getName(userID));
-		assertEquals("lastname1", manager.getLastName(userID));
 		assertEquals("email1", manager.getEmail(userID));
 		assertEquals(false, manager.getAdmin(userID));
 	}
@@ -35,11 +33,11 @@ public class ProfileManagerTest {
 	@Test
 	public void test3() {
 		assertEquals(ProfileManager.ADD_ID_USED, manager.addUser("user1", "123123",
-				"name2", "lastname2", "email2", false));
+			 "email2", false));
 		assertEquals(ProfileManager.ADD_EMAIL_USED, manager.addUser("user2", "123123",
-				"name2", "lastname2", "email1", false));
+				 "email1", false));
 		assertEquals(ProfileManager.ADD_SMALL_PASSWORD, manager.addUser("user3", "3",
-				"name3", "lastname3", "email3", false));
+				 "email3", false));
 	}
 	
 	// check for account and email existence

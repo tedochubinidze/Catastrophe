@@ -5,15 +5,28 @@ import java.sql.Timestamp;
 public class Comment {
 
 	// Instance variables
-	public User user;
-	public String text;
-	public Timestamp timestamp;
+	private User user;
+	private String text;
+	private Timestamp timestamp;
 
 	// Public constructor for this type.
 	public Comment(User user, String text, Timestamp timestamp) {
 		this.user = user;
 		this.text = text;
 		this.timestamp = timestamp;
+	}
+	
+	public String getUserId(){
+		return user.getID();
+		
+	}
+	
+	public String getText(){
+		return text;
+	}
+	
+	public Timestamp getTimestamp(){
+		return timestamp;
 	}
 
 	// My version of toString for comments.
