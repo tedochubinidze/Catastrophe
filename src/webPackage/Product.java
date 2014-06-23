@@ -28,12 +28,13 @@ public class Product {
 					MyDBInfo.MYSQL_PASSWORD);
 			stmt = con.createStatement();
 			stmt.executeQuery("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
+			getProductByID(productID);
+			con.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		getProductByID(productID);
 	}
 
 	// this method takes User Info from database with given ID

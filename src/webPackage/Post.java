@@ -49,12 +49,13 @@ public class Post {
 					MyDBInfo.MYSQL_PASSWORD);
 			stmt = con.createStatement();
 			stmt.executeQuery("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
+			getPostByID(postID);
+			con.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		getPostByID(postID);
 	}
 
 	// this method takes User Info from database with given ID

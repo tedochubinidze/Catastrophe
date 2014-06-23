@@ -19,32 +19,41 @@ public class PostManager {
 	private static String password = MyDBInfo.MYSQL_PASSWORD;
 	private static String server = MyDBInfo.MYSQL_DATABASE_SERVER;
 	private static String database = MyDBInfo.MYSQL_DATABASE_NAME;
-	private static Statement stmt, stmt2;
+	private Statement stmt, stmt2;
+	private Connection con;
 
 	private static final int MAX_N_POSTS = 20;
 
 	public PostManager() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://"
-					+ server, account, password);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void getConnection() {
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://" + server,
+					account, password);
 			stmt = con.createStatement();
 			stmt.executeQuery("USE " + database);
 			stmt2 = con.createStatement();
 			stmt2.executeQuery("USE " + database);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 *  Returns the array of recent posts(array can be resized)
+	 * Returns the array of recent posts(array can be resized)
+	 * 
 	 * @return ArrayList recentPosts
 	 */
-	 
+
 	public ArrayList<Post> getRecentPosts() {
+		getConnection();
 		ArrayList<Post> ls = new ArrayList<Post>();
 		ResultSet rs;
 		try {
@@ -59,6 +68,7 @@ public class PostManager {
 						rs.getBoolean(11), ls2);
 				ls.add(post);
 			}
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -67,10 +77,12 @@ public class PostManager {
 
 	/**
 	 * Returns the array of popular posts(array can be resized)
+	 * 
 	 * @return ArrayList popularPosts
 	 */
-	 
+
 	public ArrayList<Post> getPopularPosts() {
+		getConnection();
 		ArrayList<Post> ls = new ArrayList<Post>();
 		ResultSet rs;
 		try {
@@ -86,6 +98,7 @@ public class PostManager {
 						rs.getBoolean(11), ls2);
 				ls.add(post);
 			}
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -93,6 +106,7 @@ public class PostManager {
 	}
 
 	public ArrayList<Comment> getComments(int postID) {
+		getConnection();
 		ArrayList<Comment> ls = new ArrayList<Comment>();
 		ResultSet tmp;
 		try {
@@ -103,6 +117,7 @@ public class PostManager {
 						tmp.getString(3), tmp.getTimestamp(4));
 				ls.add(cm);
 			}
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -110,11 +125,13 @@ public class PostManager {
 	}
 
 	/**
-	 *  returns Arraylist of popular posts by particular user
+	 * returns Arraylist of popular posts by particular user
+	 * 
 	 * @param userID
 	 * @return ArrayList recentPosts
 	 */
 	public ArrayList<Post> getRecentPostsByUser(String userID) {
+		getConnection();
 		ArrayList<Post> ls = new ArrayList<Post>();
 		ResultSet rs;
 		try {
@@ -131,6 +148,7 @@ public class PostManager {
 						rs.getBoolean(11), ls2);
 				ls.add(posts);
 			}
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -138,11 +156,13 @@ public class PostManager {
 	}
 
 	/**
-	 *  returns Arraylist of recent posts by particular user
+	 * returns Arraylist of recent posts by particular user
+	 * 
 	 * @param userID
 	 * @return ArrayList popularPosts
 	 */
 	public ArrayList<Post> getPopularPostsByUser(String userID) {
+		getConnection();
 		ArrayList<Post> ls = new ArrayList<Post>();
 		ResultSet rs;
 		try {
@@ -159,6 +179,7 @@ public class PostManager {
 						rs.getBoolean(11), ls2);
 				ls.add(posts);
 			}
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -166,7 +187,8 @@ public class PostManager {
 	}
 
 	/**
-	 *  Adds post into DB
+	 * Adds post into DB
+	 * 
 	 * @param authorID
 	 * @param timestamp
 	 * @param title
@@ -177,6 +199,7 @@ public class PostManager {
 	 */
 	public int addPost(String authorID, Timestamp timestamp, String title,
 			String status, String attachment, String type) {
+		getConnection();
 		try {
 			stmt.executeUpdate(
 					"insert into "
@@ -191,7 +214,7 @@ public class PostManager {
 			if (rs != null && rs.next()) {
 				id = rs.getInt(1);
 			}
-			;
+			con.close();
 			return id;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -201,11 +224,13 @@ public class PostManager {
 
 	/**
 	 * User with ID-userID likes post with ID-postID
+	 * 
 	 * @param postID
 	 * @param userID
 	 */
-	 
+
 	public void likePost(int postID, String userID) {
+		getConnection();
 		try {
 			if (dislikesPost(userID, postID)) {
 				stmt.executeUpdate("delete from disliked_post where userID = '"
@@ -219,6 +244,7 @@ public class PostManager {
 				stmt.executeUpdate("update post set likeCount = likeCount + 1 where postID = "
 						+ postID + ";");
 			}
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -226,34 +252,43 @@ public class PostManager {
 
 	/**
 	 * Checks whether user with ID-userId likes post with ID-postID
-	 * @param String userID
-	 * @param Integer postID
+	 * 
+	 * @param String
+	 *            userID
+	 * @param Integer
+	 *            postID
 	 * @return boolean likes
 	 */
-	 
-	 
+
 	public boolean likesPost(String userID, int postID) {
 		return getLikeInfo(userID, postID, MyDBInfo.LIKE_TABLE);
 	}
 
 	/**
 	 * Checks whether user with ID-userId dislikes post with ID-postID
-	 * @param String userID
-	 * @param Integer postID
+	 * 
+	 * @param String
+	 *            userID
+	 * @param Integer
+	 *            postID
 	 * @return boolean dislikesPost
 	 */
-	 
+
 	public boolean dislikesPost(String userID, int postID) {
 		return getLikeInfo(userID, postID, MyDBInfo.DISLIKE_TABLE);
 	}
 
 	/**
 	 * User with ID-userID dislikes post with ID-postID
-	 * @param Integer postID
-	 * @param String userID
+	 * 
+	 * @param Integer
+	 *            postID
+	 * @param String
+	 *            userID
 	 */
-	 
+
 	public void dislikePost(int postID, String userID) {
+		getConnection();
 		try {
 			if (likesPost(userID, postID)) {
 				stmt.executeUpdate("delete from liked_post where userID = '"
@@ -269,20 +304,28 @@ public class PostManager {
 						+ " set dislikeCount = dislikeCount + 1 where postID = "
 						+ postID + ";");
 			}
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 *  User with ID-userID comments on post with ID-postID. Time and text included
-	 * @param Integer postID
-	 * @param String userID
-	 * @param String Text
-	 * @param Timestamp timestamp
+	 * User with ID-userID comments on post with ID-postID. Time and text
+	 * included
+	 * 
+	 * @param Integer
+	 *            postID
+	 * @param String
+	 *            userID
+	 * @param String
+	 *            Text
+	 * @param Timestamp
+	 *            timestamp
 	 */
 	public void addComment(int postID, String userID, String Text,
 			Timestamp timestamp) {
+		getConnection();
 		try {
 			stmt.executeUpdate("insert into " + MyDBInfo.COMMENT_TABLE
 					+ " values (" + postID + ", '" + userID + "', '" + Text
@@ -290,6 +333,7 @@ public class PostManager {
 			stmt.executeUpdate("update " + MyDBInfo.POST_TABLE
 					+ " set commentCount = commentCount + 1 where postID = "
 					+ postID + ";");
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -297,12 +341,14 @@ public class PostManager {
 
 	/**
 	 * Checks whether the user with ID-userID likes the post with ID-postID
+	 * 
 	 * @param userID
 	 * @param postID
 	 * @param table
 	 * @return boolean likes/dislikes
 	 */
 	private boolean getLikeInfo(String userID, int postID, String table) {
+		getConnection();
 		ResultSet rs;
 		int x = 0;
 		try {
@@ -311,6 +357,7 @@ public class PostManager {
 					+ ";");
 			while (rs.next())
 				x = rs.getInt("count(postID)");
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

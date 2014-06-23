@@ -15,20 +15,27 @@ public class ProfileManager {
 	private static String password = MyDBInfo.MYSQL_PASSWORD;
 	private static String server = MyDBInfo.MYSQL_DATABASE_SERVER;
 	private static String database = MyDBInfo.MYSQL_DATABASE_NAME;
-	private static Statement stmt;
+	private Statement stmt;
+	private Connection con;
 
 	private static final int MIN_PASSWORD_LENGTH = 5;
 
 	public ProfileManager() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://"
-					+ server, account, password);
-			stmt = con.createStatement();
-			stmt.executeQuery("USE " + database);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void getConnection() {
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://" + server,
+					account, password);
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -40,31 +47,52 @@ public class ProfileManager {
 	public static final String ADD_UNSUCCESSFUL = "Error while creating account";
 
 	/**
-	 *  adds user to database, returns particular string depending on success
+	 * adds user to database, returns particular string depending on success
+	 * 
 	 * @param userID
 	 * @param password
 	 * @param email
 	 * @param admin
 	 * @return int success/failed
 	 */
-	public String addUser(String userID, String password, String email, boolean admin) {
+	public String addUser(String userID, String password, String email,
+			boolean admin) {
+		getConnection();
 		if (containsUserID(userID)) {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return ADD_ID_USED;
 		} else if (password.length() < MIN_PASSWORD_LENGTH) {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return ADD_SMALL_PASSWORD;
 		} else if (containsEmail(email)) {
-			System.out.println(email);
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return ADD_EMAIL_USED;
 		} else {
 			String hashedPw = hashPw(password);
 			try {
-				System.out.println("bla");
 				stmt.executeUpdate("insert into " + MyDBInfo.USER_TABLE
 						+ " values('" + userID + "', '" + hashedPw + "', '"
-						+ email + "', "
-						+ admin + ", 0);");
+						+ email + "', " + admin + ", 0);");
+				con.close();
 				return ADD_SUCCESSFUL;
 			} catch (SQLException e) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				e.printStackTrace();
 				return ADD_UNSUCCESSFUL;
 			}
@@ -72,9 +100,10 @@ public class ProfileManager {
 	}
 
 	/**
-	 *  checks if userID is already in database
+	 * checks if userID is already in database
+	 * 
 	 * @param userID
-	 * @return boolean successful 
+	 * @return boolean successful
 	 */
 	public boolean containsUserID(String userID) {
 		boolean bool = false;
@@ -95,9 +124,11 @@ public class ProfileManager {
 	}
 
 	/**
-	 *  checks if email is already used by another account
-	 * @param String email
-	 * @return boolean 
+	 * checks if email is already used by another account
+	 * 
+	 * @param String
+	 *            email
+	 * @return boolean
 	 */
 	public boolean containsEmail(String email) {
 		boolean bool = false;
@@ -118,7 +149,8 @@ public class ProfileManager {
 	}
 
 	/**
-	 *  returns hashed password of user
+	 * returns hashed password of user
+	 * 
 	 * @param userID
 	 * @return String hashedPass
 	 */
@@ -128,10 +160,11 @@ public class ProfileManager {
 		return hashedPw;
 	}
 
-	
 	/**
-	 *  returns email of user
-	 * @param String userID
+	 * returns email of user
+	 * 
+	 * @param String
+	 *            userID
 	 * @return String email
 	 */
 	public String getEmail(String userID) {
@@ -141,8 +174,10 @@ public class ProfileManager {
 	}
 
 	/**
-	 *  returns type(Administrator, User) of user
-	 * @param String userID
+	 * returns type(Administrator, User) of user
+	 * 
+	 * @param String
+	 *            userID
 	 * @return boolean isAdmin
 	 */
 	public boolean getAdmin(String userID) {
@@ -152,8 +187,10 @@ public class ProfileManager {
 	}
 
 	/**
-	 *  returns catastrophe points that user has
-	 * @param String userID
+	 * returns catastrophe points that user has
+	 * 
+	 * @param String
+	 *            userID
 	 * @return Integer points
 	 */
 	public Integer getPoints(String userID) {
@@ -163,50 +200,66 @@ public class ProfileManager {
 	}
 
 	/**
-	 *  sets users's CP to points
-	 * @param String userID
-	 * @param Integer points
+	 * sets users's CP to points
+	 * 
+	 * @param String
+	 *            userID
+	 * @param Integer
+	 *            points
 	 */
 	public void setPoints(String userID, int points) {
+		getConnection();
 		try {
 			stmt.executeUpdate("update " + MyDBInfo.USER_TABLE
 					+ " set points = " + points + " where userID = '" + userID
 					+ "';");
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 *  adds some points to user CP
-	 * @param String userID
-	 * @param Integer points
+	 * adds some points to user CP
+	 * 
+	 * @param String
+	 *            userID
+	 * @param Integer
+	 *            points
 	 */
 	public void addPoints(String userID, int points) {
+		getConnection();
 		try {
 			stmt.executeUpdate("update " + MyDBInfo.USER_TABLE
 					+ " set points = points + " + points + " where userID = '"
 					+ userID + "';");
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 *  checks if password matches user's real password
-	 * @param String userID
-	 * @param String password
+	 * checks if password matches user's real password
+	 * 
+	 * @param String
+	 *            userID
+	 * @param String
+	 *            password
 	 * @return boolean
 	 */
 	public boolean checkInfo(String userID, String password) {
+		getConnection();
 		ResultSet rs;
 		try {
 			rs = stmt
 					.executeQuery("select password from " + MyDBInfo.USER_TABLE
 							+ " where userID = '" + userID + "';");
 			String hashedPw = "";
-			while (rs.next())
+			while (rs.next()) {
 				hashedPw = rs.getString("password");
+				con.close();
+			}
 			if (hashedPw.equals(hashPw(password)))
 				return true;
 			else
@@ -217,16 +270,19 @@ public class ProfileManager {
 		}
 	}
 
-	
-
 	/**
-	 *  returns different content by parameters: column and id value
-	 * @param String column
-	 * @param String userID
-	 * @param String table
+	 * returns different content by parameters: column and id value
+	 * 
+	 * @param String
+	 *            column
+	 * @param String
+	 *            userID
+	 * @param String
+	 *            table
 	 * @return Object content
 	 */
 	private Object getContentByID(String column, String userID, String table) {
+		getConnection();
 		ResultSet rs;
 		Object val = null;
 		try {
@@ -234,6 +290,7 @@ public class ProfileManager {
 					+ " where userID = '" + userID + "'");
 			while (rs.next())
 				val = rs.getObject(1);
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

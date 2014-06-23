@@ -56,14 +56,12 @@ public class User {
 					MyDBInfo.MYSQL_PASSWORD);
 			stmt = con.createStatement();
 			stmt.executeQuery("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
+			hashPassword(password);
+			getUserByID(userID);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		getUserByID(userID);
-		try {
-			hashPassword(password);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
