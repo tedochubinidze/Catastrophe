@@ -402,4 +402,16 @@ public class PostManager {
 		return x != 0;
 	}
 
+	public Integer getLastID(){
+		ResultSet rs;
+		int lastID = -1;
+		try {
+			rs= stmt.executeQuery("SELECT MAX(postID) FROM " + MyDBInfo.POST_TABLE + ";");
+			lastID = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lastID;
+	}
 }
