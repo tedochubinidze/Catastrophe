@@ -23,6 +23,7 @@ public class Cart {
 			if (product.equals(products.get(i))) {
 				products.remove(i);
 				price -= product.getPrice();
+				i--;
 			}
 		}
 	}

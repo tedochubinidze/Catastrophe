@@ -9,7 +9,8 @@ import java.sql.Statement;
 public class Product {
 	private int ID, price;
 	private String title, image, description;
-	private static Statement stmt;
+	private Statement stmt;
+	private Connection con;
 
 	public Product(Integer ID, String title, int price, String image,
 			String description) {
@@ -23,13 +24,12 @@ public class Product {
 	public Product(int productID) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://"
+			con = DriverManager.getConnection("jdbc:mysql://"
 					+ MyDBInfo.MYSQL_DATABASE_SERVER, MyDBInfo.MYSQL_USERNAME,
 					MyDBInfo.MYSQL_PASSWORD);
 			stmt = con.createStatement();
 			stmt.executeQuery("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
 			getProductByID(productID);
-			con.close();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -50,6 +50,7 @@ public class Product {
 				this.image = rs.getString(4);
 				this.description = rs.getString(5);
 			}
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -88,13 +88,7 @@ public class ProductManager {
 	public void addProductToCart(String userID, Product product) {
 		getConnection();
 		try {
-			ResultSet rs;
-			int cartID = 0;
-			rs = stmt.executeQuery("select cartID from " + MyDBInfo.CART_TABLE
-					+ " where userID = '" + userID + "';");
-			while (rs.next()) {
-				cartID = rs.getInt(1);
-			}
+			int cartID = getCartID(userID);
 			stmt.executeUpdate("insert into " + MyDBInfo.CART_PRODUCT_TABLE
 					+ " values(" + cartID + ", " + product.getID() + ");");
 			stmt.executeUpdate("update " + MyDBInfo.CART_TABLE
@@ -104,5 +98,34 @@ public class ProductManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void removeProductFromCart(String userID, Product product) {
+		getConnection();
+		try {
+			int cartID = getCartID(userID);
+			stmt.executeUpdate("delete from " + MyDBInfo.CART_PRODUCT_TABLE
+					+ " where cartID = " + cartID + " and productID = "
+					+ product.getID() + ";");
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private int getCartID(String userID) {
+		ResultSet rs;
+		int cartID = 0;
+		try {
+			rs = stmt.executeQuery("select cartID from " + MyDBInfo.CART_TABLE
+					+ " where userID = '" + userID + "';");
+			while (rs.next()) {
+				cartID = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cartID;
 	}
 }
