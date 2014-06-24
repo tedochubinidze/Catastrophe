@@ -151,6 +151,7 @@ public class ProductManager {
 						+ "(orderID, productID) values(" + id + ", "
 						+ p.getID() + ");");
 			}
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -165,8 +166,8 @@ public class ProductManager {
 			rs = stmt.executeQuery("select * from " + MyDBInfo.ORDER_TABLE
 					+ ";");
 			while (rs.next()) {
-				Order order = new Order(rs.getString(2), rs.getString(4),
-						rs.getTimestamp(3));
+				Order order = new Order(rs.getInt(1), rs.getString(2),
+						rs.getString(4), rs.getTimestamp(3));
 				ls.add(order);
 			}
 			con.close();
@@ -176,4 +177,28 @@ public class ProductManager {
 		return ls;
 	}
 
+	public void deleteOrder(int orderID) {
+		getConnection();
+		try {
+			stmt.executeUpdate("delete from " + MyDBInfo.ORDER_PRODUCT_TABLE
+					+ " where orderID = " + orderID + ";");
+			stmt.executeUpdate("delete from " + MyDBInfo.ORDER_TABLE
+					+ " where orderID = " + orderID + ";");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void cleanCart(String userID) {
+		getConnection();
+		try {
+			int cartID = getCartID(userID);
+			stmt.executeUpdate("delete from " + MyDBInfo.CART_PRODUCT_TABLE
+					+ " where cartID = " + cartID + ";");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

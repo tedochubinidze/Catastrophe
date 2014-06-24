@@ -186,6 +186,11 @@ public class User {
 	public Cart getCart() {
 		return cart;
 	}
+	
+	public void addPoints(int points) {
+		this.points += points;
+		profManager.addPoints(this.ID, points);
+	}
 
 	@Override
 	public boolean equals(Object obj) {
