@@ -191,7 +191,7 @@ public class ProfileManager {
 	 * @return boolean isAdmin
 	 */
 	public boolean getAdmin(String userID) {
-		boolean bool = (boolean) getContentByID("admin", userID,
+		boolean bool = (Boolean) getContentByID("admin", userID,
 				MyDBInfo.USER_TABLE);
 		return bool;
 	}

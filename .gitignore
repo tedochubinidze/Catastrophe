@@ -46,3 +46,4 @@ Icon
 *.component
 *.prefs
 /build
+/bin

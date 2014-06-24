@@ -42,7 +42,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 
-import sun.net.www.http.HttpClient;
 import webPackage.User;
 
 /**
