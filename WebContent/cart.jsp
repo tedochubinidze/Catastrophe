@@ -73,7 +73,7 @@ body {
 						<ul>
 							<%
 								User user = (User) request.getSession().getAttribute("currentUser");
-																																																																																			if (user == null) {
+																																																																																																		if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
@@ -142,6 +142,13 @@ body {
 
 	<div id="main">
 		<div class="wrap cf archive-wrap">
+			<%
+				if (user == null) {
+			%>
+			<h1>Login To Use this feature</h1>
+			<%
+				} else {
+			%>
 
 			<div id="entry-header">
 				<div class="inner">
@@ -173,7 +180,7 @@ body {
 								<div class="nag cf">
 									<%
 										ArrayList<Product> prods = cart.getProducts();
-										for (Product tmpP : prods) {
+											for (Product tmpP : prods) {
 									%>
 
 									<div id="post"
@@ -213,12 +220,6 @@ body {
 													value="Remove"> <input type="hidden"
 													name="productID" value=<%=tmpP.getID()%>>
 											</form>
-											<form action="ChangeQuantityServlet" method="post">
-												<input type="text" name="quantity"> <input
-													class="button btn-primary" id="submit" type="submit"
-													value="Change"> <input type="hidden"
-													name="productID" value=<%=tmpP.getID()%>>
-											</form>
 											</p>
 										</div>
 									</div>
@@ -226,6 +227,12 @@ body {
 									<%
 										}
 									%>
+									<form action="MakeOrderServlet" method="post">
+										<h3>Fill in your address</h3>
+										<input type="text" name="address"> <input
+											class="button btn-primary" id="submit" type="submit"
+											value="Make Order">
+									</form>
 								</div>
 							</div>
 							<!-- end .section-content -->
@@ -240,7 +247,9 @@ body {
 				<!--end .hentry-->
 
 			</div>
-
+			<%
+				}
+			%>
 
 
 		</div>
