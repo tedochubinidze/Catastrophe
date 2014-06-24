@@ -23,7 +23,6 @@ public class Cart {
 			if (product.equals(products.get(i))) {
 				products.remove(i);
 				price -= product.getPrice();
-				i--;
 			}
 		}
 	}
@@ -34,6 +33,11 @@ public class Cart {
 
 	public ArrayList<Product> getProducts() {
 		return products;
+	}
+	
+	public void cleanCart() {
+		products.clear();
+		price = 0;
 	}
 
 	@Override

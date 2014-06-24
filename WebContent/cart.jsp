@@ -262,6 +262,10 @@ body {
 									<%
 										}
 									%>
+									<form action="CleanCartServlet" method="post">
+										<input class="button btn-primary" id="submit" type="submit"
+											value="Clean Cart">
+									</form>
 									<form action="MakeOrderServlet" method="post">
 										<h3>Fill in your address</h3>
 										<input type="text" name="address"> <input
