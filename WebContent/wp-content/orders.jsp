@@ -2,6 +2,7 @@
 <%@page import="webPackage.User"%>
 <%@page import="managers.ProductManager"%>
 <%@page import="webPackage.Product" %>
+<%@page import="webPackage.Order" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -177,35 +178,36 @@ body {
 										.getServletContext().getAttribute("productManager");
 								ArrayList<Order> ls = manager.getOrders();
 								for (int i = 0 ; i < ls.size(); i++) {
+									Order ord = ls.get(i);
 							%>
 							<div id="post" class="post item item-post">
 								<div class="thumb">
-									<a class="clip-link" data-id="452" title=<%=p.getTitle()%>
-										href=<%="product.jsp?id=" + p.getID()%>> <span
-										class="clip"> <img src=<%="images/" + p.getImage()%>
-											alt=<%=p.getTitle()%> height="1px" width="1px"><span
+									<a class="clip-link" data-id="452" title=<%=ord.getUserID()%>
+										href=<%="order.jsp?id=" + ord.getUserID()%>> <span
+										class="clip"> <img src=<%="images/" + ord.getProducts().get(0).getImage()%>
+											alt=<%=ord.getUserID()%> height="1px" width="1px"><span
 											class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>
 									<div class="hori-like">
 										<p class="stats">
-											<span class="views"><i class="count"><%=p.getPrice()%></i>
+											<span class="views"><i class="count"><%=ord.getPrice()%></i>
 												<span class="suffix"></span></span><span class="comments"><i
 												class="count"></i> <span class="suffix"></span></span><span
 												class="jtheme-post-likes likes"><i class="count"
-												data-pid="452"><%=p.getPrice()%></i> <span class="suffix"></span></span>
+												data-pid="452"><%=ord.getPrice()%></i> <span class="suffix"></span></span>
 										</p>
 									</div>
 								</div>
 								<div class="data">
 									<h2 class="entry-title">
-										<a href=<%="product.jsp?id=" + p.getID()%> rel="bookmark"
-											title=<%=p.getTitle()%>><%=p.getTitle()%></a>
+										<a href=<%="product.jsp?id=" + ord.getUserID()%> rel="bookmark"
+											title=<%=ord.getUserID()%>><%=ord.getUserID()%></a>
 									</h2>
 
 									<p class="entry-meta">
 										<span class="stats"><span class="views"><i
-												class="count"><%=p.getPrice()%></i> </span></span>
+												class="count"><%=ord.getPrice()%></i> </span></span>
 									</p>
 								</div>
 							</div>

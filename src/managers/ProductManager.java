@@ -133,10 +133,12 @@ public class ProductManager {
 	public void makeOrder(Order order) {
 		getConnection();
 		try {
-			stmt.executeUpdate("insert into " + MyDBInfo.ORDER_TABLE
-					+ "(userID, timestamp, address) values('" + order.getUserID()
-					+ "', " + order.getTime() + ", " + order.getAddress()
-					+ ");", stmt.RETURN_GENERATED_KEYS);
+			stmt.executeUpdate(
+					"insert into " + MyDBInfo.ORDER_TABLE
+							+ "(userID, timestamp, address) values('"
+							+ order.getUserID() + "', " + order.getTime()
+							+ ", " + order.getAddress() + ");",
+					stmt.RETURN_GENERATED_KEYS);
 			ResultSet rs = stmt.getGeneratedKeys();
 			int id = 0;
 			if (rs != null && rs.next()) {
@@ -148,9 +150,28 @@ public class ProductManager {
 						+ "(orderID, itemID) values(" + id + ", " + p.getID()
 						+ ");");
 			}
-		}  catch (SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public ArrayList<Order> getOrders() {
+		getConnection();
+		ArrayList<Order> ls = new ArrayList<Order>();
+		ResultSet rs;
+		try {
+			rs = stmt.executeQuery("select * from " + MyDBInfo.ORDER_TABLE
+					+ ";");
+			while (rs.next()) {
+				Order order = new Order(rs.getString(1), rs.getString(2),
+						rs.getTimestamp(3));
+				ls.add(order);
+			}
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ls;
 	}
 }
