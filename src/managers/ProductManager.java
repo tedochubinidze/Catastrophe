@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import webPackage.Comment;
 import webPackage.MyDBInfo;
+import webPackage.Order;
 import webPackage.Post;
 import webPackage.Product;
 
@@ -131,20 +132,25 @@ public class ProductManager {
 
 	public void makeOrder(Order order) {
 		getConnection();
-		stmt.executeUpdate("insert into " + MyDBInfo.ORDER_TABLE
-				+ "(userID, timestamp, address) values('" + order.getUserID()
-				+ "', " + order.getTimeStamp() + ", " + order.getAddress()
-				+ ");", stmt.RETURN_GENERATED_KEYS);
-		ResultSet rs = stmt.getGeneratedKeys();
-		int id = 0;
-		if (rs != null && rs.next()) {
-			id = rs.getInt(1);
-		}
-		ArrayList<Product> ls = order.getProducts();
-		for (Product p : ls) {
-			stmt.executeUpdate("insert into " + MyDBInfo.CART_PRODUCT_TABLE
-					+ "(orderID, itemID) values(" + id + ", " + p.getID()
-					+ ");");
+		try {
+			stmt.executeUpdate("insert into " + MyDBInfo.ORDER_TABLE
+					+ "(userID, timestamp, address) values('" + order.getUserID()
+					+ "', " + order.getTime() + ", " + order.getAddress()
+					+ ");", stmt.RETURN_GENERATED_KEYS);
+			ResultSet rs = stmt.getGeneratedKeys();
+			int id = 0;
+			if (rs != null && rs.next()) {
+				id = rs.getInt(1);
+			}
+			ArrayList<Product> ls = order.getProducts();
+			for (Product p : ls) {
+				stmt.executeUpdate("insert into " + MyDBInfo.CART_PRODUCT_TABLE
+						+ "(orderID, itemID) values(" + id + ", " + p.getID()
+						+ ");");
+			}
+		}  catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
