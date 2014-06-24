@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="webPackage.Product"%>
 <%@page import="managers.ProductManager"%>
 <%@page import="webPackage.Post"%>
 <%@page import="java.util.ArrayList"%>
@@ -20,7 +21,6 @@
 	String id = (String) request.getParameter("id");
 	User visitedUser = new User(id);
 	ProductManager productManager = (ProductManager) request.getServletContext().getAttribute("productManager");
-	System.out.println(productManager.getRecentUserProducts(user.getID()));
 %>
 <title><%=visitedUser.getID() + "'s Page"%></title>
 
@@ -72,11 +72,11 @@ body {
 							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
 							<li class="acti2"><a href="login.jsp">Login</a></li>
-						</ul>
-						<%
-							} else {
-						%>
-						<ul>
+
+							<%
+								} else {
+							%>
+
 							<li class="acti1"><a href=<%="user.jsp?id=" + user.getID()%>>Hello,
 									<%=user.getID()%></a></li>
 							<li class="acti2"><form name="Test" action="LogoutServlet"
@@ -343,45 +343,90 @@ body {
 				<!-- end .loop-content -->
 				<br />
 			</div>
+			<div id="sidebar">
+
+				<div class="border-sep widget widget_border masonry-brick"
+					style="margin: 0px"></div>
+				<div id="jtheme-widget-posts-2" class="widget widget-posts">
+					<div class="widget-header">
+						<h3 class="widget-title">Recenty Bought Product</h3>
+					</div>
+					<%
+						ArrayList<Product> arr;
+						arr = productManager.getRecentUserProducts(visitedUser.getID());
+						for (int i = 0; i < arr.size(); i++) {
+							Product tmpP = arr.get(i);
+					%>
+					<ul class="post-list">
+						<li class="item cf item-post">
+
+							<div class="thumb">
+								<a class="clip-link" data-id=<%=tmpP.getID()%>
+									title=<%=tmpP.getTitle()%>
+									href=<%="product.jsp?id=" + tmpP.getID()%>> <span
+									class="clip"> <img src=<%="images/" + tmpP.getImage()%>
+										alt=<%=tmpP.getTitle()%> /><span class="vertical-align"></span>
+								</span> <span class="overlay"></span>
+								</a>
+							</div>
+							<div class="data">
+								<h4 class="entry-title">
+									<a href=<%="product.jsp?id=" + tmpP.getID()%>
+										title=<%=tmpP.getTitle()%>><%=tmpP.getTitle()%></a>
+								</h4>
+
+								<p class="meta">
+									<span class="time"><%=tmpP.getPrice()%></span>
+								</p>
+							</div>
+						</li>
+						<%
+							}
+						%>
+					</ul>
+
+				</div>
+			</div>
 		</div>
 
-		<!-- end #main -->
+
+	</div>
+	<!-- end #main -->
 
 
 
 
-		<footer id="footer">
-			<div id="footbar" class="footbar-c4" data-layout="c4">
-				<div class="wrap cf">
-					<div id="footbar-inner" class="">
-						<div id="text-2" class="widget widget_text">
-							<div class="widget-header">
-								<h3 class="widget-title">Catastrophe.Ge</h3>
-							</div>
-							<div class="textwidget">Post, have some fun and win prizes!</div>
+	<footer id="footer">
+		<div id="footbar" class="footbar-c4" data-layout="c4">
+			<div class="wrap cf">
+				<div id="footbar-inner" class="">
+					<div id="text-2" class="widget widget_text">
+						<div class="widget-header">
+							<h3 class="widget-title">Catastrophe.Ge</h3>
 						</div>
+						<div class="textwidget">Post, have some fun and win prizes!</div>
 					</div>
 				</div>
 			</div>
-			<!-- end #footbar -->
+		</div>
+		<!-- end #footbar -->
 
-			<div id="colophon" role="contentinfo">
-				<div class="wrap cf">
+		<div id="colophon" role="contentinfo">
+			<div class="wrap cf">
 
 
-					<p id="copyright">
-						Copyright 2014 © <a href="index.jsp">Catastrophe.ge</a> .
-					</p>
-					<p id="credits">
-						All Content From <a target="_blank" href="index.jsp">Catastrophe.ge</a>
-					</p>
-				</div>
+				<p id="copyright">
+					Copyright 2014 © <a href="index.jsp">Catastrophe.ge</a> .
+				</p>
+				<p id="credits">
+					All Content From <a target="_blank" href="index.jsp">Catastrophe.ge</a>
+				</p>
 			</div>
-			<!-- end #colophon -->
-		</footer>
-		<!-- end #footer -->
-		<!-- end #page -->
-	</div>
+		</div>
+		<!-- end #colophon -->
+	</footer>
+	<!-- end #footer -->
+	<!-- end #page -->
 
 
 

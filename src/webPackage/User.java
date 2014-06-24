@@ -21,7 +21,7 @@ public class User {
 	private String email;
 	private Cart cart;
 
-	private static Statement stmt;
+	private Statement stmt;
 	private ProfileManager profManager;
 	private PostManager postManager;
 	private static MessageDigest mg;
