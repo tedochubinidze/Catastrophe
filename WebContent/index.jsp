@@ -191,7 +191,7 @@ body {
 										href=<%="post.jsp?id=" + p.getID()%>> <span class="clip">
 											<img <%if (p.getType().equals("image")) {%>
 											src=<%="images/" + p.getAttachment()%> <%} else {%>
-											src=<%="images/" + "120430.gif"%> <%}%>
+											src=<%="images/" + "hatsoff.gif"%> <%}%>
 											alt=<%=p.getTitle()%>><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>

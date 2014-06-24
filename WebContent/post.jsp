@@ -257,7 +257,7 @@ body {
 										
 										 <video id="MY_VIDEO_1" class="video-js vjs-default-skin" controls
 												preload="auto" width="870" height="500"
-												poster="images/120430.gif" data-setup="{}" >
+												poster="images/hatsoff.gif" data-setup="{}" >
 												<source src="images/5-video.mp4" type='video/mp4'>
 											</video><span
 											class="vertical-align"></span>
@@ -393,7 +393,7 @@ body {
 										href=<%="post.jsp?id=" + p.getID()%>> <span class="clip">
 											<img <%if (p.getType().equals("image")) {%>
 											src=<%="images/" + p.getAttachment()%> <%} else {%>
-											src=<%="images/" + "120430.gif"%> <%}%>
+											src=<%="images/" + "hatsoff.gif"%> <%}%>
 											alt=<%=p.getTitle()%>><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>
@@ -529,9 +529,10 @@ body {
 									<a class="clip-link" data-id=<%=tmpP.getID()%>
 										title=<%=tmpP.getTitle()%>
 										href=<%="post.jsp?id=" + tmpP.getID()%>> <span
-										class="clip"> <img
-											src=<%="images/" + tmpP.getAttachment()%>
-											alt=<%=tmpP.getTitle()%> /><span class="vertical-align"></span>
+										class="clip"> <img <%if (tmpP.getType().equals("image")) {%>
+											src=<%="images/" + tmpP.getAttachment()%> <%} else {%>
+											src=<%="images/" + "hatsoff.gif"%> <%}%>
+											alt=<%=tmpP.getTitle()%>><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>
 								</div>
