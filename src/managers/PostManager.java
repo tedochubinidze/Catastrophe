@@ -249,13 +249,14 @@ public class PostManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * user with ID - userID unlikes post with ID - userID
+	 * 
 	 * @param postID
 	 * @param userID
 	 */
-	public void unlikePost(int postID, String userID){
+	public void unlikePost(int postID, String userID) {
 		getConnection();
 		try {
 			stmt.executeUpdate("delete from liked_post where userID = '"
@@ -266,16 +267,16 @@ public class PostManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
 
 	/**
 	 * user with ID - userID undislikes post with ID - userID
+	 * 
 	 * @param postID
 	 * @param userID
 	 */
-	public void unDislikePost(int postID, String userID){
+	public void unDislikePost(int postID, String userID) {
 		getConnection();
 		try {
 			stmt.executeUpdate("delete from disliked_post where userID = '"
@@ -402,16 +403,19 @@ public class PostManager {
 		return x != 0;
 	}
 
-	public Integer getLastID(){
+	public Integer getLastID() {
+		getConnection();
 		ResultSet rs;
 		int lastID = -1;
 		try {
-			rs= stmt.executeQuery("SELECT MAX(postID) FROM " + MyDBInfo.POST_TABLE + ";");
-			lastID = rs.getInt(1);
+			rs = stmt.executeQuery("SELECT MAX(postID) FROM "
+					+ MyDBInfo.POST_TABLE + ";");
+			while (rs.next())
+				lastID = rs.getInt(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return lastID;
 	}
 }

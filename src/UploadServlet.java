@@ -53,7 +53,7 @@ import webPackage.User;
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	///aq shecvale shentan ra foldershic ginda imashi rom chaagdos
+	// /aq shecvale shentan ra foldershic ginda imashi rom chaagdos
 	private static final String DATA_DIRECTORY = "C:/Users/Nikoloz/Documents/GitHub/Catastrophe/WebContent/images";
 
 	/**
@@ -80,45 +80,42 @@ public class UploadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-		
-		
-		
-//		Enumeration paramaterNames = request.getParameterNames();
-//		while(paramaterNames.hasMoreElements() ) {  
-//		       System.out.println("elementi: " + paramaterNames.nextElement());  
-//		}
-//		
-//		System.out.println(request.getParameter("textArea"));
-//		System.out.println(request.getParameter("title"));
-//		
-		
+
+		// Enumeration paramaterNames = request.getParameterNames();
+		// while(paramaterNames.hasMoreElements() ) {
+		// System.out.println("elementi: " + paramaterNames.nextElement());
+		// }
+		//
+		// System.out.println(request.getParameter("textArea"));
+		// System.out.println(request.getParameter("title"));
+		//
+
 		if (!isMultipart) {
-			
+
 			request.setAttribute("message", "Not MultiPart!!!");
 			request.getRequestDispatcher("/result.jsp").forward(request,
 					response);
 			return;
 		}
-		
-		
+
 		FileItemFactory factory = new DiskFileItemFactory();
-		
+
 		String uploadFolder = DATA_DIRECTORY;
-		
+
 		File uploadDir = new File(uploadFolder);
-		
+
 		if (!uploadDir.exists()) {
 			uploadDir.mkdir();
 		}
 
 		ServletFileUpload servUpl = new ServletFileUpload(factory);
-		
+
 		try {
-			
+
 			List items = servUpl.parseRequest(request);
-			
+
 			if (items.isEmpty()) {
 				request.setAttribute("message", "Empty List Of Items");
 				return;
@@ -126,31 +123,32 @@ public class UploadServlet extends HttpServlet {
 			Iterator iter = items.iterator();
 			int lastIDPlusOne = -1;
 			PostManager manager = new PostManager();
-			
+
 			int count = 1;
-		
-//			if(request.getParameter("title")==null)
-//				System.out.println("modefakaaaaskdjfna;wejfnal;wkefnjsjafrna");
+
+			// if(request.getParameter("title")==null)
+			// System.out.println("modefakaaaaskdjfna;wejfnal;wkefnjsjafrna");
 			String fileName;
 			String type;
-			
+
 			while (iter.hasNext()) {
-			
+
 				System.out.println("shemovidaaaaa" + count);
 				count++;
 				FileItem item = (FileItem) iter.next();
-				
+
 				if (!item.isFormField()) {
-					
-					if(items.size() < 1){
-						fileName = "No" ;
-						type = "status" ;
+
+					if (items.size() < 1) {
+						fileName = "No";
+						type = "status";
 						request.getSession().setAttribute("fileName", fileName);
 						request.getSession().setAttribute("fileType", type);
 					} else {
 						System.out.println("axla gavapren");
-						//lastIDPlusOne = manager.getLastID() + 1;
-						fileName = lastIDPlusOne + "-" + item.getName(); 
+						lastIDPlusOne = manager.getLastID() + 1;
+						System.out.println(lastIDPlusOne);
+						fileName = lastIDPlusOne + "-" + item.getName();
 						String filePath = uploadFolder + "/" + fileName;
 						String context = item.getContentType();
 						type = context.substring(0, context.indexOf('/'));
@@ -170,7 +168,7 @@ public class UploadServlet extends HttpServlet {
 		catch (Exception e) {
 			request.setAttribute("message", "File Upload Failed To " + e);
 		}
-		
+
 		request.getRequestDispatcher("/status.jsp").forward(request, response);
 	}
 
