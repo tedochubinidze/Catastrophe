@@ -102,6 +102,41 @@ body {
 						%>
 					</div>
 					<!-- end #header-search -->
+					<%
+					if(user!= null){
+					%>
+					<div class="tnav">
+						<nav class="nav-collapse">
+							<ul id="menu-header" class="menu">
+								<%
+								if(user.isAdmin()){
+								%>
+								<li id="product"
+									class="add product">
+									<a href="addP.jsp">Add Product</a>
+								</li>
+								<li id="cart"
+									class="view cart">
+									<a href="orders.jsp">View Orders</a>
+								</li>
+								<%
+								}
+								%>
+								<li id="post"
+									class="add post">
+									<a href="addFile.jsp">Add Post</a>
+								</li>
+								<li id="cart"
+									class="view cart">
+									<a href="cart.jsp">View Cart</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<%
+					}
+					%>
+					
 					<!-- end #Top-nav -->
 					<div class="clear"></div>
 				</div>

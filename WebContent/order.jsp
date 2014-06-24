@@ -1,6 +1,7 @@
+<%@page import="webPackage.Product"%>
 <%@page import="webPackage.Post"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="managers.PostManager"%>
+<%@page import="managers.ProfileManager"%>
 <%@page import="webPackage.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -71,7 +72,7 @@ body {
 						<ul>
 							<%
 								User user = (User) request.getSession().getAttribute("currentUser");
-																							if (user == null) {
+																		if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
@@ -92,12 +93,9 @@ body {
 									</script>
 									<a href="javascript:update()">Logout</a>
 								</form></li>
-
-
 						</ul>
 						<%
 							}
-																							
 						%>
 					</div>
 					<!-- end #header-search -->
@@ -112,7 +110,7 @@ body {
 								%>
 								<li id="product"
 									class="add product">
-									<a href="addProduct.jsp">Add Product</a>
+									<a href="addP.jsp">Add Product</a>
 								</li>
 								<li id="cart"
 									class="view cart">
@@ -135,6 +133,7 @@ body {
 					<%
 					}
 					%>
+					
 					<!-- end #Top-nav -->
 					<div class="clear"></div>
 				</div>
@@ -174,61 +173,55 @@ body {
 	<!-- end #main-nav -->
 
 
-
+							<%
+								String userID = request.getParameter("id");
+								
+							%>
 	<div id="main" class="home-temp">
 		<div class="wrap cf home-content">
 			<div id="content">
 				<div class="section-box">
 					<div class="section-header">
 						<h2 class="section-title">
-							<span class="name">Most Viewed</span>
+							<span class="name">Products ordered by <%=userID %></span>
 						</h2>
 					</div>
-					<div class="section-content grid-small">
+					<div class="section-content grid-medium">
 						<div class="nag cf">
 							<%
-								PostManager manager = (PostManager) request.getServletContext()
-										.getAttribute("postManager");
-								ArrayList<Post> ls = manager.getPopularPosts();
-								for (Post p : ls) {
+							User tmp = new User(userID);
+							
+							ArrayList<Product> ls = user.getCart().getProducts();
+							for (Product p : ls) {
 							%>
-							<div id="post" <%if (p.getType().equals("video")) {%>
-								class="post item item-video" <%} else {%>
-								class="post item item-post" <%}%>>
+							<div id="post" class="post item item-post">
 								<div class="thumb">
-									<a class="clip-link" title=<%=p.getTitle()%>
-										href=<%="post.jsp?id=" + p.getID()%>> <span class="clip">
-											<img src=<%="images/" + p.getAttachment()%>
-											alt=<%=p.getTitle()%>><span class="vertical-align"></span>
+									<a class="clip-link" data-id="452" title=<%=p.getTitle()%>
+										href=<%="product.jsp?id=" + p.getID()%>> <span
+										class="clip"> <img src=<%="images/" + p.getImage()%>
+											alt=<%=p.getTitle()%> height="1px" width="1px"><span
+											class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>
 									<div class="hori-like">
 										<p class="stats">
-											<span class="views"><i class="count"><%=p.getLikeCount() - p.getDislikeCount()%></i>
+											<span class="views"><i class="count"><%=p.getPrice()%></i>
 												<span class="suffix"></span></span><span class="comments"><i
-												class="count"><%=p.getCommentCount()%></i> <span
-												class="suffix"></span></span><span class="jtheme-post-likes likes"><i
-												class="count" data-pid="452"><%=p.getLikeCount() - p.getDislikeCount()%></i>
-												<span class="suffix"></span></span>
+												class="count"></i> <span class="suffix"></span></span><span
+												class="jtheme-post-likes likes"><i class="count"
+												data-pid="452"><%=p.getPrice()%></i> <span class="suffix"></span></span>
 										</p>
 									</div>
 								</div>
 								<div class="data">
 									<h2 class="entry-title">
-										<a href=<%="post.jsp?id=" + p.getID()%>
+										<a href=<%="product.jsp?id=" + p.getID()%> rel="bookmark"
 											title=<%=p.getTitle()%>><%=p.getTitle()%></a>
 									</h2>
 
 									<p class="entry-meta">
-										<span class="author vcard"> <a class="url fn n"
-											href=<%="user.jsp?id=" + p.getUserID()%>
-											title=<%="View all posts by" + p.getUserID()%>><%=p.getUserID()%></a>
-										</span>
-
-										<time class="entry-date" datetime=<%=p.getTimesTamp()%>><%=p.getTimesTamp()%></time>
 										<span class="stats"><span class="views"><i
-												class="count"><%=p.getLikeCount() - p.getDislikeCount()%></i>
-										</span></span>
+												class="count"><%=p.getPrice()%></i> </span></span>
 									</p>
 								</div>
 							</div>
@@ -258,7 +251,7 @@ body {
 		</div>
 		<!-- end #footbar -->
 
-		<div id="colophon">
+		<div id="colophon" role="contentinfo">
 			<div class="wrap cf">
 
 
