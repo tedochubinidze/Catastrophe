@@ -116,6 +116,7 @@ public class ProfileManager {
 	 * @return boolean successful
 	 */
 	public boolean containsUserID(String userID) {
+		getConnection();
 		boolean bool = false;
 		ResultSet rs;
 		int counter = 0;
@@ -141,6 +142,7 @@ public class ProfileManager {
 	 * @return boolean
 	 */
 	public boolean containsEmail(String email) {
+		getConnection();
 		boolean bool = false;
 		ResultSet rs;
 		int counter = 0;

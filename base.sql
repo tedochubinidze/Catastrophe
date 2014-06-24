@@ -85,3 +85,10 @@ create table cart_product (
 	foreign key(cartID) references cart(cartID),
 	foreign key(productID) references product(productID)
 );
+
+create table user_product (
+	userID varchar(20),
+	productID int,
+	foreign key(userID) references user(userID),
+	foreign key(productID) references product(productID)
+);

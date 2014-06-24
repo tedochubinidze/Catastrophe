@@ -52,7 +52,10 @@ public class MakeOrderServlet extends HttpServlet {
 			Order order = new Order(0, user.getID(), address, new Timestamp(
 					System.currentTimeMillis()));
 			manager.makeOrder(order);
+			manager.addProductsToUser(user.getID(), cart);
 			user.addPoints(-cart.getCartPrice());
+			cart.cleanCart();
+			manager.cleanCart(user.getID());
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
 		} else {

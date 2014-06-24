@@ -27,5 +27,5 @@ public class MyDBInfo {
 	public static final String ORDER_PRODUCT_TABLE = "order_product";
 	public static final String CART_TABLE = "cart";
 	public static final String CART_PRODUCT_TABLE = "cart_product";
-	
+	public static final String USER_PRODUCT_TABLE = "user_product";
 }

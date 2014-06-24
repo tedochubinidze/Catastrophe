@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="managers.ProductManager"%>
 <%@page import="webPackage.Post"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="managers.PostManager"%>
@@ -18,6 +19,8 @@
 	User user = (User) request.getSession().getAttribute("currentUser");
 	String id = (String) request.getParameter("id");
 	User visitedUser = new User(id);
+	ProductManager productManager = (ProductManager) request.getServletContext().getAttribute("productManager");
+	System.out.println(productManager.getRecentUserProducts(user.getID()));
 %>
 <title><%=visitedUser.getID() + "'s Page"%></title>
 
@@ -92,40 +95,32 @@ body {
 					</div>
 					<!-- end #header-search -->
 					<%
-					if(user!= null){
+						if (user != null) {
 					%>
 					<div class="tnav">
 						<nav class="nav-collapse">
 							<ul id="menu-header" class="menu">
 								<%
-								if(user.isAdmin()){
+									if (user.isAdmin()) {
 								%>
-								<li id="product"
-									class="add product">
-									<a href="addP.jsp">Add Product</a>
-								</li>
-								<li id="cart"
-									class="view cart">
-									<a href="orders.jsp">View Orders</a>
-								</li>
+								<li id="product" class="add product"><a href="addP.jsp">Add
+										Product</a></li>
+								<li id="cart" class="view cart"><a href="orders.jsp">View
+										Orders</a></li>
 								<%
-								}
+									}
 								%>
-								<li id="post"
-									class="add post">
-									<a href="addFile.jsp">Add Post</a>
-								</li>
-								<li id="cart"
-									class="view cart">
-									<a href="cart.jsp">View Cart</a>
-								</li>
+								<li id="post" class="add post"><a href="addFile.jsp">Add
+										Post</a></li>
+								<li id="cart" class="view cart"><a href="cart.jsp">View
+										Cart</a></li>
 							</ul>
 						</nav>
 					</div>
 					<%
-					}
+						}
 					%>
-					
+
 					<!-- end #Top-nav -->
 					<div class="clear"></div>
 				</div>
