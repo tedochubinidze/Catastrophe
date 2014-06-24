@@ -164,7 +164,7 @@ public class ProductManager {
 			rs = stmt.executeQuery("select * from " + MyDBInfo.ORDER_TABLE
 					+ ";");
 			while (rs.next()) {
-				Order order = new Order(rs.getString(1), rs.getString(2),
+				Order order = new Order(rs.getString(2), rs.getString(4),
 						rs.getTimestamp(3));
 				ls.add(order);
 			}
@@ -174,4 +174,6 @@ public class ProductManager {
 		}
 		return ls;
 	}
+	
+	
 }
