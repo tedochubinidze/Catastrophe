@@ -16,6 +16,14 @@
 %>
 <head>
 
+<link href="http://vjs.zencdn.net/4.6/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/4.6/video.js"></script>
+<style type="text/css">
+.vjs-default-skin {
+	color: #c52020;
+}
+</style>
+
 <!-- Title, Keywords and Description -->
 <title><%=post.getTitle()%></title>
 
@@ -129,10 +137,11 @@ body {
 							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
 							<li class="acti2"><a href="login.jsp">Login</a></li>
-
-							<%
-								} else {
-							%>
+						</ul>
+						<%
+							} else {
+						%>
+						<ul>
 							<li class="acti1"><a href=<%="user.jsp?id=" + user.getID()%>>Hello,
 									<%=user.getID()%></a></li>
 							<li class="acti2"><form name="Test" action="LogoutServlet"
@@ -144,10 +153,10 @@ body {
 									</script>
 									<a href="javascript:update()">Logout</a>
 								</form></li>
-							<%
-								}
-							%>
 						</ul>
+						<%
+							}
+						%>
 					</div>
 					<!-- end #header-search -->
 					<%
@@ -229,14 +238,35 @@ body {
 							<div class="screen fluid-width-video-wrapper">
 
 								<div class="thumb">
-									<div class="clip-link">
+									<!-- <div class="clip-link"> -->
+
+										<%
+											if (post.getType().equals("image")) {
+										%>
+
 										<span class="clip"> <img
 											src=<%="images/" + post.getAttachment()%> alt="Simple Post" /><span
 											class="vertical-align"></span>
 										</span>
 
+										<%
+											} else {
+										%>
+										
+										<span class="clip"> 
+										
+										 <video id="MY_VIDEO_1" class="video-js vjs-default-skin" controls
+												preload="auto" width="870" height="500"
+												poster="images/120430.gif" data-setup="{}" >
+												<source src="images/5-video.mp4" type='video/mp4'>
+											</video><span
+											class="vertical-align"></span>
+										</span>
+										<%
+											}
+										%>
 
-									</div>
+									<!-- </div> -->
 
 								</div>
 							</div>
@@ -572,6 +602,8 @@ body {
 		src='../wp-content/themes/beetube/js/jquery.fitvids5152.js?ver=1.0'></script>
 	<script type='text/javascript'
 		src='../wp-content/themes/beetube/js/theme5f04.js?ver=1.4.6'></script>
+
+		
 </body>
 
 <!-- Mirrored from beetube.me/simple-image-based-post/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jun 2014 17:46:12 GMT -->
