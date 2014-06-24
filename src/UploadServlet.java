@@ -1,49 +1,22 @@
-import java.awt.Image;
-import java.awt.TextArea;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.Principal;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
-import javax.servlet.AsyncContext;
-import javax.servlet.DispatcherType;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletRequestWrapper;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import managers.PostManager;
 
-import org.apache.catalina.connector.Request;
-import org.apache.commons.fileupload.*;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
-import com.oreilly.servlet.MultipartRequest;
-
-import sun.net.www.http.HttpClient;
-import webPackage.User;
 
 /**
  * Servlet implementation class UploadServlet
@@ -54,7 +27,7 @@ public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// /aq shecvale shentan ra foldershic ginda imashi rom chaagdos
-	private static final String DATA_DIRECTORY = "C:/Users/koko/Documents/GitHub/Catastrophe/WebContent/images";
+	private static final String DATA_DIRECTORY = "C:/Users/Tedore/workspace/Catastrophe/WebContent/images";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -126,14 +99,11 @@ public class UploadServlet extends HttpServlet {
 
 			int count = 1;
 
-			// if(request.getParameter("title")==null)
-			// System.out.println("modefakaaaaskdjfna;wejfnal;wkefnjsjafrna");
 			String fileName;
 			String type;
 
 			while (iter.hasNext()) {
 
-				System.out.println("shemovidaaaaa" + count);
 				count++;
 				FileItem item = (FileItem) iter.next();
 
@@ -145,9 +115,7 @@ public class UploadServlet extends HttpServlet {
 						request.getSession().setAttribute("fileName", fileName);
 						request.getSession().setAttribute("fileType", type);
 					} else {
-						System.out.println("axla gavapren");
 						lastIDPlusOne = manager.getLastID() + 1;
-						System.out.println(lastIDPlusOne);
 						fileName = lastIDPlusOne + "-" + item.getName();
 						String filePath = uploadFolder + "/" + fileName;
 						String context = item.getContentType();
