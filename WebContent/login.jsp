@@ -28,9 +28,8 @@
 <!-- Generated CSS BEGIN -->
 <style type='text/css'>
 body {
-	background: #EEE
-		url("wp-content/themes/beetube/images/bg-pattern.png") repeat
-		center top fixed !important;
+	background: #EEE url("wp-content/themes/beetube/images/bg-pattern.png")
+		repeat center top fixed !important;
 }
 
 .info-less {
@@ -66,7 +65,7 @@ body {
 <body
 	class="page page-id-446 page-template page-template-log-reg-php full-wrap">
 	<div id="page">
-				<header id="header">
+		<header id="header">
 			<div id="top-nav">
 				<div class="wrap cf">
 
@@ -87,7 +86,15 @@ body {
 						<ul>
 							<li class="acti1"><a href=<%="user.jsp?id=" + user.getID()%>>Hello,
 									<%=user.getID()%></a></li>
-							<li class="acti2"><a href="LogoutServlet">Logout</a></li>
+							<li class="acti2"><form name="Test" action="LogoutServlet"
+									method="post">
+									<script type="text/javascript">
+										function update() {
+											Test.submit();
+										}
+									</script>
+									<a href="javascript:update()">Logout</a>
+								</form></li>
 						</ul>
 						<%
 							}
@@ -190,9 +197,9 @@ body {
 									tabindex="103" />
 							</div>
 							<div class="password">
-								<label for="user_password">Password: </label> <input type="password"
-									name="user_password" value="" size="25" id="user_password"
-									tabindex="104" />
+								<label for="user_password">Password: </label> <input
+									type="password" name="user_password" value="" size="25"
+									id="user_password" tabindex="104" />
 							</div>
 							<div class="login_fields">
 								<input type="submit" name="user-submit" value="Sign up!"

@@ -71,7 +71,7 @@ body {
 						<ul>
 							<%
 								User user = (User) request.getSession().getAttribute("currentUser");
-								if (user == null) {
+																		if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
@@ -83,7 +83,16 @@ body {
 						<ul>
 							<li class="acti1"><a href=<%="user.jsp?id=" + user.getID()%>>Hello,
 									<%=user.getID()%></a></li>
-							<li class="acti2"><a href="LogoutServlet">Logout</a></li>
+							<li class="acti2"><form name="Test" action="LogoutServlet" method="post">
+								<script type="text/javascript">
+									function update() {
+										Test.submit();
+									}
+								</script>
+								<a href="javascript:update()">Logout</a>
+							</form></li>
+					
+							
 						</ul>
 						<%
 							}

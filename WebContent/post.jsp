@@ -136,7 +136,14 @@ body {
 						<ul>
 							<li class="acti1"><a href=<%="user.jsp?id=" + user.getID()%>>Hello,
 									<%=user.getID()%></a></li>
-							<li class="acti2"><a href="LogoutServlet">Logout</a></li>
+							<li class="acti2"><form name="Test" action="LogoutServlet" method="post">
+								<script type="text/javascript">
+									function update() {
+										Test.submit();
+									}
+								</script>
+								<a href="javascript:update()">Logout</a>
+							</form></li>
 						</ul>
 						<%
 							}
@@ -227,7 +234,7 @@ body {
 								</div>
 								<%
 								
-									if(user != null || post.isActive() ){
+									if(user != null && post.isActive() ){
 										
 								if(!postManager.likesPost(user.getID(), post.getID())){
 								%>

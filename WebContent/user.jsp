@@ -76,7 +76,15 @@ body {
 						<ul>
 							<li class="acti1"><a href=<%="user.jsp?id=" + user.getID()%>>Hello,
 									<%=user.getID()%></a></li>
-							<li class="acti2"><a href="LogoutServlet">Logout</a></li>
+							<li class="acti2"><form name="Test" action="LogoutServlet"
+									method="post">
+									<script type="text/javascript">
+										function update() {
+											Test.submit();
+										}
+									</script>
+									<a href="javascript:update()">Logout</a>
+								</form></li>
 						</ul>
 						<%
 							}
@@ -142,7 +150,7 @@ body {
 									<p>
 										Username:
 										<%=visitedUser.getID()%></p>
-									
+
 									<p>
 										Email:
 										<%=visitedUser.getEmail()%></p>

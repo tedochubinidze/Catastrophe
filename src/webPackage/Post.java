@@ -73,9 +73,9 @@ public class Post {
 				this.timestamp = rs.getTimestamp(6);
 				this.title = rs.getString(7);
 				this.status = rs.getString(8);
-				this.attachment = rs.getString(9);
-				this.type = rs.getString(10);
-				this.active = rs.getBoolean(7);
+				this.type = rs.getString(9);
+				this.attachment = rs.getString(10);
+				this.active = rs.getBoolean(11);
 			}
 			manager = new PostManager();
 			this.comments = manager.getComments(postID);

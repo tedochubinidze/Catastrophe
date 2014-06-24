@@ -54,7 +54,7 @@ public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	///aq shecvale shentan ra foldershic ginda imashi rom chaagdos
-	private static final String DATA_DIRECTORY = "C:/Users/Koko/Desktop/WebStore/WebContent/images";
+	private static final String DATA_DIRECTORY = "C:/Users/Nikoloz/Documents/GitHub/Catastrophe/WebContent/images";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -120,7 +120,6 @@ public class UploadServlet extends HttpServlet {
 			List items = servUpl.parseRequest(request);
 			
 			if (items.isEmpty()) {
-				System.out.println("luka luka luka");
 				request.setAttribute("message", "Empty List Of Items");
 				return;
 			}
@@ -146,20 +145,20 @@ public class UploadServlet extends HttpServlet {
 					if(items.size() < 1){
 						fileName = "No" ;
 						type = "status" ;
+						request.getSession().setAttribute("fileName", fileName);
+						request.getSession().setAttribute("fileType", type);
 					} else {
-						lastIDPlusOne = manager.getLastID() + 1;
+						System.out.println("axla gavapren");
+						//lastIDPlusOne = manager.getLastID() + 1;
 						fileName = lastIDPlusOne + "-" + item.getName(); 
 						String filePath = uploadFolder + "/" + fileName;
 						String context = item.getContentType();
 						type = context.substring(0, context.indexOf('/'));
 						File uploadedFile = new File(filePath);
-						System.out.println(filePath);
-						System.out.println(item.getContentType());
-						System.out.println(type);
+						request.getSession().setAttribute("fileName", fileName);
+						request.getSession().setAttribute("fileType", type);
 						item.write(uploadedFile);
 					}
-					request.getSession().setAttribute("fileName", fileName);
-					request.getSession().setAttribute("fileType", type);
 				}
 
 			}

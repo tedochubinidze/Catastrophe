@@ -83,10 +83,6 @@ public class StatusUploadServlet extends HttpServlet {
 		String area = request.getParameter("textArea");
 		String fileName = (String) request.getSession().getAttribute("fileName");
 		String fileType = (String) request.getSession().getAttribute("fileType");
-		System.out.println(title);
-		System.out.println(area);
-		System.out.println(fileName);
-		System.out.println(fileType);
 		
 		User user = (User)request.getSession().getAttribute("currentUser");
 		String userID = user.getID();
@@ -97,7 +93,7 @@ public class StatusUploadServlet extends HttpServlet {
 		request.setAttribute("message",
 				"Post Uploaded Successfully");
 
-		//request.getRequestDispatcher("/result.jsp").forward(request, response);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 }
