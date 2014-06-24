@@ -219,7 +219,7 @@ body {
 									%>
 
 									<div id="post"
-										class="post type-post status-publish format-standard has-post-thumbnail hentry item clearfix cf item-post">
+										class="post type-post item clearfix cf item-post">
 
 										<div class="thumb">
 											<a class="clip-link" title=<%=tmpP.getTitle()%>
@@ -262,6 +262,10 @@ body {
 									<%
 										}
 									%>
+									<form action="CleanCartServlet" method="post">
+										<input class="button btn-primary" id="submit" type="submit"
+											value="Clean Cart">
+									</form>
 									<form action="MakeOrderServlet" method="post">
 										<h3>Fill in your address</h3>
 										<input type="text" name="address"> <input

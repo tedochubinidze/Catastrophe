@@ -49,9 +49,13 @@ public class MakeOrderServlet extends HttpServlet {
 		ProductManager manager = (ProductManager) request.getServletContext()
 				.getAttribute("productManager");
 		if (user.getPoints() >= cart.getCartPrice()) {
-			Order order = new Order(user.getID(), address, new Timestamp(
+			Order order = new Order(0, user.getID(), address, new Timestamp(
 					System.currentTimeMillis()));
 			manager.makeOrder(order);
+			manager.addProductsToUser(user.getID(), cart);
+			user.addPoints(-cart.getCartPrice());
+			cart.cleanCart();
+			manager.cleanCart(user.getID());
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
 		} else {

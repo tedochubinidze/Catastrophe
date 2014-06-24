@@ -21,7 +21,7 @@ public class User {
 	private String email;
 	private Cart cart;
 
-	private static Statement stmt;
+	private Statement stmt;
 	private ProfileManager profManager;
 	private PostManager postManager;
 	private static MessageDigest mg;
@@ -185,6 +185,11 @@ public class User {
 
 	public Cart getCart() {
 		return cart;
+	}
+	
+	public void addPoints(int points) {
+		this.points += points;
+		profManager.addPoints(this.ID, points);
 	}
 
 	@Override

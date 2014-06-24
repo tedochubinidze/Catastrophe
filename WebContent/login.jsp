@@ -156,7 +156,7 @@ body {
 						<h2 class="form-heading">LOGIN FORM</h2>
 						<p></p>
 
-						<form method="post" action="LoginServlet" class="wp-user-form">
+						<form  name="formLogin" method="post" action="LoginServlet" onsubmit="return validateForm()" class="wp-user-form">
 							<div class="form-group">
 								<label for="user_login">Username</label> <input type="text"
 									class="form-control" id="user_login" placeholder="Enter email"
@@ -185,7 +185,7 @@ body {
 						<h2 class="form-heading">REGISTER FORM</h2>
 						<p>Get Started with a new Account</p>
 
-						<form method="post" action="RegisterServlet" class="wp-user-form">
+						<form name="formRegister" method="post" action="RegisterServlet" onsubmit="return validateRegister()" class="wp-user-form">
 							<div class="username">
 								<label for="user_login">Username: </label> <input type="text"
 									name="user_login" value="" size="20" id="user_login"
@@ -248,6 +248,48 @@ body {
 		</footer>
 	</div>
 	<!-- end #page -->
+
+<script>
+	function validateForm(){
+		var x = document.forms["formLogin"]["name"].value;
+	    var y = document.forms["formLogin"]["pwd"].value;
+
+	    if (x==null || x=="" && y==null || y=="") {
+	        alert("Please, Fill All Necessary Fields For Login. ");
+	        return false;
+	    }
+	    
+	    if(y.length < 5){
+	    	alert("The Password Must Be Longer Than 5 letters");
+	    	return false;
+	    }
+	    
+	    return true;
+	}
+	
+</script>
+
+<script>
+	
+	function validateRegister(){
+		var z = document.forms["formRegister"]["user_login"].value;
+	    var a = document.forms["formRegister"]["user_email"].value;
+	    var b = document.forms["formRegister"]["user_password"].value;
+		
+		if ( z==null || z=="" || a==null || a=="" || b==null || b=="" ){
+	    	alert("Please, Fill All Necessary Fields For Registration.");
+	    	return false;
+	    }
+	    
+		if (b.length < 5){
+	    	alert("Password Must Be Longer Than 5 letters");
+	    	return false;
+	    }
+	    
+	    return true;
+	}
+	
+</script>
 
 </body>
 

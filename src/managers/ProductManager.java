@@ -7,10 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import webPackage.Comment;
+import webPackage.Cart;
 import webPackage.MyDBInfo;
 import webPackage.Order;
-import webPackage.Post;
 import webPackage.Product;
 
 public class ProductManager {
@@ -151,6 +150,7 @@ public class ProductManager {
 						+ "(orderID, productID) values(" + id + ", "
 						+ p.getID() + ");");
 			}
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -165,8 +165,7 @@ public class ProductManager {
 			rs = stmt.executeQuery("select * from " + MyDBInfo.ORDER_TABLE
 					+ ";");
 			while (rs.next()) {
-				Order order = new Order(rs.getString(2), rs.getString(4),
-						rs.getTimestamp(3));
+				Order order = new Order(rs.getInt(1));
 				ls.add(order);
 			}
 			con.close();
@@ -176,4 +175,59 @@ public class ProductManager {
 		return ls;
 	}
 
+	public void deleteOrder(int orderID) {
+		getConnection();
+		try {
+			stmt.executeUpdate("delete from " + MyDBInfo.ORDER_PRODUCT_TABLE
+					+ " where orderID = " + orderID + ";");
+			stmt.executeUpdate("delete from " + MyDBInfo.ORDER_TABLE
+					+ " where orderID = " + orderID + ";");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void addProductsToUser(String userID, Cart cart) {
+		getConnection();
+		ArrayList<Product> ls = cart.getProducts();
+		for (Product p : ls)
+			try {
+				stmt.executeUpdate("insert into " + MyDBInfo.USER_PRODUCT_TABLE
+						+ " values('" + userID + "', " + p.getID() + ");");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+
+	public void cleanCart(String userID) {
+		getConnection();
+		try {
+			int cartID = getCartID(userID);
+			stmt.executeUpdate("delete from " + MyDBInfo.CART_PRODUCT_TABLE
+					+ " where cartID = " + cartID + ";");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public ArrayList<Product> getRecentUserProducts(String userID) {
+		getConnection();
+		ArrayList<Product> ls = new ArrayList<Product>();
+		ResultSet rs;
+		try {
+			rs = stmt.executeQuery("select productID from "
+					+ MyDBInfo.USER_PRODUCT_TABLE + " where userID = '"
+					+ userID + "' limit 5" + ";");
+			while (rs.next()) {
+				ls.add(new Product(rs.getInt(1)));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ls;
+	}
 }

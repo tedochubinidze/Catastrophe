@@ -12,7 +12,7 @@
 	String id = request.getParameter("id");
 	Post post = new Post(Integer.parseInt(id));
 	PostManager postManager = (PostManager) request.getServletContext()
-			.getAttribute("postManager");
+	.getAttribute("postManager");
 %>
 <head>
 
@@ -124,67 +124,59 @@ body {
 						<ul>
 							<%
 								User user = (User) request.getSession().getAttribute("currentUser");
-								if (user == null) {
+													if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
 							<li class="acti2"><a href="login.jsp">Login</a></li>
-						</ul>
-						<%
-							} else {
-						%>
-						<ul>
+
+							<%
+								} else {
+							%>
 							<li class="acti1"><a href=<%="user.jsp?id=" + user.getID()%>>Hello,
 									<%=user.getID()%></a></li>
-							<li class="acti2"><form name="Test" action="LogoutServlet" method="post">
-								<script type="text/javascript">
-									function update() {
-										Test.submit();
-									}
-								</script>
-								<a href="javascript:update()">Logout</a>
-							</form></li>
+							<li class="acti2"><form name="Test" action="LogoutServlet"
+									method="post">
+									<script type="text/javascript">
+										function update() {
+											Test.submit();
+										}
+									</script>
+									<a href="javascript:update()">Logout</a>
+								</form></li>
+							<%
+								}
+							%>
 						</ul>
-						<%
-							}
-						%>
 					</div>
 					<!-- end #header-search -->
 					<%
-					if(user!= null){
+						if (user != null) {
 					%>
 					<div class="tnav">
 						<nav class="nav-collapse">
 							<ul id="menu-header" class="menu">
 								<%
-								if(user.isAdmin()){
+									if (user.isAdmin()) {
 								%>
-								<li id="product"
-									class="add product">
-									<a href="addP.jsp">Add Product</a>
-								</li>
-								<li id="cart"
-									class="view cart">
-									<a href="orders.jsp">View Orders</a>
-								</li>
+								<li id="product" class="add product"><a href="addP.jsp">Add
+										Product</a></li>
+								<li id="cart" class="view cart"><a href="orders.jsp">View
+										Orders</a></li>
 								<%
-								}
+									}
 								%>
-								<li id="post"
-									class="add post">
-									<a href="addFile.jsp">Add Post</a>
-								</li>
-								<li id="cart"
-									class="view cart">
-									<a href="cart.jsp">View Cart</a>
-								</li>
+								<li id="post" class="add post"><a href="addFile.jsp">Add
+										Post</a></li>
+								<li id="cart" class="view cart"><a href="cart.jsp">View
+										Cart</a></li>
 							</ul>
 						</nav>
 					</div>
 					<%
-					}
+						}
 					%>
-					
+
 					<!-- end #Top-nav -->
 					<div class="clear"></div>
 				</div>
@@ -268,10 +260,9 @@ body {
 
 								</div>
 								<%
-								
-									if(user != null && post.isActive() ){
-										
-								if(!postManager.likesPost(user.getID(), post.getID())){
+									if (user != null && post.isActive()) {
+
+										if (!postManager.likesPost(user.getID(), post.getID())) {
 								%>
 								<div class="entry-actions">
 									<form name="form1" action="LikeServlet" method="post">
@@ -280,8 +271,8 @@ body {
 											name="postID" value=<%=post.getID()%>></input> </span>
 									</form>
 								</div>
-								<% 
-								} else {
+								<%
+									} else {
 								%>
 								<div class="entry-actions">
 									<form name="form1" action="UnLikeServlet" method="post">
@@ -290,11 +281,11 @@ body {
 											name="postID" value=<%=post.getID()%>></input> </span>
 									</form>
 								</div>
-								<% 
-								}
+								<%
+									}
 								%>
 								<%
-								if(!postManager.dislikesPost(user.getID(), post.getID())){
+									if (!postManager.dislikesPost(user.getID(), post.getID())) {
 								%>
 								<div class="entry-actions">
 									<form name="form1" action="DislikeServlet" method="post">
@@ -303,20 +294,20 @@ body {
 											name="postID" value=<%=post.getID()%>></input> </span>
 									</form>
 								</div>
-								
+
 								<%
-								} else {
-									%>
-									<div class="entry-actions">
+									} else {
+								%>
+								<div class="entry-actions">
 									<form name="form1" action="UnDislikeServlet" method="post">
 										<span class="jtheme-like-post"><input type="submit"
 											name="Dislike" value="Disliked"></input><input type="hidden"
 											name="postID" value=<%=post.getID()%>></input> </span>
 									</form>
 								</div>
-									<%
-								}
-										}
+								<%
+									}
+									}
 								%>
 
 							</div>
