@@ -136,8 +136,8 @@ public class ProductManager {
 			stmt.executeUpdate(
 					"insert into " + MyDBInfo.ORDER_TABLE
 							+ "(userID, timestamp, address) values('"
-							+ order.getUserID() + "', " + order.getTime()
-							+ ", " + order.getAddress() + ");",
+							+ order.getUserID() + "', now(), '"
+							+ order.getAddress() + "');",
 					stmt.RETURN_GENERATED_KEYS);
 			ResultSet rs = stmt.getGeneratedKeys();
 			int id = 0;
@@ -146,9 +146,10 @@ public class ProductManager {
 			}
 			ArrayList<Product> ls = order.getProducts();
 			for (Product p : ls) {
-				stmt.executeUpdate("insert into " + MyDBInfo.CART_PRODUCT_TABLE
-						+ "(orderID, itemID) values(" + id + ", " + p.getID()
-						+ ");");
+				stmt.executeUpdate("insert into "
+						+ MyDBInfo.ORDER_PRODUCT_TABLE
+						+ "(orderID, productID) values(" + id + ", "
+						+ p.getID() + ");");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -174,6 +175,5 @@ public class ProductManager {
 		}
 		return ls;
 	}
-	
-	
+
 }

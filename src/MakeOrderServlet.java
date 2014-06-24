@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.sql.Timestamp;
 
@@ -21,39 +19,46 @@ import webPackage.User;
 @WebServlet("/MakeOrderServlet")
 public class MakeOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MakeOrderServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public MakeOrderServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		User user = (User) request.getSession().getAttribute("currentUser");
 		Cart cart = user.getCart();
 		String address = request.getParameter("address");
-		ProductManager manager = (ProductManager)request.getServletContext().getAttribute("productManager");
-		if(user.getPoints() >= cart.getCartPrice()) {
-			Order order = new Order(user.getID(), address, new Timestamp(System.currentTimeMillis()));
+		ProductManager manager = (ProductManager) request.getServletContext()
+				.getAttribute("productManager");
+		if (user.getPoints() >= cart.getCartPrice()) {
+			Order order = new Order(user.getID(), address, new Timestamp(
+					System.currentTimeMillis()));
 			manager.makeOrder(order);
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
+		} else {
+			RequestDispatcher rd = request
+					.getRequestDispatcher("notEnoughn.jsp");
+			rd.forward(request, response);
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("notEnoughnn.jsp");
-		rd.forward(request, response);
-		
 	}
 
 }
