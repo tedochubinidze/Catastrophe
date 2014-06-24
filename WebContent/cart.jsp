@@ -219,7 +219,7 @@ body {
 									%>
 
 									<div id="post"
-										class="post type-post status-publish format-standard has-post-thumbnail hentry item clearfix cf item-post">
+										class="post type-post item clearfix cf item-post">
 
 										<div class="thumb">
 											<a class="clip-link" title=<%=tmpP.getTitle()%>

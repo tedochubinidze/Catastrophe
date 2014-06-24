@@ -1,8 +1,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="webPackage.User"%>
 <%@page import="managers.ProductManager"%>
-<%@page import="webPackage.Product" %>
-<%@page import="webPackage.Order" %>
+<%@page import="webPackage.Product"%>
+<%@page import="webPackage.Order"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -72,7 +72,7 @@ body {
 						<ul>
 							<%
 								User user = (User) request.getSession().getAttribute("currentUser");
-																							if (user == null) {
+																																																																														if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
@@ -98,30 +98,21 @@ body {
 						</ul>
 						<%
 							}
-																							
 						%>
 					</div>
 					<!-- end #header-search -->
 					<div class="tnav">
 						<nav class="nav-collapse">
 							<ul id="menu-header" class="menu">
-								
-								<li id="product"
-									class="add product">
-									<a href="addP.jsp">Add Product</a>
-								</li>
-								<li id="cart"
-									class="view cart">
-									<a href="orders.jsp">View Orders</a>
-								</li>
-								<li id="post"
-									class="add post">
-									<a href="addFile.jsp">Add Post</a>
-								</li>
-								<li id="cart"
-									class="view cart">
-									<a href="cart.jsp">View Cart</a>
-								</li>
+
+								<li id="product" class="add product"><a href="addP.jsp">Add
+										Product</a></li>
+								<li id="cart" class="view cart"><a href="orders.jsp">View
+										Orders</a></li>
+								<li id="post" class="add post"><a href="addFile.jsp">Add
+										Post</a></li>
+								<li id="cart" class="view cart"><a href="cart.jsp">View
+										Cart</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -162,7 +153,7 @@ body {
 		</div>
 	</div>
 	<!-- end #main-nav -->
-		<div id="main" class="home-temp">
+	<div id="main" class="home-temp">
 		<div class="wrap cf home-content">
 			<div id="content">
 				<div class="section-box">
@@ -171,20 +162,21 @@ body {
 							<span class="name">User Orders</span>
 						</h2>
 					</div>
-					<div class="section-content grid-medium">
+					<div class="section-content list-small">
 						<div class="nag cf">
 							<%
 								ProductManager manager = (ProductManager) request
 										.getServletContext().getAttribute("productManager");
 								ArrayList<Order> ls = manager.getOrders();
-								for (int i = 0 ; i < ls.size(); i++) {
+								for (int i = 0; i < ls.size(); i++) {
 									Order ord = ls.get(i);
 							%>
-							<div id="post" class="post item item-post">
+							<div id="post" class="post type-post item clearfix cf item-post">
 								<div class="thumb">
 									<a class="clip-link" data-id="452" title=<%=ord.getUserID()%>
 										href=<%="order.jsp?id=" + ord.getUserID()%>> <span
-										class="clip"> <img src=<%="images/" + ord.getProducts().get(0).getImage()%>
+										class="clip"> <img
+											src=<%="images/" + ord.getProducts().get(0).getImage()%>
 											alt=<%=ord.getUserID()%> height="1px" width="1px"><span
 											class="vertical-align"></span>
 									</span> <span class="overlay"></span>
@@ -201,14 +193,25 @@ body {
 								</div>
 								<div class="data">
 									<h2 class="entry-title">
-										<a href=<%="product.jsp?id=" + ord.getUserID()%> rel="bookmark"
-											title=<%=ord.getUserID()%>><%=ord.getUserID()%></a>
+										<a href=<%="product.jsp?id=" + ord.getUserID()%>
+											rel="bookmark" title=<%=ord.getUserID()%>><%=ord.getUserID()%></a>
 									</h2>
 
 									<p class="entry-meta">
-										<span class="stats"><span class="views"><i
-												class="count"><%=ord.getPrice()%></i> </span></span>
+										<span class="author vcard"> <a class="url fn n"
+											href=<%="user.jsp?id=" + ord.getUserID()%>
+											title=<%="View all posts by" + ord.getUserID()%>><%=ord.getUserID()%></a>
+										</span>
+										<time class="entry-date" datetime=<%=ord.getTime()%>><%=ord.getTime()%></time>
 									</p>
+
+									<p class="meta">
+									<div class="clear"></div>
+									<form action="DeleteOrderServlet" method="post">
+										<input class="button btn-primary" id="submit" type="submit"
+											value="Remove"> <input type="hidden" name="productID"
+											value=<%=ord.getID()%>>
+									</form>
 								</div>
 							</div>
 							<%
@@ -221,7 +224,7 @@ body {
 		</div>
 	</div>
 
-	
+
 
 	<!-- footer -->
 	<footer id="footer">
