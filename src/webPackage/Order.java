@@ -8,6 +8,7 @@ public class Order {
 	private String address;
 	private ArrayList<Product> products;
 	private Timestamp time;
+	private int price;
 	
 	public Order (String ID, String Address, Timestamp time) {
 		products = new ArrayList<Product>();
@@ -16,6 +17,7 @@ public class Order {
 		this.time = time;
 		User user = new User(userID);
 		Cart cart = user.getCart();
+		price = cart.getCartPrice();
 		products = cart.getProducts();
 	}
 	
@@ -33,5 +35,9 @@ public class Order {
 	
 	public Timestamp getTime() {
 		return time;
+	}
+	
+	public int getPrice() {
+		return price;
 	}
 }
