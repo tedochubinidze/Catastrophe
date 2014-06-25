@@ -104,6 +104,30 @@ public class PostManager {
 		}
 		return ls;
 	}
+	
+	public ArrayList<Post> getPopularActivePosts() {
+		getConnection();
+		ArrayList<Post> ls = new ArrayList<Post>();
+		ResultSet rs;
+		try {
+			rs = stmt.executeQuery("select * from " + MyDBInfo.POST_TABLE
+					+ " order by likeCount - dislikeCount desc where active = true limit "
+					+ MAX_N_POSTS + ";");
+			while (rs.next()) {
+				int postID = rs.getInt(1);
+				ArrayList<Comment> ls2 = getComments(postID);
+				Post post = new Post(postID, rs.getString(2), rs.getInt(3),
+						rs.getInt(4), rs.getTimestamp(6), rs.getString(7),
+						rs.getString(8), rs.getString(9), rs.getString(10),
+						rs.getBoolean(11), ls2);
+				ls.add(post);
+			}
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ls;
+	}
 
 	public ArrayList<Comment> getComments(int postID) {
 		getConnection();
