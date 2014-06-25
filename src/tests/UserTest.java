@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import webPackage.Comment;
 import webPackage.Post;
 import webPackage.User;
+import managers.ProfileManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,9 +34,12 @@ public class UserTest {
 	@Before
 	public void setUp() {
 		user1 = new User(userID1, password, email, true, 69);
+		ProfileManager manager = new ProfileManager();
+		manager.addUser(userID1, password, email, true);
 		user2 = new User(userID1);
-		post1 = new Post(ID1, userID1, likeCount1, dislikeCount1, null, title1,
-				status1, type1, attachment, isActive, comments);
+		post1 = new Post(ID1, userID1, likeCount1, dislikeCount1,
+				new Timestamp(System.currentTimeMillis()), title1, status1,
+				type1, attachment, isActive, comments);
 		user1.addPost(post1);
 		try {
 			user1.hashPassword(password);
@@ -52,8 +56,7 @@ public class UserTest {
 		assertTrue(user1.getEmail().equals(user2.getEmail()));
 		assertTrue(user1.getID().equals(user2.getID()));
 		assertTrue(user1.getPoints() == user2.getPoints());
-		assertTrue(user1.getRecentPosts()
-				.equals(user2.getRecentPosts()));
+		assertTrue(user1.getRecentPosts().equals(user2.getRecentPosts()));
 	}
 
 	@Test
@@ -63,36 +66,19 @@ public class UserTest {
 		assertEquals(email, user1.getEmail());
 		assertTrue(user1.isAdmin());
 	}
-	
+
 	@Test
-	public void testPosts(){ 
+	public void testPosts() {
 		assertEquals(1, user1.getRecentPosts().size());
 		assertTrue(user1.getRecentPosts().get(0).equals(post1));
 	}
-	
-	@Test 
-	public void testPosts2(){
-		ArrayList<Post> posts = new ArrayList<>();
-		for(int i = 0 ; i < 40; i++){
-			java.sql.Timestamp tmp = new java.sql.Timestamp(System.currentTimeMillis());
-			Post post = new Post(i, userID1, likeCount1, dislikeCount1, tmp, title1,
-					status1, type1, attachment, isActive, comments);
-			user1.addPost(post);
-			if(i < 20 ){
-			posts.add(post);
-			}
-		}
-		for(int i = 0 ; i < user1.getRecentPosts().size(); i++){
-			assertTrue( posts.get(i).getTimesTamp().equals(user1.getRecentPosts().get(i).getTimesTamp()));
-		}
-	}
-	
-	@Test 
-	public void testEquals(){ 
+
+	@Test
+	public void testEquals() {
 		User user = new User("1", "1", "1", true, 1);
 		assertTrue(user2.equals(user1));
 		assertFalse(user2.equals(user));
-		
+
 	}
-	
+
 }

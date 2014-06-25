@@ -2,8 +2,6 @@ package webPackage;
 
 import java.util.ArrayList;
 
-import webPackage.Product;
-
 public class Cart {
 	private int price;
 	private ArrayList<Product> products;
@@ -15,7 +13,7 @@ public class Cart {
 	public void addProduct(Product product) {
 		products.add(product);
 		price += product.getPrice();
-		
+
 	}
 
 	public void removeProduct(Product product) {
@@ -34,10 +32,23 @@ public class Cart {
 	public ArrayList<Product> getProducts() {
 		return products;
 	}
-	
+
 	public void cleanCart() {
 		products.clear();
 		price = 0;
+	}
+
+	public boolean equals(Object obj) {
+		boolean result = false;
+		if (obj == null || obj.getClass() != getClass()) {
+			result = false;
+		} else {
+			Cart tmp = (Cart) obj;
+			if (this.getProducts().equals(tmp.getProducts()))
+				result = true;
+		}
+		return result;
+
 	}
 
 	@Override
