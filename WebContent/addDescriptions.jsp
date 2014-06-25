@@ -17,7 +17,7 @@
 	%>
 
 	<%
-		if (user == null || !user.isAdmin()) {
+		if (user == null) {
 	%>
 	
 	<h1>You Don't Have Permission To This Page</h1>

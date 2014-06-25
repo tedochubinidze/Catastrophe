@@ -115,13 +115,6 @@ body {
 									href="addProduct.jsp">Add Product</a></li>
 								<li id="cart" class="view cart"><a href="orders.jsp">View
 										Orders</a></li>
-								<%
-									}
-								%>
-								<li id="post" class="add post"><a href="addFile.jsp">Add
-										Post</a></li>
-								<li id="cart" class="view cart"><a href="cart.jsp">View
-										Cart</a></li>
 								<li class="ratings"><form name="Rate"
 										action="CreateRatingServlet" method="post">
 										<script type="text/javascript">
@@ -131,6 +124,13 @@ body {
 										</script>
 										<a href="javascript:update1()">Award Users</a>
 									</form></li>
+								<%
+									}
+								%>
+								<li id="post" class="add post"><a href="addFile.jsp">Add
+										Post</a></li>
+								<li id="cart" class="view cart"><a href="cart.jsp">View
+										Cart</a></li>
 							</ul>
 						</nav>
 					</div>

@@ -132,7 +132,7 @@ body {
 						<ul>
 							<%
 								User user = (User) request.getSession().getAttribute("currentUser");
-													if (user == null) {
+																							if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
@@ -174,6 +174,15 @@ body {
 									href="addProduct.jsp">Add Product</a></li>
 								<li id="cart" class="view cart"><a href="orders.jsp">View
 										Orders</a></li>
+								<li class="ratings"><form name="Rate"
+										action="CreateRatingServlet" method="post">
+										<script type="text/javascript">
+											function update1() {
+												Rate.submit();
+											}
+										</script>
+										<a href="javascript:update1()">Award Users</a>
+									</form></li>
 								<%
 									}
 								%>
@@ -181,15 +190,7 @@ body {
 										Post</a></li>
 								<li id="cart" class="view cart"><a href="cart.jsp">View
 										Cart</a></li>
-								<li class="ratings"><form name="Rate" action="CreateRatingServlet"
-									method="post">
-									<script type="text/javascript">
-										function update1() {
-											Rate.submit();
-										}
-									</script>
-									<a href="javascript:update1()">Award Users</a>
-								</form></li>
+
 							</ul>
 						</nav>
 					</div>
@@ -250,39 +251,39 @@ body {
 								<div class="thumb">
 									<!-- <div class="clip-link"> -->
 
-										<%
-											if (post.getType().equals("image")) {
-										%>
+									<%
+										if (post.getType().equals("image")) {
+									%>
 
-										<span class="clip"> <img
-											src=<%="images/" + post.getAttachment()%> alt="Simple Post" /><span
-											class="vertical-align"></span>
-										</span>
+									<span class="clip"> <img
+										src="UploadServlet?name=<%=post.getAttachment() %>" alt="Simple Post" width="870" height="500" /><span
+										class="vertical-align"></span>
+									</span>
 
-										<%
-											} else if( post.getType().equals("video")) {
-										%>
-										
-										<span class="clip"> 
-										
-										 <video id="MY_VIDEO_1" class="video-js vjs-default-skin" controls
-												preload="auto" width="870" height="500"
-												poster="images/hatsoff.gif" data-setup="{}" >
-												<source src=<%= "images/" + post.getAttachment() %> type='video/mp4'>
-											</video><span
-											class="vertical-align"></span>
-										</span>
-										<%
-										System.out.println("images/" + post.getAttachment());
-											} else {
-										%>
-										
-										<span class="clip"> <img
-											src=<%="images/" + "readthis.jpg" %> alt="Simple Post"  width="870" height="500"/><span
-											class="vertical-align"></span>
-										</span>
-										
-										<%} %>
+									<%
+										} else if (post.getType().equals("video")) {
+									%>
+
+									<span class="clip"> <video id="MY_VIDEO_1"
+											class="video-js vjs-default-skin" controls preload="auto"
+											width="870" height="500" poster="images/hatsoff.gif"
+											data-setup="{}">
+											<source src="UploadServlet?name=<%=post.getAttachment() %>"
+												type='video/mp4'>
+										</video><span class="vertical-align"></span>
+									</span>
+									<%
+										} else {
+									%>
+
+									<span class="clip"> <img
+										src=<%="images/" + "readthis.jpg"%> alt="Simple Post"
+										width="870" height="500" /><span class="vertical-align"></span>
+									</span>
+
+									<%
+										}
+									%>
 									<!-- </div> -->
 
 								</div>
@@ -409,8 +410,10 @@ body {
 									<a class="clip-link" title=<%=p.getTitle()%>
 										href=<%="post.jsp?id=" + p.getID()%>> <span class="clip">
 											<img <%if (p.getType().equals("image")) {%>
-											src=<%="images/" + p.getAttachment()%> <%} else if (p.getType().equals("video")) {%>
-											src=<%="images/" + "hatsoff.gif"%> <%} else {%> src=<%="images/" + "readthis.jpg"%>  <%} %>
+											src="UploadServlet?name=<%=p.getAttachment() %>"
+											<%} else if (p.getType().equals("video")) {%>
+											src=<%="images/" + "hatsoff.gif"%> <%} else {%>
+											src=<%="images/" + "readthis.jpg"%> <%}%>
 											alt=<%=p.getTitle()%>><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>
@@ -459,10 +462,10 @@ body {
 						<div class="section header">
 							<div class="comment-post-and-comments">
 								<h2 class="section-title">
-									
-										<span class="js-comments-count"><%=post.getCommentCount()%></span>
-										Comments
-									
+
+									<span class="js-comments-count"><%=post.getCommentCount()%></span>
+									Comments
+
 								</h2>
 								<%
 									if (user != null) {
@@ -545,9 +548,12 @@ body {
 									<a class="clip-link" data-id=<%=tmpP.getID()%>
 										title=<%=tmpP.getTitle()%>
 										href=<%="post.jsp?id=" + tmpP.getID()%>> <span
-										class="clip"> <img <%if (tmpP.getType().equals("image")) {%>
-											src=<%="images/" + tmpP.getAttachment()%> <%} else if (tmpP.getType().equals("video")) {%>
-											src=<%="images/" + "hatsoff.gif"%> <%} else {%> src=<%="images/" + "readthis.jpg"%>  <%} %>
+										class="clip"> <img
+											<%if (tmpP.getType().equals("image")) {%>
+											src="UploadServlet?name=<%=tmpP.getAttachment() %>"
+											<%} else if (tmpP.getType().equals("video")) {%>
+											src=<%="images/" + "hatsoff.gif"%> <%} else {%>
+											src=<%="images/" + "readthis.jpg"%> <%}%>
 											alt=<%=tmpP.getTitle()%>><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>
@@ -622,7 +628,7 @@ body {
 	<script type='text/javascript'
 		src='../wp-content/themes/beetube/js/theme5f04.js?ver=1.4.6'></script>
 
-		
+
 </body>
 
 <!-- Mirrored from beetube.me/simple-image-based-post/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jun 2014 17:46:12 GMT -->

@@ -108,13 +108,6 @@ body {
 									href="addProduct.jsp">Add Product</a></li>
 								<li id="cart" class="view cart"><a href="orders.jsp">View
 										Orders</a></li>
-								<%
-									}
-								%>
-								<li id="post" class="add post"><a href="addFile.jsp">Add
-										Post</a></li>
-								<li id="cart" class="view cart"><a href="cart.jsp">View
-										Cart</a></li>
 								<li class="ratings"><form name="Rate"
 										action="CreateRatingServlet" method="post">
 										<script type="text/javascript">
@@ -124,6 +117,14 @@ body {
 										</script>
 										<a href="javascript:update1()">Award Users</a>
 									</form></li>
+								<%
+									}
+								%>
+								<li id="post" class="add post"><a href="addFile.jsp">Add
+										Post</a></li>
+								<li id="cart" class="view cart"><a href="cart.jsp">View
+										Cart</a></li>
+
 							</ul>
 						</nav>
 					</div>
@@ -235,7 +236,7 @@ body {
 									<a class="clip-link" data-id="452" title=<%=p.getTitle()%>
 										href=<%="post.jsp?id=" + p.getID()%>> <span class="clip">
 											<img <%if (p.getType().equals("image")) {%>
-											src=<%="images/" + p.getAttachment()%> <%} else {%>
+											src="UploadServlet?name=<%=p.getAttachment() %>" <%} else {%>
 											src=<%="images/" + "hatsoff.gif"%> <%}%>
 											alt=<%=p.getTitle()%>><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
@@ -303,8 +304,8 @@ body {
 									<a class="clip-link" data-id="452" title=<%=p.getTitle()%>
 										href=<%="post.jsp?id=" + p.getID()%>> <span class="clip">
 											<img <%if (p.getType().equals("image")) {%>
-											src=<%="images/" + p.getAttachment()%> <%} else {%>
-											src=<%="images/" + "hatsoff.gif"%> <%}%>
+											src="UploadServlet?name=<%=p.getAttachment() %>" <%} else if (p.getType().equals("video")) {%>
+											src=<%="images/" + "hatsoff.gif"%> <%} else {%> src=<%="images/" + "readthis.jpg"%> <%} %>
 											alt=<%=p.getTitle()%>><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>

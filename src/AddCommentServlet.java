@@ -48,7 +48,6 @@ public class AddCommentServlet extends HttpServlet {
 		User user = (User) request.getSession().getAttribute("currentUser");
 		String text = request.getParameter("comment");
 		String id = request.getParameter("postID");
-		System.out.println(id);
 		String page = "post.jsp?id=" + id;
 		Comment comment = new Comment(user, text, new Timestamp(
 				System.currentTimeMillis()));

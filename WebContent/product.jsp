@@ -159,6 +159,15 @@ body {
 									href="addProduct.jsp">Add Product</a></li>
 								<li id="cart" class="view cart"><a href="orders.jsp">View
 										Orders</a></li>
+								<li class="ratings"><form name="Rate"
+										action="CreateRatingServlet" method="post">
+										<script type="text/javascript">
+											function update1() {
+												Rate.submit();
+											}
+										</script>
+										<a href="javascript:update1()">Award Users</a>
+									</form></li>
 								<%
 									}
 								%>
@@ -166,15 +175,7 @@ body {
 										Post</a></li>
 								<li id="cart" class="view cart"><a href="cart.jsp">View
 										Cart</a></li>
-								<li class="ratings"><form name="Rate" action="CreateRatingServlet"
-									method="post">
-									<script type="text/javascript">
-										function update1() {
-											Rate.submit();
-										}
-									</script>
-									<a href="javascript:update1()">Award Users</a>
-								</form></li>
+
 							</ul>
 						</nav>
 					</div>
@@ -235,7 +236,7 @@ body {
 								<div class="thumb">
 									<div class="clip-link">
 										<span class="clip"> <img
-											src=<%="images/" + prod.getImage()%> alt="Simple Post" /><span
+											src=<%="Products/" + prod.getImage()%> alt="Simple Post" /><span
 											class="vertical-align"></span>
 										</span>
 
@@ -318,7 +319,7 @@ body {
 								<div class="thumb">
 									<a class="clip-link" title=<%=p.getTitle()%>
 										href=<%="product.jsp?id=" + p.getID()%>> <span
-										class="clip"> <img src=<%="images/" + p.getImage()%>
+										class="clip"> <img src=<%="Products/" + p.getImage()%>
 											alt=<%=p.getTitle()%>><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>
@@ -378,7 +379,7 @@ body {
 								<div class="thumb">
 									<a class="clip-link" title=<%=tmpP.getTitle()%>
 										href=<%="product.jsp?id=" + tmpP.getID()%>> <span
-										class="clip"> <img src=<%="images/" + tmpP.getImage()%>
+										class="clip"> <img src=<%="Products/" + tmpP.getImage()%>
 											alt=<%=tmpP.getTitle()%>><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>

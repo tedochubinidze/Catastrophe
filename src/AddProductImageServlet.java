@@ -105,8 +105,6 @@ public class AddProductImageServlet extends HttpServlet {
 						File uploadedFile = new File(filePath);
 						request.getSession().setAttribute("fileName", fileName);
 						item.write(uploadedFile);
-						System.out.println(filePath);
-						System.out.println(fileName);
 					}
 				}
 				

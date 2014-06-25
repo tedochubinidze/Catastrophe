@@ -39,7 +39,6 @@ public class DeleteOrderServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductManager manager = (ProductManager)request.getServletContext().getAttribute("productManager");
 		String orderID = request.getParameter("orderID");
-		System.out.println("asdasd - " +orderID);
 		manager.deleteOrder(Integer.parseInt(request.getParameter("orderID")));
 		RequestDispatcher rd = request.getRequestDispatcher("orders.jsp");
 		rd.forward(request, response);

@@ -73,7 +73,7 @@ body {
 						<ul>
 							<%
 								User user = (User) request.getSession().getAttribute("currentUser");
-													if (user == null) {
+																		if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
@@ -115,6 +115,15 @@ body {
 									href="addProduct.jsp">Add Product</a></li>
 								<li id="cart" class="view cart"><a href="orders.jsp">View
 										Orders</a></li>
+								<li class="ratings"><form name="Rate"
+										action="CreateRatingServlet" method="post">
+										<script type="text/javascript">
+											function update1() {
+												Rate.submit();
+											}
+										</script>
+										<a href="javascript:update1()">Award Users</a>
+									</form></li>
 								<%
 									}
 								%>
@@ -122,15 +131,15 @@ body {
 										Post</a></li>
 								<li id="cart" class="view cart"><a href="cart.jsp">View
 										Cart</a></li>
-								<li class="ratings"><form name="Rate" action="CreateRatingServlet"
-									method="post">
-									<script type="text/javascript">
-										function update1() {
-											Rate.submit();
-										}
-									</script>
-									<a href="javascript:update1()">Award Users</a>
-								</form></li>
+								<li class="ratings"><form name="Rate"
+										action="CreateRatingServlet" method="post">
+										<script type="text/javascript">
+											function update1() {
+												Rate.submit();
+											}
+										</script>
+										<a href="javascript:update1()">Award Users</a>
+									</form></li>
 							</ul>
 						</nav>
 					</div>

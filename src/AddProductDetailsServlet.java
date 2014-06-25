@@ -45,15 +45,10 @@ public class AddProductDetailsServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String description = request.getParameter("textArea");
 		
-		System.out.println(title);
-		System.out.println(description);
-		System.out.println(price);
-		
 		Integer priceInt = Integer.parseInt(price);
 
 		String fileName = (String) request.getSession().getAttribute("fileName");
 		
-		System.out.println(fileName);
 
 		Product prod = new Product(0, title, priceInt, fileName, description);
 		

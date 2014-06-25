@@ -1,5 +1,7 @@
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,10 +20,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.oreilly.servlet.MultipartRequest;
-
-import webPackage.User;
-
 /**
  * Servlet implementation class UploadServlet
  */
@@ -31,7 +29,7 @@ public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// /aq shecvale shentan ra foldershic ginda imashi rom chaagdos
-	private static final String DATA_DIRECTORY = "C:/Users/Nikoloz/Documents/GitHub/Catastrophe/WebContent/images";
+	private static final String DATA_DIRECTORY = "C:/images";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -46,7 +44,28 @@ public class UploadServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String name = request.getParameter("name");
+		// your image servlet code here
+
+		response.setContentType("image/jpeg");
+
+		// Set content size
+		String path = "C:\\images\\";
+		File file = new File(path + name);
+		response.setContentLength((int) file.length());
+
+		// Open the file and output streams
+		FileInputStream in = new FileInputStream(file);
+		OutputStream out = response.getOutputStream();
+
+		// Copy the contents of the file to the output stream
+		byte[] buf = new byte[1024];
+		int count = 0;
+		while ((count = in.read(buf)) >= 0) {
+			out.write(buf, 0, count);
+		}
+		in.close();
+		out.close();
 	}
 
 	/**
