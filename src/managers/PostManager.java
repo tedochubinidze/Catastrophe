@@ -104,15 +104,17 @@ public class PostManager {
 		}
 		return ls;
 	}
-	
+
 	public ArrayList<Post> getPopularActivePosts() {
 		getConnection();
 		ArrayList<Post> ls = new ArrayList<Post>();
 		ResultSet rs;
 		try {
-			rs = stmt.executeQuery("select * from " + MyDBInfo.POST_TABLE
-					+ "  where active = true order by likeCount - dislikeCount desc limit "
-					+ MAX_N_POSTS + ";");
+			rs = stmt
+					.executeQuery("select * from "
+							+ MyDBInfo.POST_TABLE
+							+ "  where active = true order by likeCount - dislikeCount desc limit "
+							+ MAX_N_POSTS + ";");
 			while (rs.next()) {
 				int postID = rs.getInt(1);
 				ArrayList<Comment> ls2 = getComments(postID);
@@ -127,6 +129,18 @@ public class PostManager {
 			e.printStackTrace();
 		}
 		return ls;
+	}
+
+	public void makeInActive(int postID) {
+		getConnection();
+		try {
+			stmt.executeUpdate("update " + MyDBInfo.POST_TABLE
+					+ " set active = false where postID = " + postID + ";");
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public ArrayList<Comment> getComments(int postID) {
