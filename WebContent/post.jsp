@@ -250,7 +250,7 @@ body {
 										</span>
 
 										<%
-											} else {
+											} else if( post.getType().equals("video")) {
 										%>
 										
 										<span class="clip"> 
@@ -263,9 +263,15 @@ body {
 											class="vertical-align"></span>
 										</span>
 										<%
-											}
+											} else {
 										%>
-
+										
+										<span class="clip"> <img
+											src=<%="images/" + "readthis.jpg" %> alt="Simple Post"  width="870" height="500"/><span
+											class="vertical-align"></span>
+										</span>
+										
+										<%} %>
 									<!-- </div> -->
 
 								</div>
@@ -392,8 +398,8 @@ body {
 									<a class="clip-link" title=<%=p.getTitle()%>
 										href=<%="post.jsp?id=" + p.getID()%>> <span class="clip">
 											<img <%if (p.getType().equals("image")) {%>
-											src=<%="images/" + p.getAttachment()%> <%} else {%>
-											src=<%="images/" + "hatsoff.gif"%> <%}%>
+											src=<%="images/" + p.getAttachment()%> <%} else if (p.getType().equals("video")) {%>
+											src=<%="images/" + "hatsoff.gif"%> <%} else {%> src=<%="images/" + "readthis.jpg"%>  <%} %>
 											alt=<%=p.getTitle()%>><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>
@@ -530,8 +536,8 @@ body {
 										title=<%=tmpP.getTitle()%>
 										href=<%="post.jsp?id=" + tmpP.getID()%>> <span
 										class="clip"> <img <%if (tmpP.getType().equals("image")) {%>
-											src=<%="images/" + tmpP.getAttachment()%> <%} else {%>
-											src=<%="images/" + "hatsoff.gif"%> <%}%>
+											src=<%="images/" + tmpP.getAttachment()%> <%} else if (tmpP.getType().equals("video")) {%>
+											src=<%="images/" + "hatsoff.gif"%> <%} else {%> src=<%="images/" + "readthis.jpg"%>  <%} %>
 											alt=<%=tmpP.getTitle()%>><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>
