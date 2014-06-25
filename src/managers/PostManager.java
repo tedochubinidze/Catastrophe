@@ -111,7 +111,7 @@ public class PostManager {
 		ResultSet rs;
 		try {
 			rs = stmt.executeQuery("select * from " + MyDBInfo.POST_TABLE
-					+ " order by likeCount - dislikeCount desc where active = true limit "
+					+ "  where active = true order by likeCount - dislikeCount desc limit "
 					+ MAX_N_POSTS + ";");
 			while (rs.next()) {
 				int postID = rs.getInt(1);
