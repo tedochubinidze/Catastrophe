@@ -263,7 +263,7 @@ body {
 											class="vertical-align"></span>
 										</span>
 										<%
-										
+										System.out.println("images/" + post.getAttachment());
 											} else {
 										%>
 										
@@ -449,11 +449,10 @@ body {
 						<div class="section header">
 							<div class="comment-post-and-comments">
 								<h2 class="section-title">
-									<a
-										href="/comments/video/x1r5c9_comparativa-gol-de-messi-y-maradona_sport">
+									
 										<span class="js-comments-count"><%=post.getCommentCount()%></span>
 										Comments
-									</a>
+									
 								</h2>
 								<%
 									if (user != null) {
