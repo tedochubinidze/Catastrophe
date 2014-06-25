@@ -153,6 +153,8 @@ body {
 									</script>
 									<a href="javascript:update()">Logout</a>
 								</form></li>
+
+
 						</ul>
 						<%
 							}
@@ -168,8 +170,8 @@ body {
 								<%
 									if (user.isAdmin()) {
 								%>
-								<li id="product" class="add product"><a href="addP.jsp">Add
-										Product</a></li>
+								<li id="product" class="add product"><a
+									href="addProduct.jsp">Add Product</a></li>
 								<li id="cart" class="view cart"><a href="orders.jsp">View
 										Orders</a></li>
 								<%
@@ -179,13 +181,21 @@ body {
 										Post</a></li>
 								<li id="cart" class="view cart"><a href="cart.jsp">View
 										Cart</a></li>
+								<li class="ratings"><form name="Rate" action="CreateRatingServlet"
+									method="post">
+									<script type="text/javascript">
+										function update1() {
+											Rate.submit();
+										}
+									</script>
+									<a href="javascript:update1()">Award Users</a>
+								</form></li>
 							</ul>
 						</nav>
 					</div>
 					<%
 						}
 					%>
-
 					<!-- end #Top-nav -->
 					<div class="clear"></div>
 				</div>

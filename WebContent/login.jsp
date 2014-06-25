@@ -73,7 +73,6 @@ body {
 						<ul>
 							<%
 								User user = (User) request.getSession().getAttribute("currentUser");
-								//User user = new User("user1");
 								if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
@@ -95,12 +94,49 @@ body {
 									</script>
 									<a href="javascript:update()">Logout</a>
 								</form></li>
+
+
 						</ul>
 						<%
 							}
 						%>
 					</div>
 					<!-- end #header-search -->
+					<%
+						if (user != null) {
+					%>
+					<div class="tnav">
+						<nav class="nav-collapse">
+							<ul id="menu-header" class="menu">
+								<%
+									if (user.isAdmin()) {
+								%>
+								<li id="product" class="add product"><a
+									href="addProduct.jsp">Add Product</a></li>
+								<li id="cart" class="view cart"><a href="orders.jsp">View
+										Orders</a></li>
+								<%
+									}
+								%>
+								<li id="post" class="add post"><a href="addFile.jsp">Add
+										Post</a></li>
+								<li id="cart" class="view cart"><a href="cart.jsp">View
+										Cart</a></li>
+								<li class="ratings"><form name="Rate"
+										action="CreateRatingServlet" method="post">
+										<script type="text/javascript">
+											function update1() {
+												Rate.submit();
+											}
+										</script>
+										<a href="javascript:update1()">Award Users</a>
+									</form></li>
+							</ul>
+						</nav>
+					</div>
+					<%
+						}
+					%>
 					<!-- end #Top-nav -->
 					<div class="clear"></div>
 				</div>
@@ -108,15 +144,13 @@ body {
 
 			<div class="header-secend">
 				<div class="wrap cf">
-					<div id="branding" class="image-branding" role="banner">
+					<div id="branding" class="image-branding">
 						<h1 id="site-title">
-							<a rel="home" href="index.html">Catastrophe.ge</a>
+							<a rel="home" href="index.jsp">Catastrophe.ge</a>
 						</h1>
 
-						<a id="site-logo" rel="home" href="index.html"><img
-							src="images/logo.png" alt="Catastrophe.ge" /></a>
-
-						<h2 id="site-description" class="hidden">Catastrophe</h2>
+						<a id="site-logo" href="index.jsp"><img src="images/logo.png"
+							alt="Catastrophe.ge" /></a>
 					</div>
 					<!-- end #branding -->
 				</div>
@@ -156,7 +190,8 @@ body {
 						<h2 class="form-heading">LOGIN FORM</h2>
 						<p></p>
 
-						<form  name="formLogin" method="post" action="LoginServlet" onsubmit="return validateForm()" class="wp-user-form">
+						<form name="formLogin" method="post" action="LoginServlet"
+							onsubmit="return validateForm()" class="wp-user-form">
 							<div class="form-group">
 								<label for="user_login">Username</label> <input type="text"
 									class="form-control" id="user_login" placeholder="Enter email"
@@ -185,7 +220,8 @@ body {
 						<h2 class="form-heading">REGISTER FORM</h2>
 						<p>Get Started with a new Account</p>
 
-						<form name="formRegister" method="post" action="RegisterServlet" onsubmit="return validateRegister()" class="wp-user-form">
+						<form name="formRegister" method="post" action="RegisterServlet"
+							onsubmit="return validateRegister()" class="wp-user-form">
 							<div class="username">
 								<label for="user_login">Username: </label> <input type="text"
 									name="user_login" value="" size="20" id="user_login"
@@ -249,47 +285,45 @@ body {
 	</div>
 	<!-- end #page -->
 
-<script>
-	function validateForm(){
-		var x = document.forms["formLogin"]["name"].value;
-	    var y = document.forms["formLogin"]["pwd"].value;
+	<script>
+		function validateForm() {
+			var x = document.forms["formLogin"]["name"].value;
+			var y = document.forms["formLogin"]["pwd"].value;
 
-	    if (x==null || x=="" && y==null || y=="") {
-	        alert("Please, Fill All Necessary Fields For Login. ");
-	        return false;
-	    }
-	    
-	    if(y.length < 5){
-	    	alert("The Password Must Be Longer Than 5 letters");
-	    	return false;
-	    }
-	    
-	    return true;
-	}
-	
-</script>
+			if (x == null || x == "" && y == null || y == "") {
+				alert("Please, Fill All Necessary Fields For Login. ");
+				return false;
+			}
 
-<script>
-	
-	function validateRegister(){
-		var z = document.forms["formRegister"]["user_login"].value;
-	    var a = document.forms["formRegister"]["user_email"].value;
-	    var b = document.forms["formRegister"]["user_password"].value;
-		
-		if ( z==null || z=="" || a==null || a=="" || b==null || b=="" ){
-	    	alert("Please, Fill All Necessary Fields For Registration.");
-	    	return false;
-	    }
-	    
-		if (b.length < 5){
-	    	alert("Password Must Be Longer Than 5 letters");
-	    	return false;
-	    }
-	    
-	    return true;
-	}
-	
-</script>
+			if (y.length < 5) {
+				alert("The Password Must Be Longer Than 5 letters");
+				return false;
+			}
+
+			return true;
+		}
+	</script>
+
+	<script>
+		function validateRegister() {
+			var z = document.forms["formRegister"]["user_login"].value;
+			var a = document.forms["formRegister"]["user_email"].value;
+			var b = document.forms["formRegister"]["user_password"].value;
+
+			if (z == null || z == "" || a == null || a == "" || b == null
+					|| b == "") {
+				alert("Please, Fill All Necessary Fields For Registration.");
+				return false;
+			}
+
+			if (b.length < 5) {
+				alert("Password Must Be Longer Than 5 letters");
+				return false;
+			}
+
+			return true;
+		}
+	</script>
 
 </body>
 

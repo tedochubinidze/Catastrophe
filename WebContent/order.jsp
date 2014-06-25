@@ -72,7 +72,7 @@ body {
 						<ul>
 							<%
 								User user = (User) request.getSession().getAttribute("currentUser");
-																		if (user == null) {
+																							if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
@@ -100,40 +100,32 @@ body {
 					</div>
 					<!-- end #header-search -->
 					<%
-					if(user!= null){
+						if (user != null) {
 					%>
 					<div class="tnav">
 						<nav class="nav-collapse">
 							<ul id="menu-header" class="menu">
 								<%
-								if(user.isAdmin()){
+									if (user.isAdmin()) {
 								%>
-								<li id="product"
-									class="add product">
-									<a href="addP.jsp">Add Product</a>
-								</li>
-								<li id="cart"
-									class="view cart">
-									<a href="orders.jsp">View Orders</a>
-								</li>
+								<li id="product" class="add product"><a href="addP.jsp">Add
+										Product</a></li>
+								<li id="cart" class="view cart"><a href="orders.jsp">View
+										Orders</a></li>
 								<%
-								}
+									}
 								%>
-								<li id="post"
-									class="add post">
-									<a href="addFile.jsp">Add Post</a>
-								</li>
-								<li id="cart"
-									class="view cart">
-									<a href="cart.jsp">View Cart</a>
-								</li>
+								<li id="post" class="add post"><a href="addFile.jsp">Add
+										Post</a></li>
+								<li id="cart" class="view cart"><a href="cart.jsp">View
+										Cart</a></li>
 							</ul>
 						</nav>
 					</div>
 					<%
-					}
+						}
 					%>
-					
+
 					<!-- end #Top-nav -->
 					<div class="clear"></div>
 				</div>
@@ -173,26 +165,25 @@ body {
 	<!-- end #main-nav -->
 
 
-							<%
-								String userID = request.getParameter("id");
-								
-							%>
+	<%
+		String userID = request.getParameter("id");
+	%>
 	<div id="main" class="home-temp">
 		<div class="wrap cf home-content">
 			<div id="content">
 				<div class="section-box">
 					<div class="section-header">
 						<h2 class="section-title">
-							<span class="name">Products ordered by <%=userID %></span>
+							<span class="name">Products ordered by <%=userID%></span>
 						</h2>
 					</div>
 					<div class="section-content grid-medium">
 						<div class="nag cf">
 							<%
-							User tmp = new User(userID);
-							
-							ArrayList<Product> ls = user.getCart().getProducts();
-							for (Product p : ls) {
+								User tmp = new User(userID);
+
+								ArrayList<Product> ls = user.getCart().getProducts();
+								for (Product p : ls) {
 							%>
 							<div id="post" class="post item item-post">
 								<div class="thumb">
