@@ -263,7 +263,7 @@ body {
 											class="vertical-align"></span>
 										</span>
 										<%
-										System.out.println("images/" + post.getAttachment());
+										
 											} else {
 										%>
 										
