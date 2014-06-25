@@ -71,7 +71,7 @@ body {
 						<ul>
 							<%
 								User user = (User) request.getSession().getAttribute("currentUser");
-																												if (user == null) {
+													if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
@@ -120,6 +120,15 @@ body {
 										Post</a></li>
 								<li id="cart" class="view cart"><a href="cart.jsp">View
 										Cart</a></li>
+								<li class="ratings"><form name="Rate"
+										action="CreateRatingServlet" method="post">
+										<script type="text/javascript">
+											function update1() {
+												Rate.submit();
+											}
+										</script>
+										<a href="javascript:update1()">Award Users</a>
+									</form></li>
 							</ul>
 						</nav>
 					</div>
@@ -190,8 +199,10 @@ body {
 									<a class="clip-link" title=<%=p.getTitle()%>
 										href=<%="post.jsp?id=" + p.getID()%>> <span class="clip">
 											<img <%if (p.getType().equals("image")) {%>
-											src=<%="images/" + p.getAttachment()%> <%} else if (p.getType().equals("video")) {%>
-											src=<%="images/" + "hatsoff.gif"%> <%} else {%> src=<%="images/" + "readthis.jpg"%>  <%} %>
+											src=<%="images/" + p.getAttachment()%>
+											<%} else if (p.getType().equals("video")) {%>
+											src=<%="images/" + "hatsoff.gif"%> <%} else {%>
+											src=<%="images/" + "readthis.jpg"%> <%}%>
 											alt=<%=p.getTitle()%>><span class="vertical-align"></span>
 									</span> <span class="overlay"></span>
 									</a>

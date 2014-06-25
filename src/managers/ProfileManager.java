@@ -15,8 +15,6 @@ public class ProfileManager {
 	private static String password = MyDBInfo.MYSQL_PASSWORD;
 	private static String server = MyDBInfo.MYSQL_DATABASE_SERVER;
 	private static String database = MyDBInfo.MYSQL_DATABASE_NAME;
-	private Statement stmt;
-	private Connection con;
 
 	private static final int MIN_PASSWORD_LENGTH = 5;
 
@@ -28,16 +26,17 @@ public class ProfileManager {
 		}
 	}
 
-	public void getConnection() {
+	public Connection getConnection() {
+		Connection con;
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://" + server,
 					account, password);
-			stmt = con.createStatement();
-			stmt.executeQuery("USE " + database);
+			return con;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	public static final String ADD_SUCCESSFUL = "Account was successfully created";
@@ -57,7 +56,14 @@ public class ProfileManager {
 	 */
 	public String addUser(String userID, String password, String email,
 			boolean admin) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
 		if (containsUserID(userID)) {
 			try {
 				con.close();
@@ -101,9 +107,18 @@ public class ProfileManager {
 	}
 
 	private void addCart(String userID) {
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
 		try {
 			stmt.executeUpdate("insert into " + MyDBInfo.CART_TABLE
 					+ "(userID, price) values('" + userID + "', 0);");
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -116,7 +131,14 @@ public class ProfileManager {
 	 * @return boolean successful
 	 */
 	public boolean containsUserID(String userID) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
 		boolean bool = false;
 		ResultSet rs;
 		int counter = 0;
@@ -128,6 +150,7 @@ public class ProfileManager {
 				counter = rs.getInt("count(userID)");
 			if (counter != 0)
 				bool = true;
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -142,7 +165,14 @@ public class ProfileManager {
 	 * @return boolean
 	 */
 	public boolean containsEmail(String email) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
 		boolean bool = false;
 		ResultSet rs;
 		int counter = 0;
@@ -154,6 +184,7 @@ public class ProfileManager {
 				counter = rs.getInt("count(email)");
 			if (counter != 0)
 				bool = true;
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -220,7 +251,14 @@ public class ProfileManager {
 	 *            points
 	 */
 	public void setPoints(String userID, int points) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
 		try {
 			stmt.executeUpdate("update " + MyDBInfo.USER_TABLE
 					+ " set points = " + points + " where userID = '" + userID
@@ -240,7 +278,14 @@ public class ProfileManager {
 	 *            points
 	 */
 	public void addPoints(String userID, int points) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
 		try {
 			stmt.executeUpdate("update " + MyDBInfo.USER_TABLE
 					+ " set points = points + " + points + " where userID = '"
@@ -261,7 +306,14 @@ public class ProfileManager {
 	 * @return boolean
 	 */
 	public boolean checkInfo(String userID, String password) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
 		ResultSet rs;
 		try {
 			rs = stmt
@@ -294,7 +346,14 @@ public class ProfileManager {
 	 * @return Object content
 	 */
 	private Object getContentByID(String column, String userID, String table) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
 		ResultSet rs;
 		Object val = null;
 		try {

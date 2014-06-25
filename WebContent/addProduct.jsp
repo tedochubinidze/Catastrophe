@@ -19,7 +19,7 @@
 		if (user == null || !user.isAdmin()) {
 	%>
 	
-	<h1>You Don't Have Permission To The Site</h1>
+	<h1>You Don't Have Permission To This Page</h1>
 	<%
 		} else {
 	%>

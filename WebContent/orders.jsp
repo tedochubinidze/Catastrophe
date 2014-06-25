@@ -193,8 +193,8 @@ body {
 							%>
 							<div id="post" class="post type-post item clearfix cf item-post">
 								<div class="thumb">
-									<a class="clip-link" data-id="452" title=<%=ord.getUserID()%>
-										href=<%="order.jsp?id=" + ord.getUserID()%>> <span
+									<a class="clip-link" data-id="452" title=<%=ord.getID()%>
+										href=<%="order.jsp?id=" + ord.getID()%>> <span
 										class="clip"> <img
 											src=<%="images/" + ord.getProducts().get(0).getImage()%>
 											alt=<%=ord.getUserID()%> height="1px" width="1px"><span
@@ -213,8 +213,8 @@ body {
 								</div>
 								<div class="data">
 									<h2 class="entry-title">
-										<a href=<%="product.jsp?id=" + ord.getUserID()%>
-											rel="bookmark" title=<%=ord.getUserID()%>><%=ord.getUserID()%></a>
+										<a href=<%="order.jsp?id=" + ord.getID()%>
+											rel="bookmark" title=<%=ord.getID()%>><%="Order N: " + ord.getID()%></a>
 									</h2>
 
 									<p class="entry-meta">
@@ -229,7 +229,7 @@ body {
 									<div class="clear"></div>
 									<form action="DeleteOrderServlet" method="post">
 										<input class="button btn-primary" id="submit" type="submit"
-											value="Remove"> <input type="hidden" name="productID"
+											value="Remove"> <input type="hidden" name="orderID"
 											value=<%=ord.getID()%>>
 									</form>
 								</div>

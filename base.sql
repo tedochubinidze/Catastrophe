@@ -67,7 +67,6 @@ create table orders (
 create table order_product (
 	orderID int,
 	productID int,
-	quantity int,
 	foreign key (orderID) references orders(orderID),
 	foreign key (productID) references product(productID)
 );

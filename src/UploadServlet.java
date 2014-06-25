@@ -31,7 +31,7 @@ public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// /aq shecvale shentan ra foldershic ginda imashi rom chaagdos
-	private static final String DATA_DIRECTORY = "C:/Users/Tedore/workspace/Catastrophe/WebContent/images";
+	private static final String DATA_DIRECTORY = "C:/Users/Nikoloz/Documents/GitHub/Catastrophe/WebContent/images";
 
 	/**
 	 * @see HttpServlet#HttpServlet()

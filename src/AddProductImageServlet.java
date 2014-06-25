@@ -30,7 +30,7 @@ import webPackage.User;
 public class AddProductImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String DATA_DIRECTORY = "C:/Users/Koko/Desktop/WebStore/WebContent/Products";
+	private static final String DATA_DIRECTORY = "C:/Users/Nikoloz/Documents/GitHub/Catastrophe/WebContent/images";
 	
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -103,11 +103,11 @@ public class AddProductImageServlet extends HttpServlet {
 						fileName = item.getName();
 						String filePath = uploadFolder + "/" + fileName;
 						File uploadedFile = new File(filePath);
+						request.getSession().setAttribute("fileName", fileName);
 						item.write(uploadedFile);
 						System.out.println(filePath);
 						System.out.println(fileName);
 					}
-					request.getSession().setAttribute("fileName", fileName);
 				}
 				
 			}

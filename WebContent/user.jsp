@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@page import="managers.ProductManager"%>
+<%@page import="webPackage.Product"%>
 <%@page import="webPackage.Post"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="managers.PostManager"%>
@@ -220,6 +222,8 @@ body {
 							<%
 								PostManager manager = (PostManager) request.getServletContext()
 										.getAttribute("postManager");
+								ProductManager productManager = (ProductManager) request
+										.getServletContext().getAttribute("productManager");
 								ArrayList<Post> ls = manager.getPopularPostsByUser(id);
 								for (Post p : ls) {
 							%>
@@ -353,6 +357,50 @@ body {
 				</div>
 				<!-- end .loop-content -->
 				<br />
+			</div>
+			<div id="sidebar">
+
+				<div class="border-sep widget widget_border masonry-brick"
+					style="margin: 0px"></div>
+				<div id="jtheme-widget-posts-2" class="widget widget-posts">
+					<div class="widget-header">
+						<h3 class="widget-title">Recenty Bought Product</h3>
+					</div>
+					<%
+						ArrayList<Product> arr;
+						arr = productManager.getRecentUserProducts(visitedUser.getID());
+						for (int i = 0; i < arr.size(); i++) {
+							Product tmpP = arr.get(i);
+					%>
+					<ul class="post-list">
+						<li class="item cf item-post">
+
+							<div class="thumb">
+								<a class="clip-link" data-id=<%=tmpP.getID()%>
+									title=<%=tmpP.getTitle()%>
+									href=<%="product.jsp?id=" + tmpP.getID()%>> <span
+									class="clip"> <img src=<%="images/" + tmpP.getImage()%>
+										alt=<%=tmpP.getTitle()%> /><span class="vertical-align"></span>
+								</span> <span class="overlay"></span>
+								</a>
+							</div>
+							<div class="data">
+								<h4 class="entry-title">
+									<a href=<%="product.jsp?id=" + tmpP.getID()%>
+										title=<%=tmpP.getTitle()%>><%=tmpP.getTitle()%></a>
+								</h4>
+
+								<p class="meta">
+									<span class="time"><%=tmpP.getPrice()%></span>
+								</p>
+							</div>
+						</li>
+						<%
+							}
+						%>
+					</ul>
+
+				</div>
 			</div>
 		</div>
 

@@ -17,10 +17,7 @@ public class ProductManager {
 	private static String password = MyDBInfo.MYSQL_PASSWORD;
 	private static String server = MyDBInfo.MYSQL_DATABASE_SERVER;
 	private static String database = MyDBInfo.MYSQL_DATABASE_NAME;
-	private Statement stmt;
-	private Connection con;
 
-	private static final int MAX_N_POSTS = 20;
 
 	public ProductManager() {
 		try {
@@ -30,20 +27,29 @@ public class ProductManager {
 		}
 	}
 
-	public void getConnection() {
+	public Connection getConnection() {
+		Connection con;
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://" + server,
 					account, password);
-			stmt = con.createStatement();
-			stmt.executeQuery("USE " + database);
+			return con;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	public ArrayList<Product> getProducts() {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		ArrayList<Product> ls = new ArrayList<Product>();
 		ResultSet rs;
 		try {
@@ -62,7 +68,15 @@ public class ProductManager {
 	}
 
 	public int addProduct(Product product) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		try {
 			stmt.executeUpdate(
 					"insert into " + MyDBInfo.PRODUCT_TABLE
@@ -86,7 +100,15 @@ public class ProductManager {
 	}
 
 	public void addProductToCart(String userID, Product product) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		try {
 			int cartID = getCartID(userID);
 			stmt.executeUpdate("insert into " + MyDBInfo.CART_PRODUCT_TABLE
@@ -101,7 +123,15 @@ public class ProductManager {
 	}
 
 	public void removeProductFromCart(String userID, Product product) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		try {
 			int cartID = getCartID(userID);
 			stmt.executeUpdate("delete from " + MyDBInfo.CART_PRODUCT_TABLE
@@ -114,6 +144,15 @@ public class ProductManager {
 	}
 
 	private int getCartID(String userID) {
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		ResultSet rs;
 		int cartID = 0;
 		try {
@@ -130,7 +169,15 @@ public class ProductManager {
 	}
 
 	public void makeOrder(Order order) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		try {
 			stmt.executeUpdate(
 					"insert into " + MyDBInfo.ORDER_TABLE
@@ -158,7 +205,15 @@ public class ProductManager {
 	}
 
 	public ArrayList<Order> getOrders() {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		ArrayList<Order> ls = new ArrayList<Order>();
 		ResultSet rs;
 		try {
@@ -176,12 +231,21 @@ public class ProductManager {
 	}
 
 	public void deleteOrder(int orderID) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		try {
 			stmt.executeUpdate("delete from " + MyDBInfo.ORDER_PRODUCT_TABLE
 					+ " where orderID = " + orderID + ";");
 			stmt.executeUpdate("delete from " + MyDBInfo.ORDER_TABLE
 					+ " where orderID = " + orderID + ";");
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -189,24 +253,42 @@ public class ProductManager {
 	}
 
 	public void addProductsToUser(String userID, Cart cart) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		ArrayList<Product> ls = cart.getProducts();
-		for (Product p : ls)
-			try {
+		try {
+			for (Product p : ls)
 				stmt.executeUpdate("insert into " + MyDBInfo.USER_PRODUCT_TABLE
 						+ " values('" + userID + "', " + p.getID() + ");");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void cleanCart(String userID) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		try {
 			int cartID = getCartID(userID);
 			stmt.executeUpdate("delete from " + MyDBInfo.CART_PRODUCT_TABLE
 					+ " where cartID = " + cartID + ";");
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -214,7 +296,15 @@ public class ProductManager {
 	}
 
 	public ArrayList<Product> getRecentUserProducts(String userID) {
-		getConnection();
+		Statement stmt = null;
+		Connection con = getConnection();
+		try {
+			stmt = con.createStatement();
+			stmt.executeQuery("USE " + database);
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
 		ArrayList<Product> ls = new ArrayList<Product>();
 		ResultSet rs;
 		try {
@@ -224,6 +314,7 @@ public class ProductManager {
 			while (rs.next()) {
 				ls.add(new Product(rs.getInt(1)));
 			}
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

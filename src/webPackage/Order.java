@@ -37,6 +37,7 @@ public class Order {
 			stmt = con.createStatement();
 			stmt.executeQuery("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
 			getOrderByID(orderID);
+			this.orderID = orderID;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

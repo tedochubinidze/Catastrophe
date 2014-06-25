@@ -1,3 +1,5 @@
+<%@page import="webPackage.Order"%>
+<%@page import="managers.ProductManager"%>
 <%@page import="webPackage.Product"%>
 <%@page import="webPackage.Post"%>
 <%@page import="java.util.ArrayList"%>
@@ -63,6 +65,21 @@ body {
 
 <meta name="generator" content="WordPress 3.9.1" />
 <body class="home page">
+	<%
+		User user = (User) request.getSession().getAttribute("currentUser");
+	%>
+
+	<%
+		if (user == null || !user.isAdmin()) {
+	%>
+
+	<h1>You Don't Have Permission To This Page</h1>
+	<%
+		} else {
+			Order order = new Order(Integer.parseInt(request
+			.getParameter("id")));
+			ArrayList<Product> ls = order.getProducts();
+	%>
 	<div id="page">
 		<header id="header">
 			<div id="top-nav">
@@ -71,8 +88,7 @@ body {
 					<div id="header-search">
 						<ul>
 							<%
-								User user = (User) request.getSession().getAttribute("currentUser");
-																							if (user == null) {
+								if (user == null) {
 							%>
 							<li class="acti1"><a href="login.jsp"><span>Are
 										You New? </span> Register</a></li>
@@ -164,25 +180,18 @@ body {
 	</div>
 	<!-- end #main-nav -->
 
-
-	<%
-		String userID = request.getParameter("id");
-	%>
 	<div id="main" class="home-temp">
 		<div class="wrap cf home-content">
 			<div id="content">
 				<div class="section-box">
 					<div class="section-header">
 						<h2 class="section-title">
-							<span class="name">Products ordered by <%=userID%></span>
+							<span class="name">Products ordered by <%=order.getUserID()%></span>
 						</h2>
 					</div>
 					<div class="section-content grid-medium">
 						<div class="nag cf">
 							<%
-								User tmp = new User(userID);
-
-								ArrayList<Product> ls = user.getCart().getProducts();
 								for (Product p : ls) {
 							%>
 							<div id="post" class="post item item-post">
@@ -259,5 +268,8 @@ body {
 	<!-- end #footer -->
 
 	<!-- end #page -->
+	<%
+		}
+	%>
 </body>
 </html>
