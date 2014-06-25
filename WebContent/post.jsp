@@ -258,11 +258,12 @@ body {
 										 <video id="MY_VIDEO_1" class="video-js vjs-default-skin" controls
 												preload="auto" width="870" height="500"
 												poster="images/hatsoff.gif" data-setup="{}" >
-												<source src="images/5-video.mp4" type='video/mp4'>
+												<source src=<%= "images/" + post.getAttachment() %> type='video/mp4'>
 											</video><span
 											class="vertical-align"></span>
 										</span>
 										<%
+										System.out.println("images/" + post.getAttachment());
 											} else {
 										%>
 										
